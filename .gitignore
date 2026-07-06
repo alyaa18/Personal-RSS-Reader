@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.log
+backend/PersonalRSSReader.Api/Data/*.db
+backend/PersonalRSSReader.Api/Data/*.sqlite
+frontend/node_modules/
+frontend/dist/
+frontend/build/

@@ -485,6 +485,49 @@ button {
 
 /* ---------- Responsive ---------- */
 
+/* ---------- Responsive polish ---------- */
+
+@media (hover: none) {
+  .feed-item__actions {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 860px) {
+  .sidebar {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-4);
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  .feed-list {
+    max-height: none;
+  }
+
+  .content {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .modal {
+    width: min(360px, 92vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .content__title {
+    font-size: var(--text-xl);
+  }
+
+  .article-card__title {
+    font-size: var(--text-base);
+  }
+
+  .modal__form {
+    padding: var(--space-4);
+  }
+}
+
 @media (max-width: 860px) {
   .app {
     grid-template-columns: 1fr;
@@ -500,3 +543,4 @@ button {
     padding: var(--space-5) var(--space-4);
   }
 }
+

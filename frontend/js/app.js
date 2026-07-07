@@ -26,6 +26,14 @@ const state = {
   activeFeedId: 'all',
 };
 
+// Force any links inside sanitized article summaries to open safely in a new tab.
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A') {
+    node.setAttribute('target', '_blank');
+    node.setAttribute('rel', 'noopener noreferrer');
+  }
+});
+
 function cloneTemplate(tpl) {
   return tpl.content.firstElementChild.cloneNode(true);
 }
@@ -138,7 +146,11 @@ function buildArticleCard(article) {
   link.href = article.link;
   link.textContent = article.title;
 
-  card.querySelector('.article-card__summary').textContent = article.summary;
+  const summaryEl = card.querySelector('.article-card__summary');
+  summaryEl.innerHTML = DOMPurify.sanitize(article.summary, {
+    ALLOWED_TAGS: ['b', 'strong', 'i', 'em', 'a', 'p', 'br'],
+    ALLOWED_ATTR: ['href'],
+  });
 
   return card;
 }

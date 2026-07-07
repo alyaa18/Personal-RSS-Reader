@@ -474,6 +474,15 @@ button {
   line-height: 1.6;
 }
 
+.feed-item.is-active {
+  background: var(--color-accent-soft);
+}
+
+.feed-item.is-active .feed-item__title {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {

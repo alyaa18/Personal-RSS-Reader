@@ -8,6 +8,7 @@ const contentTitleEl = document.getElementById('content-title');
 const contentSubtitleEl = document.getElementById('content-subtitle');
 const feedItemTemplate = document.getElementById('feed-item-template');
 const articleItemTemplate = document.getElementById('article-item-template');
+const navAllArticlesBtn = document.getElementById('nav-all-articles');
 
 const addFeedDialog = document.getElementById('add-feed-dialog');
 const addFeedForm = document.getElementById('add-feed-form');
@@ -22,6 +23,7 @@ const refreshAllBtn = document.getElementById('refresh-all-feeds');
 const state = {
   feeds: [],
   articles: [],
+  activeFeedId: 'all',
 };
 
 function cloneTemplate(tpl) {
@@ -31,6 +33,15 @@ function cloneTemplate(tpl) {
 function getDefaultFaviconDataUri() {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#9B968A" stroke-width="2"><circle cx="5" cy="19" r="2" fill="#9B968A" stroke="none"/><path d="M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9" stroke-linecap="round"/></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
+function getFaviconUrl(feedUrl) {
+  try {
+    const hostname = new URL(feedUrl).hostname;
+    return `https://www.google.com/s2/favicons?sz=32&domain=${hostname}`;
+  } catch {
+    return getDefaultFaviconDataUri();
+  }
 }
 
 function formatDate(isoString) {
@@ -66,6 +77,8 @@ function renderFeedList() {
   state.feeds.forEach((feed) => {
     feedListEl.appendChild(buildFeedItem(feed));
   });
+
+  updateActiveStyles();
 }
 
 function buildFeedItem(feed) {
@@ -73,8 +86,12 @@ function buildFeedItem(feed) {
   li.dataset.feedId = feed.id;
 
   const favicon = li.querySelector('.feed-item__favicon');
-  favicon.src = getDefaultFaviconDataUri();
+  favicon.src = getFaviconUrl(feed.url);
   favicon.alt = '';
+  favicon.onerror = function () {
+    this.onerror = null;
+    this.src = getDefaultFaviconDataUri();
+  };
 
   li.querySelector('.feed-item__title').textContent = feed.title;
   return li;
@@ -83,13 +100,18 @@ function buildFeedItem(feed) {
 function renderArticles() {
   articleListEl.querySelectorAll('.article-card').forEach((el) => el.remove());
 
-  if (state.articles.length === 0) {
+  const filtered =
+    state.activeFeedId === 'all'
+      ? state.articles
+      : state.articles.filter((a) => a.feedId === state.activeFeedId);
+
+  if (filtered.length === 0) {
     setArticleListState('empty');
     return;
   }
 
   setArticleListState('content');
-  state.articles.forEach((article) => {
+  filtered.forEach((article) => {
     articleListEl.appendChild(buildArticleCard(article));
   });
 }
@@ -98,8 +120,13 @@ function buildArticleCard(article) {
   const card = cloneTemplate(articleItemTemplate);
 
   const favicon = card.querySelector('.article-card__favicon');
-  favicon.src = getDefaultFaviconDataUri();
+  const feed = state.feeds.find((f) => f.id === article.feedId);
+  favicon.src = feed ? getFaviconUrl(feed.url) : getDefaultFaviconDataUri();
   favicon.alt = '';
+  favicon.onerror = function () {
+    this.onerror = null;
+    this.src = getDefaultFaviconDataUri();
+  };
 
   card.querySelector('.article-card__feed-title').textContent = article.feedTitle;
 
@@ -115,6 +142,32 @@ function buildArticleCard(article) {
 
   return card;
 }
+
+function setActiveFeed(feedId) {
+  state.activeFeedId = feedId;
+  updateActiveStyles();
+  updateContentHeader();
+  renderArticles();
+}
+
+function updateActiveStyles() {
+  navAllArticlesBtn.classList.toggle('is-active', state.activeFeedId === 'all');
+  feedListEl.querySelectorAll('.feed-item').forEach((li) => {
+    li.classList.toggle('is-active', li.dataset.feedId === state.activeFeedId);
+  });
+}
+
+function updateContentHeader() {
+  if (state.activeFeedId === 'all') {
+    contentTitleEl.textContent = 'All Articles';
+  } else {
+    const feed = state.feeds.find((f) => f.id === state.activeFeedId);
+    contentTitleEl.textContent = feed ? feed.title : 'All Articles';
+  }
+  contentSubtitleEl.textContent = 'Reverse chronological order';
+}
+
+navAllArticlesBtn.addEventListener('click', () => setActiveFeed('all'));
 
 async function loadFeeds() {
   state.feeds = await api.getFeeds();
@@ -174,7 +227,7 @@ stateEmptyCtaBtn.addEventListener('click', openAddFeedDialog);
 cancelAddFeedBtn.addEventListener('click', () => addFeedDialog.close());
 addFeedForm.addEventListener('submit', handleAddFeedSubmit);
 
-// ---------- Remove / Refresh feed ----------
+// ---------- Remove / Refresh / Select feed ----------
 
 feedListEl.addEventListener('click', handleFeedListClick);
 
@@ -194,7 +247,8 @@ function handleFeedListClick(event) {
     handleRefreshFeed(feedId, refreshBtn);
     return;
   }
-  // Feed selection/filtering added in Step 11.
+
+  setActiveFeed(feedId);
 }
 
 async function handleRemoveFeed(feedId) {
@@ -208,6 +262,12 @@ async function handleRemoveFeed(feedId) {
     await api.removeFeed(feedId);
     state.feeds = state.feeds.filter((f) => f.id !== feedId);
     state.articles = state.articles.filter((a) => a.feedId !== feedId);
+
+    if (state.activeFeedId === feedId) {
+      state.activeFeedId = 'all';
+      updateContentHeader();
+    }
+
     renderFeedList();
     renderArticles();
     showBanner(`Removed "${feed.title}".`, 'success');

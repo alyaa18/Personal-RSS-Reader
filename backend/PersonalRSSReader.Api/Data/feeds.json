@@ -26,5 +26,26 @@
     "Url": "https://stackoverflow.blog/feed/",
     "CreatedAt": "2026-07-07T19:44:20.1964321Z",
     "LastFetchedAt": "2026-07-07T19:44:20.1964322Z"
+  },
+  {
+    "Id": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "OpenAI News",
+    "Url": "https://openai.com/news/rss.xml",
+    "CreatedAt": "2026-07-07T21:38:55.5885928Z",
+    "LastFetchedAt": "2026-07-07T21:40:09.4370474Z"
+  },
+  {
+    "Id": "fbbebcef-11b7-4b50-86fb-6f83657f0b87",
+    "Title": "The GitHub Blog",
+    "Url": "https://github.blog/feed/",
+    "CreatedAt": "2026-07-07T21:39:27.7672885Z",
+    "LastFetchedAt": "2026-07-07T21:39:27.7672885Z"
+  },
+  {
+    "Id": "70c3878a-5a27-487a-beb7-71a2660b0cd3",
+    "Title": "Ars Technica - All content",
+    "Url": "https://feeds.arstechnica.com/arstechnica/index",
+    "CreatedAt": "2026-07-07T21:39:38.1354049Z",
+    "LastFetchedAt": "2026-07-07T21:39:38.1354049Z"
   }
 ]

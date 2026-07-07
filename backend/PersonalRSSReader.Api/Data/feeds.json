@@ -1,23 +1,30 @@
 [
   {
-    "Id": "1c4a8489-4b71-4469-b925-0fa691fd7288",
-    "Title": "BBC News",
-    "Url": "https://feeds.bbci.co.uk/news/rss.xml",
-    "CreatedAt": "2026-07-07T15:46:59.6442168Z",
-    "LastFetchedAt": "2026-07-07T15:46:59.644217Z"
-  },
-  {
     "Id": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
     "Title": "BBC News",
     "Url": "https://feeds.bbci.co.uk/news/world/rss.xml",
     "CreatedAt": "2026-07-07T15:51:25.6489746Z",
-    "LastFetchedAt": "2026-07-07T15:51:25.6489747Z"
+    "LastFetchedAt": "2026-07-07T19:51:49.7313945Z"
   },
   {
     "Id": "9fb42efe-b053-4ac4-a46e-68da760a4029",
     "Title": "NASA",
     "Url": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
     "CreatedAt": "2026-07-07T15:51:56.9252837Z",
-    "LastFetchedAt": "2026-07-07T15:51:56.9252838Z"
+    "LastFetchedAt": "2026-07-07T19:51:52.2042457Z"
+  },
+  {
+    "Id": "3aa4c256-c28a-4af7-b598-786ae8582a13",
+    "Title": "MIT News",
+    "Url": "https://news.mit.edu/rss/feed",
+    "CreatedAt": "2026-07-07T19:43:59.910431Z",
+    "LastFetchedAt": "2026-07-07T19:52:41.545322Z"
+  },
+  {
+    "Id": "f148bc79-179e-48f1-97ef-57f8f7bccad8",
+    "Title": "Stack Overflow Blog",
+    "Url": "https://stackoverflow.blog/feed/",
+    "CreatedAt": "2026-07-07T19:44:20.1964321Z",
+    "LastFetchedAt": "2026-07-07T19:44:20.1964322Z"
   }
 ]

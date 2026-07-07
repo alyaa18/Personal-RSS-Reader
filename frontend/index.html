@@ -1,15 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal RSS Reader</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSS Reader</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main>
-    <h1>Personal RSS Reader</h1>
-  </main>
-  <script src="js/app.js" defer></script>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <p class="eyebrow">The Daily</p>
+        <h1 class="brand-title">RSS Reader</h1>
+      </div>
+
+      <nav class="sidebar__nav">
+        <button type="button" class="nav-item is-active" id="nav-all-articles" data-feed-id="all">
+          <span class="nav-item__icon" aria-hidden="true">&#9776;</span>
+          <span>All Articles</span>
+        </button>
+      </nav>
+
+      <div class="sidebar__section">
+        <p class="sidebar__section-label">Feeds</p>
+        <ul class="feed-list" id="feed-list">
+          <li class="feed-list__empty" id="feed-list-empty">
+            No feeds yet. Add one below to get started.
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar__footer">
+        <button type="button" class="btn btn--primary btn--block" id="open-add-feed">
+          <span aria-hidden="true">+</span> Add Feed
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="content__header">
+        <h2 class="content__title" id="content-title">All Articles</h2>
+        <p class="content__subtitle" id="content-subtitle">Reverse chronological order</p>
+      </header>
+
+      <div class="banner-region" id="banner-region" aria-live="polite"></div>
+
+      <section class="article-list" id="article-list">
+        <div class="state state--empty" id="state-empty">
+          <div class="state__icon" aria-hidden="true">〜</div>
+          <h3 class="state__title">Your reading list is empty</h3>
+          <p class="state__body">
+            Subscribe to RSS and Atom feeds to see a river of news from your favorite sites.
+          </p>
+          <button type="button" class="btn btn--primary" id="state-empty-cta">Add your first feed</button>
+        </div>
+
+        <div class="state state--loading is-hidden" id="state-loading">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="state__body">Loading articles…</p>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Templates: cloned by app.js in later steps. Not rendered as-is. -->
+  <template id="feed-item-template">
+    <li class="feed-item" data-feed-id="">
+      <button type="button" class="feed-item__button">
+        <img class="feed-item__favicon" src="" alt="" width="16" height="16">
+        <span class="feed-item__title"></span>
+      </button>
+      <div class="feed-item__actions">
+        <button type="button" class="icon-btn feed-item__refresh" title="Refresh feed" aria-label="Refresh feed">&#8635;</button>
+        <button type="button" class="icon-btn feed-item__remove" title="Remove feed" aria-label="Remove feed">&times;</button>
+      </div>
+    </li>
+  </template>
+
+  <template id="article-item-template">
+    <article class="article-card">
+      <div class="article-card__meta">
+        <img class="article-card__favicon" src="" alt="" width="14" height="14">
+        <span class="article-card__feed-title"></span>
+        <span class="article-card__dot" aria-hidden="true">&middot;</span>
+        <time class="article-card__date"></time>
+      </div>
+      <h3 class="article-card__title">
+        <a class="article-card__link" href="#" target="_blank" rel="noopener noreferrer"></a>
+      </h3>
+      <p class="article-card__summary"></p>
+    </article>
+  </template>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

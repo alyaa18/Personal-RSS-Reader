@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "Id": "214fcea6-7830-4333-bac0-cae402b15494",
+    "Title": "BBC News",
+    "Url": "https://feeds.bbci.co.uk/news/rss.xml",
+    "CreatedAt": "2026-07-07T11:42:23.7300039Z",
+    "LastFetchedAt": "2026-07-07T11:42:23.7300179Z"
+  }
+]

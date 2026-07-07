@@ -18,10 +18,8 @@ public class FeedService
         return await _storage.ReadAllAsync<Feed>();
     }
 
-    /// <summary>
     /// Validates the given URL as an RSS/Atom feed, and if valid, saves it.
     /// Returns null if the URL is not a valid feed.
-    /// </summary>
     public async Task<Feed?> AddFeedAsync(string url)
     {
         var parsedFeed = await _rssService.TryFetchFeedAsync(url);
@@ -51,5 +49,21 @@ public class FeedService
         await _storage.WriteAllAsync(feeds);
 
         return newFeed;
+    }
+
+    /// Removes a feed by its ID. Returns true if a feed was found and removed,
+    /// false if no feed with that ID existed.
+    public async Task<bool> RemoveFeedAsync(Guid feedId)
+    {
+        var feeds = await _storage.ReadAllAsync<Feed>();
+        var feedToRemove = feeds.FirstOrDefault(f => f.Id == feedId);
+        if (feedToRemove == null)
+        {
+            return false;
+        }
+
+        feeds.Remove(feedToRemove);
+        await _storage.WriteAllAsync(feeds);
+        return true;
     }
 }

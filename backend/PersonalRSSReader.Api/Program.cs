@@ -43,6 +43,18 @@ app.MapPost("/api/feeds", async (AddFeedRequest request, FeedService feedService
     return Results.Created($"/api/feeds/{newFeed.Id}", newFeed);
 });
 
+app.MapDelete("/api/feeds/{id:guid}", async (Guid id, FeedService feedService) =>
+{
+    var removed = await feedService.RemoveFeedAsync(id);
+
+    if (!removed)
+    {
+        return Results.NotFound(new { error = $"No feed found with id '{id}'." });
+    }
+
+    return Results.NoContent();
+});
+
 app.Run();
 
 // Request DTO (Data Transfer Object) for POST /api/feeds.

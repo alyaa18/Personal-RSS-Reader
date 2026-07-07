@@ -1,5 +1,6 @@
 using LibFeed = CodeHollow.FeedReader.Feed;
 using CodeHollow.FeedReader;
+using PersonalRSSReader.Api.Models;
 
 namespace PersonalRSSReader.Api.Services;
 
@@ -24,9 +25,30 @@ public class RssService
         }
         catch
         {
-            // Any failure (network error, invalid XML, not a feed, etc.)
-            // means this is not a usable feed.
             return null;
         }
+    }
+
+    /// Converts a parsed feed's items into our own Article model,
+    /// tagging each with the given feedId.
+    public List<Article> MapToArticles(LibFeed parsedFeed, Guid feedId)
+    {
+        var articles = new List<Article>();
+
+        foreach (var item in parsedFeed.Items)
+        {
+            articles.Add(new Article
+            {
+                Id = Guid.NewGuid(),
+                FeedId = feedId,
+                Title = string.IsNullOrWhiteSpace(item.Title) ? "(untitled)" : item.Title,
+                Link = item.Link ?? string.Empty,
+                Summary = item.Description ?? string.Empty,
+                PublishedAt = item.PublishingDate ?? DateTime.UtcNow,
+                FetchedAt = DateTime.UtcNow
+            });
+        }
+
+        return articles;
     }
 }

@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<JsonStorageService>();
 builder.Services.AddHttpClient<RssService>();
 builder.Services.AddSingleton<FeedService>();
+builder.Services.AddSingleton<ArticleService>();
 
 builder.Services.AddCors(options =>
 {
@@ -55,8 +56,24 @@ app.MapDelete("/api/feeds/{id:guid}", async (Guid id, FeedService feedService) =
     return Results.NoContent();
 });
 
+app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedService) =>
+{
+    var newArticles = await feedService.RefreshFeedAsync(id);
+
+    if (newArticles == null)
+    {
+        return Results.NotFound(new { error = $"Feed '{id}' not found or could not be fetched." });
+    }
+
+    return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
+});
+
+app.MapGet("/api/articles", async (ArticleService articleService) =>
+{
+    var articles = await articleService.GetAllArticlesAsync();
+    return Results.Ok(articles);
+});
+
 app.Run();
 
-// Request DTO (Data Transfer Object) for POST /api/feeds.
-// Kept here for now since it's small and only used by one endpoint.
 record AddFeedRequest(string Url);

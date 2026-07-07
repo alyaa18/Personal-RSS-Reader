@@ -68,6 +68,12 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedServ
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
 });
 
+app.MapMethods("/api/feeds/refresh", new[] { "POST", "GET" }, async (FeedService feedService) =>
+{
+    var result = await feedService.RefreshAllFeedsAsync();
+    return Results.Ok(result);
+});
+
 app.MapGet("/api/articles", async (ArticleService articleService) =>
 {
     var articles = await articleService.GetAllArticlesAsync();

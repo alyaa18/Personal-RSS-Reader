@@ -1,10 +1,15 @@
 const API_BASE_URL = 'http://localhost:5001/api';
 
 async function apiRequest(path, options = {}) {
+  const headers = { ...(options.headers || {}) };
+  if (options.body !== undefined && !('Content-Type' in headers)) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   let response;
   try {
     response = await fetch(`${API_BASE_URL}${path}`, {
-      headers: { 'Content-Type': 'application/json', ...options.headers },
+      headers,
       ...options,
     });
   } catch (networkError) {
@@ -35,5 +40,6 @@ const api = {
   addFeed: (url) => apiRequest('/feeds', { method: 'POST', body: JSON.stringify({ url }) }),
   removeFeed: (id) => apiRequest(`/feeds/${id}`, { method: 'DELETE' }),
   refreshFeed: (id) => apiRequest(`/feeds/${id}/refresh`, { method: 'POST' }),
+  refreshAllFeeds: () => apiRequest('/feeds/refresh', { method: 'POST' }),
   getArticles: () => apiRequest('/articles'),
 };

@@ -1,8 +1,11 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
 import { showBanner } from './banner.js';
-import { renderFeedList, renderArticles } from './render.js';
+import { renderFeedList, renderArticles, renderArticlesWithTransition } from './render.js';
 import { confirmAction } from './confirmModal.js';
+
+let isRefreshAllInFlight = false;
+const refreshingFeedIds = new Set();
 
 export async function handleRemoveFeed(feedId) {
   const feed = state.feeds.find((f) => f.id === feedId);
@@ -31,9 +34,12 @@ export async function handleRemoveFeed(feedId) {
 }
 
 export async function handleRefreshFeed(feedId, refreshBtnEl) {
+  if (isRefreshAllInFlight || refreshingFeedIds.has(feedId)) return;
+
   const feed = state.feeds.find((f) => f.id === feedId);
   if (!feed) return;
 
+  refreshingFeedIds.add(feedId);
   refreshBtnEl.classList.add('is-spinning');
   refreshBtnEl.disabled = true;
 
@@ -43,7 +49,7 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
       state.articles = [...result.articles, ...state.articles].sort(
         (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
       );
-      renderArticles();
+      renderArticlesWithTransition();
     }
     showBanner(
       result.newArticlesCount > 0
@@ -54,40 +60,45 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
   } catch (error) {
     showBanner(error.message || `Could not refresh "${feed.title}".`, 'error');
   } finally {
+    refreshingFeedIds.delete(feedId);
     refreshBtnEl.classList.remove('is-spinning');
     refreshBtnEl.disabled = false;
   }
 }
 
 export async function handleRefreshAll() {
-  if (state.feeds.length === 0) return;
+  if (state.feeds.length === 0 || isRefreshAllInFlight) return;
+
+  isRefreshAllInFlight = true;
 
   dom.refreshAllBtn.disabled = true;
   const originalLabel = dom.refreshAllBtn.innerHTML;
   dom.refreshAllBtn.innerHTML = '<span class="spinner--sm" aria-hidden="true"></span> Refreshing…';
 
-  const results = await Promise.allSettled(state.feeds.map((feed) => api.refreshFeed(feed.id)));
+  try {
+    const result = await api.refreshAllFeeds();
+    const totalNew = result.newArticlesCount ?? 0;
+    const newArticles = result.articles ?? [];
 
-  let totalNew = 0;
-  let newArticles = [];
-  results.forEach((result) => {
-    if (result.status === 'fulfilled') {
-      totalNew += result.value.newArticlesCount;
-      newArticles = newArticles.concat(result.value.articles);
+    if (newArticles.length > 0) {
+      state.articles = [...newArticles, ...state.articles].sort(
+        (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+      );
+      renderArticlesWithTransition();
     }
-  });
 
-  if (newArticles.length > 0) {
-    state.articles = [...newArticles, ...state.articles].sort(
-      (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+    const failedCount = result.failedFeedsCount ?? 0;
+    if (failedCount > 0) showBanner(`${failedCount} feed(s) could not be refreshed.`, 'error');
+    showBanner(
+      totalNew > 0 ? `${totalNew} new article(s) found.` : 'No new articles found.',
+      'success',
+      totalNew > 0 ? 4000 : 6500
     );
-    renderArticles();
+  } catch (error) {
+    showBanner(error.message || 'Could not refresh feeds.', 'error');
+  } finally {
+    dom.refreshAllBtn.disabled = false;
+    dom.refreshAllBtn.innerHTML = originalLabel;
+    isRefreshAllInFlight = false;
   }
-
-  const failedCount = results.filter((r) => r.status === 'rejected').length;
-  if (failedCount > 0) showBanner(`${failedCount} feed(s) could not be refreshed.`, 'error');
-  showBanner(totalNew > 0 ? `${totalNew} new article(s) found.` : 'No new articles found.', 'success');
-
-  dom.refreshAllBtn.disabled = false;
-  dom.refreshAllBtn.innerHTML = originalLabel;
 }

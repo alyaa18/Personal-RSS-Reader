@@ -1,239 +1,5 @@
 [
   {
-    "Id": "0c1de52f-d3b9-472a-9da7-de22281afd17",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Marine Le Pen found guilty, but court clears way for presidential run if she wears tag",
-    "Link": "https://www.bbc.co.uk/news/articles/cly85qjg45no?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The National Rally leader now has to decide whether she will run with an electronic tag and will speak on TV later.",
-    "PublishedAt": "2026-07-07T15:46:05Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495041Z"
-  },
-  {
-    "Id": "19dff16a-7145-4daa-ac53-38ac42cf0902",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Zelensky presses Nato for air defence systems after intense Russian strikes",
-    "Link": "https://www.bbc.co.uk/news/articles/c9d227e5zj6o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The Ukrainian president says \u0022decisions for air defence\u0022 should be \u0022one of the key outcomes\u0022 of this week\u0027s summit in Turkey.",
-    "PublishedAt": "2026-07-07T13:24:52Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495046Z"
-  },
-  {
-    "Id": "309e5f0c-4467-41c2-af92-a2bf5263993d",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Woman suspected of Monaco bomb attack found dead in Ukraine",
-    "Link": "https://www.bbc.co.uk/news/articles/c5yz3770yg8o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Police had been hunting Anastasiia Berezovska after a Ukrainian millionaire was injured in the blast.",
-    "PublishedAt": "2026-07-07T15:41:10Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495048Z"
-  },
-  {
-    "Id": "360a2453-bbf0-412b-82c3-a8c1080bbb63",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Jailers and officials at Russia\u0027s \u0027torture prisons\u0027 in Ukraine exposed by BBC",
-    "Link": "https://www.bbc.co.uk/news/articles/cx2kkrx8jeno?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Former prisoners accuse the men of abuse in detention centres and want to see them brought to trial.",
-    "PublishedAt": "2026-07-06T23:55:53Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495049Z"
-  },
-  {
-    "Id": "1146cf99-7e0f-4df5-85e1-66b1a9771c74",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Explosions injure 18 in Damascus during Macron\u0027s visit",
-    "Link": "https://www.bbc.co.uk/news/articles/c2eylx1jj9ko?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "As reports of the blasts came in, state television said the Syrian president had welcomed Macron at the presidential palace.",
-    "PublishedAt": "2026-07-07T11:16:30Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495051Z"
-  },
-  {
-    "Id": "cb006079-a712-4318-aec2-f99e3a504dc6",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Watch: Moment rare tornado lashes central Chinese cities",
-    "Link": "https://www.bbc.co.uk/news/videos/cq61d22ved2o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Videos shared with the BBC show debris flying through the air as the storm swept through Ezhou and Huanggang in Hubei province.",
-    "PublishedAt": "2026-07-07T07:27:05Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495055Z"
-  },
-  {
-    "Id": "e5d47cdf-69fe-4c67-9fab-df2dc566f7af",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Zimbabwean football star survives gun attack in South Africa",
-    "Link": "https://www.bbc.co.uk/news/articles/c1my1rvy28do?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "South African police say they are investigating a case of attempted murder but that no arrests have been made so far.",
-    "PublishedAt": "2026-07-07T11:12:00Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495056Z"
-  },
-  {
-    "Id": "a56d5b3d-94c8-4098-93e7-7ac32143267d",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Erika Kirk comes face-to-face in court with husband\u0027s alleged killer ",
-    "Link": "https://www.bbc.co.uk/news/articles/c1myyyyjvx5o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Charlie Kirk\u0027s widow was joined by the late US activist\u0027s family - all of whom attended court for the first time in the case.",
-    "PublishedAt": "2026-07-07T08:25:54Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495063Z"
-  },
-  {
-    "Id": "6872a802-b6ea-463a-bc16-affc7b611c74",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "India\u0027s landmark Ram temple overhauls board after alleged theft of donations",
-    "Link": "https://www.bbc.co.uk/news/articles/c872ngz405xo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Questions have been raised over alleged theft of cash, valuable jewellery, gold and silver offered by devotees.",
-    "PublishedAt": "2026-07-07T06:23:04Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495065Z"
-  },
-  {
-    "Id": "74dbc314-9a62-4b1d-9258-abcdcce588c6",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Trump confirms he asked Fifa to review Balogun ban",
-    "Link": "https://www.bbc.co.uk/sport/football/articles/c1myykx0gmxo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "President Donald Trump confirms he asked Fifa to review United States striker Folarin Balogun\u0027s one-match suspension at the World Cup.",
-    "PublishedAt": "2026-07-06T19:06:34Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495067Z"
-  },
-  {
-    "Id": "6e0195a0-0462-4819-a196-12b7e3218dc6",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Ex-Syrian intelligence chief found guilty of torture and sexual abuse by Austrian court",
-    "Link": "https://www.bbc.co.uk/news/articles/cy8ddd1m3mpo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Two former Syrian officials went on trial in Vienna, Austria, accused of crimes against opponents of former Syrian leader\u00A0Bashar al-Assad",
-    "PublishedAt": "2026-07-06T17:22:38Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495069Z"
-  },
-  {
-    "Id": "e3ccdd48-11fe-4893-b2dc-cc2dc5e33046",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Wildfire in southern France forces evacuation of 10,000 people",
-    "Link": "https://www.bbc.co.uk/news/articles/crlwweye9glo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Tour de France organisers ban spectators from stage three as a wildfire hits the Pyr\u00E9n\u00E9es-Orientales region.",
-    "PublishedAt": "2026-07-06T13:08:23Z",
-    "FetchedAt": "2026-07-07T15:51:25.649507Z"
-  },
-  {
-    "Id": "570c1b14-deae-4e85-8f9c-dad8530ae6b3",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "More than 1,000 arrested as part of global human trafficking crackdown",
-    "Link": "https://www.bbc.co.uk/news/articles/c5yzzzdwqjko?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Interpol says the vast majority of the 2,070 victims or potential victims identified were women being trafficked for sex.",
-    "PublishedAt": "2026-07-06T17:24:31Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495072Z"
-  },
-  {
-    "Id": "3c2fa52c-cbec-4fc9-8149-a669610d062c",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Sri Lanka prison riots leave 26 dead and more than 100 injured",
-    "Link": "https://www.bbc.co.uk/news/articles/cvg77klne3yo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The two days of violence at Negombo Prison are the worst prison riots in the country in years.",
-    "PublishedAt": "2026-07-06T14:19:26Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495073Z"
-  },
-  {
-    "Id": "5a826b26-a25a-4be3-89d1-5c8c65900fe0",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "\u0027I ate ketchup and cheese,\u0027 says Venezuelan girl trapped under quake rubble for 32 hours",
-    "Link": "https://www.bbc.co.uk/news/articles/c9922x87nj8o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Fabiana was trapped in the rubble of a 10-storey residential building after two earthquakes rocked Venezuela in June.",
-    "PublishedAt": "2026-07-06T05:04:28Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495074Z"
-  },
-  {
-    "Id": "64edfdbd-b0ba-41d2-8c14-adec8696c163",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Resistance and revenge - Iran wanted to send a message with its farewell to Khamenei",
-    "Link": "https://www.bbc.co.uk/news/articles/c07yy3j3nljo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Three days of public mourning in Tehran was a political spectacle Iran\u0027s leaders wanted the world to see, writes the BBC\u0027s international correspondent Lyse Doucet.",
-    "PublishedAt": "2026-07-07T00:46:03Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495077Z"
-  },
-  {
-    "Id": "87de70e5-61af-4fc6-bb82-700fe4e38826",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Why some African nations are turning down Trump aid money",
-    "Link": "https://www.bbc.co.uk/news/articles/ckg0921y8kdo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The Trump administration sees the aid as more transactional - but some say it is not a fair trade.",
-    "PublishedAt": "2026-07-07T00:49:08Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495079Z"
-  },
-  {
-    "Id": "bb4bfdd6-0f07-4cc9-89b1-af0ecec3108b",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Can China repeat its EV success with robotaxis?",
-    "Link": "https://www.bbc.co.uk/news/articles/cvgl8dlxjd3o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "China\u0027s self-driving car firms have been given a headstart by the country\u0027s EV supply chain as they expand globally.",
-    "PublishedAt": "2026-07-06T22:01:07Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495082Z"
-  },
-  {
-    "Id": "aeec2359-9ccc-4c7d-92c6-6de46515577f",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Why a Diljit Dosanjh film vanished from streaming after two days ",
-    "Link": "https://www.bbc.co.uk/news/articles/cly99z1w4gdo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The film\u0027s troubled journey spans years of censorship disputes, court battles and an unexpected release on a streaming platform.",
-    "PublishedAt": "2026-07-06T22:06:29Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495083Z"
-  },
-  {
-    "Id": "771f4fa8-2413-4248-b725-bf4114d440f4",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "From \u0027a beautiful night\u0027 to \u0027world\u0027s greatest hangover\u0027, guests react to Taylor and Travis\u0027s wedding",
-    "Link": "https://www.bbc.co.uk/news/articles/clyxxr9n2kjo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Some of the famous guests have been posting on social media about the big day in New York.",
-    "PublishedAt": "2026-07-06T01:20:47Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495085Z"
-  },
-  {
-    "Id": "018e6389-2cbb-42ab-81dc-4c39c0bb9def",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "\u0027The spectacle Iran wants the world to see\u0027: Lyse Doucet in Tehran",
-    "Link": "https://www.bbc.co.uk/news/videos/c78yyyl2ev4o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Huge crowds have lined the streets of Tehran for the funeral procession of Iran\u0027s late supreme leader, Ayatollah Ali Khamenei.",
-    "PublishedAt": "2026-07-06T16:23:44Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495087Z"
-  },
-  {
-    "Id": "b1ca07d7-5c71-4421-850c-ad66bdda3728",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "\u0027It\u0027s a very sad day\u0027 - Mexican fans react to loss to England",
-    "Link": "https://www.bbc.co.uk/news/videos/cn5999n95epo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Mexico\u0027s World Cup campaign ended with a 3-2 defeat to England in Mexico City.",
-    "PublishedAt": "2026-07-06T16:43:51Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495088Z"
-  },
-  {
-    "Id": "5b312aa9-5749-409e-aa79-d803fafe6815",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Watch: Russian attack leaves gaping hole in Kyiv residential building",
-    "Link": "https://www.bbc.co.uk/news/videos/cx2xxw99z88o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The BBC\u0027s Sarah Rainsford is at the scene of one of the blasts to hit Ukraine\u0027s capital overnight.",
-    "PublishedAt": "2026-07-06T13:07:23Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495091Z"
-  },
-  {
-    "Id": "d1d98882-1713-4be2-9245-60fb4e8694cb",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Watch: Why Australia\u0027s PM apologised for \u0027inappropriate\u0027 Kylie comments ",
-    "Link": "https://www.bbc.co.uk/news/videos/c1kyylkz9vyo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Australian Prime Minister Anthony Albanese has apologised for remarks he made about popstar Kylie Minogue in a podcast interview last week.",
-    "PublishedAt": "2026-07-06T10:00:08Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495094Z"
-  },
-  {
-    "Id": "00b4d8f5-be86-468d-b83a-08a9de05c9a2",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Why Ukrainian strikes on annexed Crimea are a blow to Putin ",
-    "Link": "https://www.bbc.co.uk/news/videos/c2dy21549w1o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Eastern Europe correspondent Sarah Rainsford explains why Crimea is a target for Kyiv, and why the peninsula matters to Vladimir Putin.",
-    "PublishedAt": "2026-07-06T06:00:05Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495096Z"
-  },
-  {
-    "Id": "5c7f3ab2-a78d-4ccb-aef4-0fb19465bb33",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Girl trapped in Venezuela quake \u0027survived on ketchup and cheese\u0027 ",
-    "Link": "https://www.bbc.co.uk/news/videos/cjrggj051pvo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "BBC international correspondent Yogita Limayee meets 12-year-old Fabiana, who was trapped in Venezuela\u0027s devastating earthquakes. ",
-    "PublishedAt": "2026-07-06T07:17:57Z",
-    "FetchedAt": "2026-07-07T15:51:25.6495098Z"
-  },
-  {
     "Id": "3be7072c-3b35-4fd9-a8b4-bcda5c184162",
     "FeedId": "9fb42efe-b053-4ac4-a46e-68da760a4029",
     "Title": "The World Cup From 250 Miles Up",
@@ -1132,60 +898,6 @@
     "Summary": "Jon Hyman, co-founder and CTO of Braze, shares how he\u0026#x27;s led the company\u0026#x27;s engineering organization over nearly 15 years of growth \u2014 and how they transformed into an AI-first team in just a few months.\u200B\u200B\u200B\u200B\u200C\u200D\u200B\u200D\u200B\u200D\u200C\u200D\u200C\u200B\u200D\u200C\u200D\u200D\u200C\u200C\u200D\u200C\u200C\u200D\u200D\u200C\u200C\u200D\u200D\u200B\u200D\u200B\u200D\u200B\u200D\u200D\u200B\u200D\u200B\u200D\u200C\u200B\u200C\u200D\u200B\u200C\u200C\u200D\u200D\u200C\u200D\u200D\u200C\u200C\u200C\u200B\u200C\u200D\u200C\u200B\u200D\u200D\u200C\u200D\u200D\u200C\u200C\u200D\u200B\u200D\u200B\u200D\u200B\u200D\u200B\u200B\u200D\u200B\u200D\u200C\u200D\u200D\u200B\u200C\u200B\u200D\u200C\u200D\u200C\u200C\u200C\u200D\u200C\u200D\u200B\u200D\u200B\u200D\u200B\u200D\u200D\u200B\u200D\u200B\u200D\u200C\u200D\u200D\u200B\u200C\u200C\u200B\u200C\u200C\u200B\u200C\u200B\u200B\u200C\u200B\u200B\u200D\u200D\u200B\u200D\u200B\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200B\u200B\u200D\u200D\u200C\u200B\u200C\u200C\u200B\u200C\u200D\u200B\u200C\u200C\u200D\u200B\u200C\u200D\u200D\u200C\u200D\u200C\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200B\u200D\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200B\u200D\u200D\u200C\u200D\u200B\u200C\u200D\u200B\u200D\u200C\u200D\u200D\u200C\u200C\u200D\u200D\u200C\u200C\u200B\u200C\u200D\u200C\u200C\u200C\u200D\u200D\u200C\u200C\u200B\u200B\u200D\u200C\u200D\u200C\u200C\u200C\u200D\u200C\u200B\u200C\u200D\u200D\u200C\u200C\u200C\u200B\u200B\u200D\u200C\u200D\u200C\u200C\u200D\u200C\u200D\u200C\u200B\u200C\u200D\u200C\u200C\u200B\u200C\u200C\u200B\u200B\u200C\u200B\u200D\u200C\u200D\u200C\u200C\u200C\u200B\u200C\u200D\u200C\u200C\u200C\u200D\u200D\u200C\u200C\u200B\u200C\u200D\u200B\u200C\u200C\u200C\u200B\u200C\u200D\u200D\u200C\u200C\u200D\u200C\u200D\u200D\u200B\u200D\u200C\u200D\u200D\u200C\u200C\u200D\u200C\u200B\u200B\u200C\u200B\u200C\u200C\u200D\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200D\u200B\u200B\u200B\u200C\u200D\u200B\u200C\u200D\u200C\u200B\u200B\u200C\u200C\u200B\u200D\u200C\u200B\u200C\u200D\u200B\u200D\u200B\u200C\u200D\u200B\u200D\u200B\u200D\u200C\u200B\u200D\u200C\u200B\u200C\u200B\u200B\u200C\u200C\u200B\u200B\u200C\u200B\u200C\u200C\u200B\u200D\u200C\u200B\u200D\u200B\u200B\u200C\u200C\u200B\u200D\u200B\u200C\u200D\u200C\u200D\u200B\u200D\u200C\u200B\u200C\u200C\u200B\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200B\u200D\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200D\u200C\u200D\u200C\u200D\u200B\u200B\u200B\u200D\u200C\u200B\u200B\u200D\u200B\u200B\u200C\u200D\u200B\u200B\u200D\u200C\u200C\u200B\u200C\u200D\u200C\u200C\u200B\u200B\u200C\u200D\u200C\u200C\u200B\u200C\u200C\u200D\u200B\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200B\u200B\u200C\u200D\u200C\u200B\u200C\u200C\u200B\u200B\u200D\u200C\u200B\u200B\u200C\u200D\u200B\u200C\u200C\u200C\u200B\u200C\u200D\u200D\u200B\u200B\u200C\u200C\u200D\u200C\u200C\u200C\u200D\u200B\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200C\u200B\u200D\u200C\u200B\u200B\u200C\u200C\u200B\u200B\u200C\u200D\u200B\u200D\u200C\u200D\u200B\u200C\u200C\u200B\u200C\u200D\u200C\u200C\u200C\u200C\u200C\u200C\u200C\u200B\u200D\u200C\u200D\u200B\u200B\u200C\u200C\u200D\u200D\u200B\u200C\u200C\u200B\u200C\u200C\u200B\u200C\u200B\u200B\u200C\u200B\u200B\u200D\u200C\u200C\u200B\u200B\u200C\u200B\u200B\u200C\u200B\u200D\u200C\u200C\u200B\u200B\u200D\u200C\u200B\u200C\u200D\u200B\u200D\u200C\u200C\u200B\u200B\u200D\u200C\u200B\u200C\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200B\u200B\u200D\u200D\u200C\u200B\u200C\u200C\u200B\u200C\u200D\u200B\u200C\u200C\u200D\u200B\u200C\u200D\u200D\u200C\u200D\u200C\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200B\u200D\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200B\u200D\u200D\u200C\u200D\u200B\u200C\u200D\u200B\u200D\u200C\u200D\u200C\u200D\u200D\u200C\u200C\u200D\u200C\u200B\u200B\u200C\u200B\u200C\u200C\u200D\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200D\u200B\u200B\u200B\u200C\u200D\u200B\u200C\u200D\u200C\u200B\u200B\u200C\u200C\u200B\u200D\u200C\u200B\u200C\u200D\u200B\u200D\u200B\u200C\u200D\u200B\u200D\u200B\u200D\u200C\u200B\u200D\u200C\u200B\u200C\u200B\u200B\u200C\u200C\u200B\u200B\u200C\u200B\u200C\u200C\u200B\u200D\u200C\u200B\u200D\u200B\u200B\u200C\u200C\u200B\u200D\u200B\u200C\u200D\u200C\u200D\u200B\u200D\u200C\u200B\u200C\u200C\u200B\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200B\u200D\u200C\u200D\u200C\u200D\u200C\u200D\u200B\u200D\u200C\u200D\u200C\u200D\u200B\u200B\u200B\u200D\u200C\u200B\u200B\u200D\u200B\u200B\u200C\u200D\u200B\u200B\u200D\u200C\u200D\u200C\u200C\u200B\u200C\u200D\u200C\u200C\u200B\u200B\u200C\u200D\u200C\u200C\u200B\u200C\u200C\u200D\u200B\u200D\u200C\u200D\u200B\u200C\u200D\u200C\u200D\u200C\u200C\u200C\u200B\u200B\u200C\u200D\u200C\u200B\u200C\u200C\u200B\u200B\u200D\u200C\u200D\u200C\u200B\u200B\u200C\u200D\u200B\u200C\u200C\u200C\u200B\u200C\u200D\u200D\u200B\u200B\u200C\u200C\u200D\u200C\u200C\u200C\u200D\u200B\u200C\u200D\u200B\u200C\u200D\u200C\u200C\u200C\u200B\u200D\u200C\u200B\u200B\u200C\u200C\u200B\u200B\u200D\u200C\u200D\u200C\u200B\u200B\u200C\u200D\u200C\u200C\u200C\u200B\u200D\u200C\u200B\u200C\u200B\u200B\u200C\u200D\u200C\u200C\u200C\u200D\u200B\u200C\u200C\u200B\u200C\u200D\u200D\u200C\u200C\u200C\u200D\u200C\u200D\u200C\u200C\u200B\u200C\u200C\u200B\u200B\u200C\u200C\u200C\u200C\u200D\u200B\u200D\u200C\u200D\u200B\u200C\u200D\u200D\u200C\u200C\u200B\u200C\u200D\u200D\u200B\u200C\u200D\u200C\u200C\u200C\u200D\u200C\u200B\u200B\u200D\u200B\u200D\u200C\u200C",
     "PublishedAt": "2026-05-13T07:40:00Z",
     "FetchedAt": "2026-07-07T19:44:20.1980371Z"
-  },
-  {
-    "Id": "106087f5-72dd-466f-9ed0-037b943261a2",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Marine Le Pen to run for French presidency and appeal conviction in top court",
-    "Link": "https://www.bbc.co.uk/news/articles/c7vygl3zymjo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The hard-right National Rally leader has ended months of speculation, after a court ruled she could run but would have to wear a tag for a year.",
-    "PublishedAt": "2026-07-07T19:02:44Z",
-    "FetchedAt": "2026-07-07T19:49:30.4685529Z"
-  },
-  {
-    "Id": "e75e6f54-063b-42d7-aaf0-27f874473bd2",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Trump looms large as Nato grapples with challenge of rearming Europe",
-    "Link": "https://www.bbc.co.uk/news/articles/ckg06d3dgnlo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The US president\u0027s inflammatory words have punctuated the image of unity at this crucial gathering, Security Correspondent Frank Gardner writes.",
-    "PublishedAt": "2026-07-07T18:56:19Z",
-    "FetchedAt": "2026-07-07T19:49:30.4685536Z"
-  },
-  {
-    "Id": "1319ee49-b4e5-442a-ae4d-8f31bda2c34c",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Lawyer says detained Gaza doctor was severely beaten in Israeli jail",
-    "Link": "https://www.bbc.co.uk/news/articles/c07yy3pgrlmo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The lawyer for Dr Hussam Abu Safiya tells the BBC his client was so badly beaten he could not recognise him during a visit last week.",
-    "PublishedAt": "2026-07-07T16:10:14Z",
-    "FetchedAt": "2026-07-07T19:49:30.468554Z"
-  },
-  {
-    "Id": "611bd266-b5b3-414f-b7f0-483f45112980",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Hungary\u0027s public news broadcasts halted in bid to scrap Orban-era propaganda",
-    "Link": "https://www.bbc.co.uk/news/articles/cgevwq1pndgo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The country\u0027s main state TV channel displayed a message saying it was \u0022sorry\u0022 for lying on Tuesday.",
-    "PublishedAt": "2026-07-07T18:34:45Z",
-    "FetchedAt": "2026-07-07T19:49:30.4685542Z"
-  },
-  {
-    "Id": "4c33bf39-eb3e-465f-863d-f4e2958f3b9b",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Ghana halts visit by South African president amid row over anti-migrant protests",
-    "Link": "https://www.bbc.co.uk/news/articles/cy8dmelnjk7o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "Many in Ghana feared his presence would lead to mass protests, and officials say it is postponed for now.",
-    "PublishedAt": "2026-07-07T16:25:59Z",
-    "FetchedAt": "2026-07-07T19:49:30.4685547Z"
-  },
-  {
-    "Id": "682e15ad-0ce8-4f65-8bfd-4ecb43eac8e5",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "China sentences official to death for taking $325m in bribes ",
-    "Link": "https://www.bbc.co.uk/news/articles/c33y0n1v1xjo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The 69-year-old helped companies secure valuable contracts in exchange for money, a court heard.",
-    "PublishedAt": "2026-07-07T03:36:56Z",
-    "FetchedAt": "2026-07-07T19:49:30.4685553Z"
   },
   {
     "Id": "689c80f5-d028-4afc-8875-797a43f7b28d",
@@ -10755,30 +10467,840 @@
     "FetchedAt": "2026-07-07T21:39:38.1361865Z"
   },
   {
-    "Id": "f4cde35c-e4a3-4ce2-b152-98501fac8bad",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "New footage shown at Kirk hearing shows man on rooftop near shooting scene",
-    "Link": "https://www.bbc.co.uk/news/articles/cr5j983p046o?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The preliminary hearing will determine whether Tyler Robinson, accused of killing conservative activist Charlie Kirk, will stand trial.",
-    "PublishedAt": "2026-07-07T20:00:57Z",
-    "FetchedAt": "2026-07-07T21:40:01.5953198Z"
+    "Id": "2e7517f8-2d74-4005-b871-050501834a2d",
+    "FeedId": "70c3878a-5a27-487a-beb7-71a2660b0cd3",
+    "Title": "Data centers\u2019 energy demand threatens Trump\u2019s \u201CMade in America\u201D plan",
+    "Link": "https://arstechnica.com/tech-policy/2026/07/us-manufacturers-energy-costs-soar-because-of-ai-data-center-demand/",
+    "Summary": "Squeeze on Rust Belt electricity bills threatens Trump\u2019s manufacturing plan.",
+    "PublishedAt": "2026-07-07T21:03:07Z",
+    "FetchedAt": "2026-07-07T21:57:20.4042652Z"
   },
   {
-    "Id": "9ae22726-b051-4295-adaf-6fc26d875108",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "New video shows man believed to be Tyler Robinson before Charlie Kirk shooting",
-    "Link": "https://www.bbc.co.uk/news/videos/cn59ne3vqeno?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The footage shown during the second day of a preliminary hearing appears to show Robinson walking through a parking garage and running across a roof.",
-    "PublishedAt": "2026-07-07T20:20:24Z",
-    "FetchedAt": "2026-07-07T21:40:01.5953247Z"
+    "Id": "7d2e2294-28ea-45eb-b143-9fb10ad706bd",
+    "FeedId": "70c3878a-5a27-487a-beb7-71a2660b0cd3",
+    "Title": "Surprisingly large number of people may have marker for tick-linked meat allergy",
+    "Link": "https://arstechnica.com/health/2026/07/surprisingly-large-number-of-people-may-have-marker-for-tick-linked-meat-allergy/",
+    "Summary": "There\u0027s still a slew of questions about why some people develop alpha-gal syndrome.",
+    "PublishedAt": "2026-07-07T20:32:39Z",
+    "FetchedAt": "2026-07-07T21:57:20.4042661Z"
   },
   {
-    "Id": "750cd52a-7a0c-471b-8dd7-a7b05a01ba51",
-    "FeedId": "a66deca0-e86f-4c52-93cf-7809b39dbab5",
-    "Title": "Watch: Marine Le Pen confirms run for French presidency",
-    "Link": "https://www.bbc.co.uk/news/videos/clyexverp0lo?at_medium=RSS\u0026at_campaign=rss",
-    "Summary": "The National Rally leader also said she will attempt to appeal an embezzlement conviction.",
-    "PublishedAt": "2026-07-07T20:21:11Z",
-    "FetchedAt": "2026-07-07T21:40:01.5953248Z"
+    "Id": "16312e8a-77c5-42eb-bd82-994cda53f4d2",
+    "FeedId": "70c3878a-5a27-487a-beb7-71a2660b0cd3",
+    "Title": "SCOTUS lets Texas enforce app store law that Big Tech calls \u0022censorship regime\u0022",
+    "Link": "https://arstechnica.com/tech-policy/2026/07/supreme-court-lets-texas-enforce-age-verification-law-on-app-stores/",
+    "Summary": "Texas win at 5th Circuit left in place as attempts to overturn age law continue.",
+    "PublishedAt": "2026-07-07T20:18:24Z",
+    "FetchedAt": "2026-07-07T21:57:20.4042663Z"
+  },
+  {
+    "Id": "34287edb-36ff-4703-8af8-055d860ae897",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Catnip lotion as effective as Deet at repelling mosquitoes, study finds",
+    "Link": "https://www.theguardian.com/global-development/2026/jul/07/catnip-lotion-as-effective-as-deet-at-repelling-mosquitoes-study-finds",
+    "Summary": "\u003Cp\u003EResearchers testing a cheap, homegrown oil in Uganda found what cats knew all along \u2013 it worked as well as the artificial chemical used globally \u003C/p\u003E\u003Cp\u003EA homegrown catnip lotion has proven \u201Cjust as effective as Deet\u201D as a mosquito repellant in trials carried out in Uganda.\u003C/p\u003E\u003Cp\u003ECatnip, or \u003Cem\u003ENepeta cataria\u003C/em\u003E, is a common herb from the mint family. The chemical in the plant that causes feline euphoria \u2013 nepetalactone \u2013 also has insect-repelling properties but this has not previously been commercialised.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/global-development/2026/jul/07/catnip-lotion-as-effective-as-deet-at-repelling-mosquitoes-study-finds\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T15:17:19Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181207Z"
+  },
+  {
+    "Id": "8ae5ec54-8aca-44b5-b455-03d6eff6cc40",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "What will define Elon Musk\u2019s legacy? Doge cuts to USAID Ebola programs",
+    "Link": "https://www.theguardian.com/technology/2026/jul/07/elon-musk-doge-cuts-usaid-ebola",
+    "Summary": "\u003Cp\u003EExperts say cuts have hindered the response to DRC\u2019s Ebola outbreak and resulted in \u2018significant numbers\u2019 of deaths\u003C/p\u003E\u003Cp\u003EElon Musk has an Ebola problem. SpaceX stock dropped precipitously after its initial public offering, and Tesla faces a wave of lawsuits. But instead of focusing on his companies, Musk has posted frequently on X about the US Agency for International Development (USAID), which he helped dismantle \u2013 or, in his words, feed into the woodchipper \u2013 last year.\u003C/p\u003E\u003Cp\u003E\u201CElon\u2019s USAID crash-out over the past week has been a thing to behold,\u201D said Jeremy Konyndyk, a former top USAID official who oversaw the agency\u2019s Ebola response in 2014-2015 and the president of Refugees International. \u201CIn a way, it\u2019s helpful that Elon is doing this, because it\u2019s putting attention back on the issue of what he did last year.\u201D\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/technology/2026/jul/07/elon-musk-doge-cuts-usaid-ebola\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T11:00:06Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181214Z"
+  },
+  {
+    "Id": "1ba6bca2-34fc-4021-80f6-5eefa952f0b2",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Five charged in Liberia after more than 200kg of cocaine seized in drug bust",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/charged-liberia-200kg-cocaine-seized-drug-bust",
+    "Summary": "\u003Cp\u003EShipment discovered at airport in Monrovia and valued at \u00A314.2m had been falsely declared as seasoning cubes\u003C/p\u003E\u003Cp\u003EAuthorities in Liberia have charged five suspects over one of the largest drug seizures in the country\u2019s history, after police found more than 200kg of cocaine falsely declared as Maggi seasoning cubes.\u003C/p\u003E\u003Cp\u003EThe shipment, with an estimated value of $19m\u003Cstrong\u003E \u003C/strong\u003E(\u00A314.2m), was discovered at the international airport in Monrovia on 8 June, but the suspects were not named until a press briefing at the weekend.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/charged-liberia-200kg-cocaine-seized-drug-bust\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T06:30:31Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181226Z"
+  },
+  {
+    "Id": "89b9367b-fd68-4dc6-a286-0a7bf2fd9723",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Archaeologists uncover ancient Byzantine city in Egypt\u2019s western desert",
+    "Link": "https://www.theguardian.com/world/2026/jul/04/archaeologists-uncover-ancient-byzantine-city-in-egypts-western-desert",
+    "Summary": "\u003Cp\u003EWell-preserved fourth-century quarters reveal details of daily life, urban development and economic activities\u003C/p\u003E\u003Cp\u003EArchaeologists in Egypt have uncovered a well-preserved Byzantine-era city in the western desert.\u003C/p\u003E\u003Cp\u003EThe fourth-century quarters had residential and religious structures, including a basilica-style church in the Dakhla oasis. Archaeologists also found coins, pottery fragments and tools.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/04/archaeologists-uncover-ancient-byzantine-city-in-egypts-western-desert\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-04T20:32:52Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181229Z"
+  },
+  {
+    "Id": "5a065a0b-bc82-46e0-bccc-4998ab36d344",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "\u2018The situation is terrible\u2019: aid workers on life in Sudanese city pummelled by drone strikes",
+    "Link": "https://www.theguardian.com/world/2026/jul/04/el-obeid-aid-workers-sudan-war-drone-strikes",
+    "Summary": "\u003Cp\u003EEl Obeid becomes key battleground in war between Sudan\u2019s armed forces and their paramilitary enemies, the RSF\u003C/p\u003E\u003Cp\u003EFatima has lost count of the number of drone attacks on the besieged city of El Obeid in Sudan, but said the attacks this past weekend were the most violent so far.\u003C/p\u003E\u003Cp\u003EThe drones hit schools and fuel stations, killing more than 20 people, including students, she said. \u201COver the past few months, seeing 40 or 45 drones is the norm. You can literally count them,\u201D said the aid volunteer, whose name has been changed for fear of retribution.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/04/el-obeid-aid-workers-sudan-war-drone-strikes\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-04T15:14:18Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181253Z"
+  },
+  {
+    "Id": "34501ef4-6c65-4f84-9c9a-f2a0c5b6beff",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "French prosecutors investigate racist abuse of Kylian Mbapp\u00E9 by Paraguayan senator",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/french-prosecutors-investigate-racist-abuse-mbappe",
+    "Summary": "\u003Cp\u003ECeleste Amarilla could face charges after French Football Federation complains about social media posts over World Cup match\u003C/p\u003E\u003Cp\u003EProsecutors in France have opened an investigation into the racist attack on Kylian Mbapp\u00E9 by a Paraguayan senator, with officials weighing whether to demand that the senator be charged with aggravated public insult or incitement to hatred or violence.\u003C/p\u003E\u003Cp\u003EThe Paris prosecutor\u2019s office told the Guardian on Tuesday it had launched the inquiry after the French Football Federation (FFF) filed a complaint with the national unit for combating online hate.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/french-prosecutors-investigate-racist-abuse-mbappe\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T15:06:41Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181258Z"
+  },
+  {
+    "Id": "e13cd220-782c-48af-841f-fcb3775e0dcf",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "\u2018Living like this is agony\u2019: Cuba suffers third nationwide blackout in six months",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/cuba-suffers-third-nationwide-blackout-in-six-months",
+    "Summary": "\u003Cp\u003EImpoverished island was already struggling to keep the lights on before the US imposed a blockade in January\u003C/p\u003E\u003Cp\u003ECuba on Monday suffered its third nationwide power outage since the start of the year, the state electricity company said.\u003C/p\u003E\u003Cp\u003EThe impoverished island was already struggling to keep the lights on before the US president, \u003Ca href=\u0022https://www.theguardian.com/world/2026/feb/01/cuba-fuel-shortage-trump-tariffs\u0022\u003EDonald Trump, imposed an oil blockade\u003C/a\u003E in January, which has depleted the already dwindling supply of fuel for Cuba\u2019s power plants.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/cuba-suffers-third-nationwide-blackout-in-six-months\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T19:30:09Z",
+    "FetchedAt": "2026-07-07T22:00:47.318126Z"
+  },
+  {
+    "Id": "58696e0a-c26d-4e8b-974e-3509576a0e3a",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Canada to buy 12 hi-tech German submarines after bidding war",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/canada-buys-12-tkms-german-norwegian-submarines-after-bidding-war",
+    "Summary": "\u003Cp\u003ETKMS beats South Korean rival to multibillion-dollar contract that will deepen Canada\u2019s Nato ties\u003C/p\u003E\u003Cp\u003ECanada has selected a German consortium to build a dozen cutting-edge submarines in one of the country\u2019s largest-ever defence contracts that will further deepen its Nato ties before a crucial summit this week.\u003C/p\u003E\u003Cp\u003EOn Monday the prime minister, Mark Carney, announced the winner of a tightly contested battle for the lucrative government contract to replace its fleet of ageing, secondhand subs, most of which are undergoing maintenance.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/canada-buys-12-tkms-german-norwegian-submarines-after-bidding-war\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T16:41:47Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181263Z"
+  },
+  {
+    "Id": "aa9d176a-7c11-4ccf-9a27-660cf404893a",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Cuban zoo celebrates birth of Bengal tigers amid energy crisis",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/cuban-zoo-celebrates-birth-of-bengal-tigers-amid-energy-crisis",
+    "Summary": "\u003Cp\u003EArrival of endangered cats, including rare white cub, revitalises team straining under fuel and medicine shortages\u003C/p\u003E\u003Cp\u003EFor the Cuban zookeeper \u00C1ngel Cordero, the sight of four Bengal \u2060tiger cubs playing in a cage at the Cuban national zoo is a small miracle on an island stifled by shortages \u2060of fuel, medicine and \u2060days-long power outages.\u003C/p\u003E\u003Cp\u003EThe \u200Bbirth of these endangered big cats \u2013 including an exceedingly rare white tiger \u2013 has revitalised a team of zoo workers, he said.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/cuban-zoo-celebrates-birth-of-bengal-tigers-amid-energy-crisis\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T15:58:26Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181265Z"
+  },
+  {
+    "Id": "ce1f5d50-0dd5-4160-b401-fb17e859c083",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Rodr\u00EDguez defends Venezuela\u2019s emergency earthquake response as number of bodies expected to soar",
+    "Link": "https://www.theguardian.com/world/2026/jul/05/rodriguez-defends-venezuelas-emergency-earthquake-response-as-bodies-expected-to-soar",
+    "Summary": "\u003Cp\u003EInterim president says unrest will not break out despite anger at official response to the 24 June disaster\u003C/p\u003E\u003Cp\u003EVenezuela\u2019s interim president has defended her country\u2019s emergency response to the twin earthquakes that have killed more than 3,000 people, vowing the country would not descend into social unrest.\u003C/p\u003E\u003Cp\u003EMany Venezuelans have expressed anger at what they see as the US-backed government\u2019s inadequate response to the 24 June disaster before international teams arrived.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/05/rodriguez-defends-venezuelas-emergency-earthquake-response-as-bodies-expected-to-soar\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-05T21:50:42Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181269Z"
+  },
+  {
+    "Id": "98a93488-3c2b-4bd3-a4de-979d8e5b811b",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Australia news live: major outage hits Telstra mobile network; PM to host three Pacific leaders in Brisbane",
+    "Link": "https://www.theguardian.com/australia-news/live/2026/jul/08/anthony-albanese-pacific-diplomacy-state-of-origin-labor-coalition-recession-unemployment-ntwnfb",
+    "Summary": "\u003Cp\u003ELeaders from Tonga, Samoa and Papua New Guinea to join Albanese at State of Origin decider. Follow today\u2019s news live\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003E\u003Cstrong\u003EShadow minister says China\u2019s missile test \u2018completely inappropriate\u2019\u003C/strong\u003E\u003C/p\u003E\u003Cp\u003E\u003Cstrong\u003ETed O\u2019Brien\u003C/strong\u003E, the shadow foreign affairs minister, said he is worried about China\u2019s test of a long-range missile earlier this week, but said he is satisfied Pacific nations had banded together to be \u201Cassertive and clear\u201D in voicing their discontent over the action.\u003C/p\u003E\u003Cp\u003EIt is completely inappropriate that, on a week especially, where we are talking about an ocean of peace in the Pacific, the Beijing regime decides to fire a missile into the region. It certainly goes to the contrast between what Australia\u2019s view is of the Pacific family and clearly what the People\u2019s Republic China\u2019s view is.\u003C/p\u003E\u003Cp\u003EI am pleased that on this occasion they seem to be voicing a far more assertive position on the part of Australia, which is appropriate.\u003C/p\u003E\u003Cp\u003EBut of course, they need to also be speaking directly to their counterparts in Beijing.\u003C/p\u003E\u003Cp\u003EOil prices did not rise as much, and the cut to the excise tax blunted the impact on households.\u003C/p\u003E\u003Cp\u003EGrowth is likely to be quite weak for the rest of the year, and because of that, a per capita recession is likely.\u003C/p\u003E\u003Cp\u003EThey [per capita recessions] are not as severe as a conventional recession \u2013 the changes in unemployment tend to be far less severe \u2013 but they do constitute a decline in living standards.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/australia-news/live/2026/jul/08/anthony-albanese-pacific-diplomacy-state-of-origin-labor-coalition-recession-unemployment-ntwnfb\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T21:39:37Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181273Z"
+  },
+  {
+    "Id": "f0f9226a-0fb4-4496-b9f9-167bdc91ebb9",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Severe storms in China bring tornadoes and landslides that have killed 15 people",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/china-severe-storms-death-toll-xi-jinping-rescue-efforts-landslides-tornadoes",
+    "Summary": "\u003Cp\u003EChinese leader Xi Jinping calls for \u2018all out\u2019 rescue effort as death toll rises and 16 people \u2060remain buried after a \u2060landslide in the country\u2019s west\u003C/p\u003E\u003Cp\u003EThe death toll from devastating storms in parts of China rose to 15 on Tuesday, with hundreds more injured and tens of thousands evacuated, state media reported, as the country\u2019s leader, Xi Jinping, urged \u201Call out\u201D efforts to rescue people affected by the weather.\u003C/p\u003E\u003Cp\u003EThunderstorms and gale-force winds killed at least 11 people and injured 331 in the central province of Hubei, where \u201Csevere convective weather\u201D hit cities, while tornadoes were reported elsewhere late Monday, state news agency Xinhua said.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/china-severe-storms-death-toll-xi-jinping-rescue-efforts-landslides-tornadoes\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T06:51:54Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181274Z"
+  },
+  {
+    "Id": "6cf05402-c6c0-48c5-b904-dbf257ce9f86",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Australian PM says Chinese missile test could have caused \u2018considerable damage\u2019 if weaponised",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/chinese-government-tells-critics-not-to-overinterpret-missile-test-in-pacific-as-criticism-grows",
+    "Summary": "\u003Cp\u003ESolomon Islands prime minister says he doesn\u2019t want to see more countries testing ICBMs in Pacific, adding \u2018be our friend but don\u2019t threaten us\u2019 \u003C/p\u003E\u003Cp\u003EAustralian prime minister Anthony Albanese has said China\u2019s weapons test in the Pacific risks fuelling dangerous nuclear proliferation, with the intercontinental ballistic missile (ICBM) fired on Monday capable of causing \u201Cconsiderable damage\u201D if weaponised.\u003C/p\u003E\u003Cp\u003EInternational condemnation has grown overnight after China\u2019s state news agency Xinhua reported on Monday that a \u201Cstrategic missile carrying a dummy warhead\u201D \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/china-missile-test-south-pacific\u0022\u003Ehad been launched \u003C/a\u003Efrom a \u201Cstrategic nuclear submarine of the navy\u201D.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/chinese-government-tells-critics-not-to-overinterpret-missile-test-in-pacific-as-criticism-grows\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T04:28:02Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181276Z"
+  },
+  {
+    "Id": "a58d9446-3755-4f31-973e-c9e7096605a5",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Typhoon Maysak kills two and forces thousands to evacuate in China",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/typhoon-maysak-kills-two-and-forces-thousands-to-evacuate-in-china",
+    "Summary": "\u003Cp\u003ETropical storm causes extreme flooding in south of the country with heavy rainfall expected in coming days\u003C/p\u003E\u003Cp\u003EA tropical storm has killed two people, caused dam breaches and forced tens of thousands to evacuate in southern China.\u003C/p\u003E\u003Cp\u003ETyphoon Maysak killed two people in Nanning, in China\u2019s southern Guangxi province. Maysak, which lashed Vietnam and China\u2019s southern island province of Hainan over the weekend, will dump the water it sucked up on its way \u2060across the South China Sea as it weakens and heads inland, meteorologists say.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/typhoon-maysak-kills-two-and-forces-thousands-to-evacuate-in-china\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T17:50:08Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181278Z"
+  },
+  {
+    "Id": "43c6f2e3-055c-4474-ac49-b2c5a03e5148",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "China tests long-range missile in South Pacific in move Australia condemns as \u2018destabilising to region\u2019",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/china-missile-test-south-pacific",
+    "Summary": "\u003Cp\u003ELaunch comes just hours after Australia and Fiji sign defence agreement as expert says timing not a coincidence\u003C/p\u003E\u003Cp\u003EChina has conducted a long-range missile test in the South Pacific just hours after Australia signed a defence agreement with Fiji, sparking condemnation from Canberra and regional leaders.\u003C/p\u003E\u003Cp\u003EThe Australian foreign minister, Penny Wong, said the missile test was \u201Cdestabilising\u201D to the region, while her New Zealand counterpart, Winston Peters, described it as \u201Cdeeply concerning\u201D.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/china-missile-test-south-pacific\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T10:15:35Z",
+    "FetchedAt": "2026-07-07T22:00:47.318128Z"
+  },
+  {
+    "Id": "13b602f1-2f55-4075-bd85-9c35d419b9c6",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Recession off the cards but Australia faces dreary outlook, economists say",
+    "Link": "https://www.theguardian.com/business/2026/jul/08/economy-of-australia-avoids-recession-consumer-pessimism-lingers-economists",
+    "Summary": "\u003Cp\u003EDe-escalation of war in the Middle East has lowered oil prices and eased fears of economic downturn but households are still feeling the pinch\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/australia-news/live/2026/jul/08/anthony-albanese-pacific-diplomacy-state-of-origin-labor-coalition-recession-unemployment-ntwnfb\u0022\u003EFollow our Australia news live blog for latest updates\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EFears of a recession have fallen away, with economists saying Australia is set to safely navigate the \u003Ca href=\u0022https://www.theguardian.com/business/2026/apr/14/imf-world-economic-outlook-energy-crisis-global-recession-australia-fuel\u0022\u003Ebiggest global oil supply shock\u003C/a\u003E in history even as they warn of substandard growth in the year ahead.\u003C/p\u003E\u003Cp\u003EThe de-escalation of the Middle East conflict has been accompanied by \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jun/21/oil-price-petrol-prices-australia-fuel-crisis-us-iran-war-lower\u0022\u003Ea major retreat in global oil prices\u003C/a\u003E back to prewar levels, essentially removing the worst-case scenarios contemplated before Donald Trump\u2019s wobbly ceasefire with Iran was announced in mid-June.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/business/2026/jul/08/economy-of-australia-avoids-recession-consumer-pessimism-lingers-economists\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T15:00:06Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181281Z"
+  },
+  {
+    "Id": "f9a00410-7ca4-4a18-8104-3782fd4c6bce",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "A rock star welcome and human rights protests to greet India\u2019s prime minister Narendra Modi in Australia",
+    "Link": "https://www.theguardian.com/australia-news/2026/jul/07/india-prime-minister-modi-australia-melbourne-visit-reaction-indian-diaspora-ntwnfb",
+    "Summary": "\u003Cp\u003EAmnesty International says Albanese has opportunity to \u2018reaffirm mutual commitment\u2019 to rule of law as thousands in diaspora expected at stadium event\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/australia-news/live/2026/jul/08/anthony-albanese-pacific-diplomacy-state-of-origin-labor-coalition-recession-unemployment-ntwnfb\u0022\u003EFollow our Australia news live blog for latest updates\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EThe Indian prime minister Narendra Modi\u2019s first visit to Australia in three years has sparked calls for the federal government to raise human rights concerns, as excitement builds within the nation\u2019s Indian diaspora.\u003C/p\u003E\u003Cp\u003EModi\u2019s visit begins on Wednesday evening and marks his third since becoming prime minister. It will see him return to Melbourne after more than a decade, with a stadium event expected to attract more than 20,000 people.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jul/07/india-prime-minister-modi-australia-melbourne-visit-reaction-indian-diaspora-ntwnfb\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T15:00:04Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181284Z"
+  },
+  {
+    "Id": "dcef99bf-7f5c-431f-b461-c5fdd040df94",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "\u2018Accident waiting to happen\u2019: player\u2019s death raises alarm over risk of concrete cricket pitches in Australian rules football",
+    "Link": "https://www.theguardian.com/sport/2026/jul/08/nathan-fitzgerald-melbourne-teacher-australian-football-head-injury-death-concrete-cricket-pitch",
+    "Summary": "\u003Cp\u003EConcrete-based cricket pitches, like that on which Nathan Fitzgerald received fatal blows to the head, are \u2018totally unsafe\u2019, concussion advocate says\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/australia-news/live/2026/jul/08/anthony-albanese-pacific-diplomacy-state-of-origin-labor-coalition-recession-unemployment-ntwnfb\u0022\u003EFollow our Australia news live blog for latest updates\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EAustralia must finally deal with a deadly risk that has plagued its native football code for more than 120 years, sports safety advocates say, after the death of a suburban Aussie rules footballer.\u003C/p\u003E\u003Cp\u003ENathan Fitzgerald, a 27-year-old school teacher, \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jul/07/nathan-fitzgerald-melbourne-teacher-death-australian-football-head-clash-tributes\u0022\u003Edied in a Melbourne hospital on Monday\u003C/a\u003E after a horror accident on Saturday in which it is believed the Epping reserves grade footballer clashed heads with another player while tackling an opponent and received a second blow to the head as he fell, before striking his head a third time on a concrete-based cricket pitch in the middle of the ground.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/sport/2026/jul/08/nathan-fitzgerald-melbourne-teacher-australian-football-head-injury-death-concrete-cricket-pitch\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T15:00:04Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181287Z"
+  },
+  {
+    "Id": "12d436b8-722f-4da4-9cc9-c95920427f51",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Perth man fighting for life after robot vacuum cleaner explosion",
+    "Link": "https://www.theguardian.com/australia-news/2026/jul/07/perth-man-fighting-for-life-after-robot-vacuum-cleaner-explosion",
+    "Summary": "\u003Cp\u003ELachie Perrem suffered life-threatening injuries after the explosion on Thursday destroyed his share house in Brabham\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EA Perth man has spent five days fighting for his life after a robot vacuum cleaner explosion set fire to his home.\u003C/p\u003E\u003Cp\u003ELachie Perrem, aged in his 20s, was taken to hospital on Thursday with life-threatening burns from a blaze that left his fiancee and housemates without their home.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jul/07/perth-man-fighting-for-life-after-robot-vacuum-cleaner-explosion\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T10:44:03Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181291Z"
+  },
+  {
+    "Id": "16d0da78-6165-4eab-9527-6346dc1d4570",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "NSW\u2019s top prosecutor gave false evidence on media leak about young Indigenous offender, inquiry finds",
+    "Link": "https://www.theguardian.com/australia-news/2026/jul/07/nsws-top-prosecutor-gave-false-evidence-on-media-leak-about-young-indigenous-offender-inquiry-finds-ntwnfb",
+    "Summary": "\u003Cp\u003ESally Dowling admits her office pitched the story but says it was not authorised by her, while her colleagues call her \u2018a person of integrity\u2019\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/australia-news/live/2026/jul/07/australia-news-live-penny-wong-china-missile-test-pacific-anthony-albanese-solomon-islands-defence-royal-commission-antisemitism-meta-ntwnfb\u0022\u003EFollow our Australia news live blog for latest updates\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003Cli\u003E\u003Cp\u003EGet our \u003Ca href=\u0022https://www.theguardian.com/email-newsletters?CMP=cvau_sfl\u0022\u003Ebreaking news email\u003C/a\u003E, \u003Ca href=\u0022https://app.adjust.com/w4u7jx3\u0022\u003Efree app\u003C/a\u003E or \u003Ca href=\u0022https://www.theguardian.com/australia-news/series/full-story?CMP=cvau_sfl\u0022\u003Edaily news podcast\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EA New South Wales parliamentary committee report has made findings accusing the state\u2019s top prosecutor of giving false evidence under oath to an inquiry and recommended the attorney general investigate whether there are grounds to remove her from office.\u003C/p\u003E\u003Cp\u003EBut the state\u2019s attorney general, Michael Daley, has called the report a \u201Cstitch-up from the outset\u201D and said it was \u201Cthe worst \u2026 that I have seen in my nearly 21 years in parliament\u201D.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jul/07/nsws-top-prosecutor-gave-false-evidence-on-media-leak-about-young-indigenous-offender-inquiry-finds-ntwnfb\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T09:53:20Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181294Z"
+  },
+  {
+    "Id": "8c2e23b6-8b3e-4913-85fb-588fcf19640f",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Marine Le Pen to run for presidency and appeal against conviction in France\u2019s highest court",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/marine-le-pen-doubt-presidential-election-electronic-tag-france",
+    "Summary": "\u003Cp\u003EFrench far-right leader announces decision after court orders her to wear ankle tag over embezzlement \u003C/p\u003E\u003Cp\u003EThe French far-right leader Marine Le Pen has announced she will run for the presidency in 2027 and will lodge an appeal to France\u2019s highest court over her sentence to wear an electronic ankle tag for the embezzlement of European parliament funds.\u003C/p\u003E\u003Cp\u003E\u201CTonight, I am a candidate in the presidential election,\u201D Le Pen, 57, told TF1 television on Tuesday night.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/marine-le-pen-doubt-presidential-election-electronic-tag-france\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T20:05:46Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181296Z"
+  },
+  {
+    "Id": "bb87cec8-2f00-436e-8e54-bbaef040d2e3",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Le Pen says she will appeal against conviction and run for French presidency \u2013 Europe live as it happened",
+    "Link": "https://www.theguardian.com/world/live/2026/jul/07/nato-summit-zelenskyy-trump-ukraine-rutte-defence-eu-spending-turkey-france-macron-le-pen-europe-latest-news-updates",
+    "Summary": "\u003Cp\u003EFar-right leader gives TV interview saying that she will appeal against part of today\u2019s ruling which cast doubt on a presidential run \u003C/p\u003E\u003Cp\u003E\u003Cstrong\u003EThe opening speeches are now under way in Ankara,\u003C/strong\u003E and you can watch them below.\u003C/p\u003E\u003Cp\u003EThis is the Day 1 industry event, not the leaders\u2019 summit, mind you.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/live/2026/jul/07/nato-summit-zelenskyy-trump-ukraine-rutte-defence-eu-spending-turkey-france-macron-le-pen-europe-latest-news-updates\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T20:04:04Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181299Z"
+  },
+  {
+    "Id": "d089d03d-ec44-432a-bfc9-8069bf74080b",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Why is Marine Le Pen running for French presidency after court confirmed conviction?",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/what-court-ruling-mean-marine-le-pen-presidential-chances",
+    "Summary": "\u003Cp\u003EA look at the case, the appeal court decision and how it could affect the race to succeed Emmanuel Macron\u003C/p\u003E\u003Cp\u003EMarine Le Pen has said she will be a candidate in France\u2019s presidential race next year, after a court ruling on her \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/marine-le-pen-doubt-presidential-election-electronic-tag-france\u0022\u003Eappeal against a conviction\u003C/a\u003E for embezzlement of public funds allowed her to run.\u003C/p\u003E\u003Cp\u003EHowever, the path ahead is far from straightforward.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/what-court-ruling-mean-marine-le-pen-presidential-chances\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T19:13:37Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181301Z"
+  },
+  {
+    "Id": "36e52299-6693-48fb-84a5-0b5ad1fb929e",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Trump renews call for US to take over Greenland as he arrives for Nato summit",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/trump-renews-call-us-take-over-greenland-nato",
+    "Summary": "\u003Cp\u003EPresident also threatens to pull all American troops from Europe and rails against Nato stance on Iran war \u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/world/live/2026/jul/07/nato-summit-zelenskyy-trump-ukraine-rutte-defence-eu-spending-turkey-france-macron-le-pen-europe-latest-news-updates\u0022\u003EEurope live \u2013 latest updates\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EDonald Trump has revived his bid for the US to acquire Greenland, threatening to pull all American armed forces out of Europe after the continent repeatedly pushed back.\u003C/p\u003E\u003Cp\u003EArriving at the Nato summit in Ankara on Tuesday, the US president also suggested his commitment to defending Europe had been tempered by political decisions by leaders on immigration and energy.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/trump-renews-call-us-take-over-greenland-nato\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T19:02:06Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181303Z"
+  },
+  {
+    "Id": "b5edc679-71f9-43e4-89bb-96f2d9c2f133",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Hungarian public media outlets halt broadcasting in post-Orb\u00E1n shake-up",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/hungary-public-media-tv-radio-suspend-broadcasting-viktor-orban-peter-magyar",
+    "Summary": "\u003Cp\u003EP\u00E9ter Magyar hails \u2018end of propaganda broadcasts\u2019 as Kossuth radio and M1 TV channels suspend transmission\u003C/p\u003E\u003Cp\u003EHungarian public media outlets close to Viktor Orb\u00E1n have suspended broadcasting, the country\u2019s prime minister said as he hailed efforts to dismantle the longtime nationalist leader\u2019s control over information.\u003C/p\u003E\u003Cp\u003EP\u00E9ter Magyar, who ousted Orb\u00E1n in a landslide election victory in April, wrote on Facebook: \u201CA historic day. Today marks the end of propaganda broadcasts on public media platforms. They lied at night, they lied during the day, they lied on every wavelength. That is now over.\u201D\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/hungary-public-media-tv-radio-suspend-broadcasting-viktor-orban-peter-magyar\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T17:19:08Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181305Z"
+  },
+  {
+    "Id": "814ea34b-95f5-4f37-bddd-b098bf805e79",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Qatar: Iran is legally responsible for hits on three tankers in strait of Hormuz",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/qatar-says-iran-fully-responsible-after-tankers-struck-in-strait-of-hormuz",
+    "Summary": "\u003Cp\u003EVessels, including a Qatari LNG carrier, struck close to Oman as Tehran blames US\u003C/p\u003E\u003Cp\u003EQatar has warned Iran it will bear full legal responsibility after three tankers, including a Qatari LNG vessel, were struck within hours in the strait of Hormuz.\u003C/p\u003E\u003Cp\u003EAll three were hit close to Oman, which had suggested a new shipping corridor close to its coastline \u2013 a proposal Iran opposes as it wants to charge ships to use the waterway.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/qatar-says-iran-fully-responsible-after-tankers-struck-in-strait-of-hormuz\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T16:52:34Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181309Z"
+  },
+  {
+    "Id": "99f364c1-7aa6-47ef-b635-2e84f8afcde9",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Bombs explode near Damascus hotel housing Macron on Syria visit",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/explosions-rock-damascus-near-hotel-where-french-president-was-staying",
+    "Summary": "\u003Cp\u003EBlasts did not interrupt French president\u2019s visit but are setback for Syrian leaders\u2019 attempt to project stability\u003C/p\u003E\u003Cp\u003EExplosions rocked Damascus near the hotel where French president, Emmanuel Macron, was staying on Tuesday, wounding at least 18 people, Syrian authorities said.\u003C/p\u003E\u003Cp\u003EMacron was in the presidential palace for a meeting with the Syrian president, Ahmed al-Sharaa, when two improvised explosive devices detonated near the Four Seasons hotel where Macron was reported to be staying.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/explosions-rock-damascus-near-hotel-where-french-president-was-staying\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T14:14:48Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181312Z"
+  },
+  {
+    "Id": "4ded1d2b-2ca4-43ea-be35-64c06895b5d8",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Israeli officer shown throwing stun grenade into car during West Bank raid",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/israeli-officer-stun-grenade-car-west-bank",
+    "Summary": "\u003Cp\u003EBorder police officer under investigation after CCTV footage shows him shouting at car\u2019s occupants and throwing device\u003C/p\u003E\u003Cp\u003EIsraeli police have opened an investigation after CCTV footage showed a border police officer throwing a stun grenade into a car carrying young Palestinians during a raid on the Qalandiya refugee camp in the occupied West Bank.\u003C/p\u003E\u003Cp\u003EThe footage from Sunday, released by the Israeli rights group B\u2019Tselem, shows an officer approaching a car and shouting at its occupants.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/israeli-officer-stun-grenade-car-west-bank\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T10:23:05Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181313Z"
+  },
+  {
+    "Id": "6c9c6184-4379-4e17-8a45-e18d0966354e",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "UK charity funding school at heart of illegal Israeli settlement expansion",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/british-charity-friends-of-yeshivat-shavei-illegal-settlement-hebron",
+    "Summary": "\u003Cp\u003EFriends of Yeshivat Shavei Hevron sent nearly \u00A3200,000 to school in Hebron \u2013  where Israel has been accused of imposing apartheid \u2013 between 2019 and 2024\u003C/p\u003E\u003Cp\u003EA British charity is funding a religious school at the heart of expansion plans for the illegal Israeli settlement in the Palestinian city of Hebron.\u003C/p\u003E\u003Cp\u003EFriends of Yeshivat Shavei Hevron sent nearly \u00A3200,000 to the school between 2019 and 2024, the last year for which accounts are publicly available on the website of the Charity Commission, the charity regulator for England and Wales.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/british-charity-friends-of-yeshivat-shavei-illegal-settlement-hebron\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T21:37:11Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181315Z"
+  },
+  {
+    "Id": "79d26c15-19ac-4260-8daf-f415e2bdeacc",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Millions join funeral procession for Iran\u2019s supreme leader Ali Khamenei",
+    "Link": "https://www.theguardian.com/world/2026/jul/06/ali-khamenei-funeral-procession-iran-supreme-leader",
+    "Summary": "\u003Cp\u003ECrowds swelled through Tehran as mourners dressed in black carried flags proclaiming: \u2018We will rise\u2019\u003C/p\u003E\u003Cp\u003EA crowd of \u201Cmillions\u201D assembled on Monday for the funeral procession of Iran\u2019s assassinated supreme leader, \u003Ca href=\u0022https://www.theguardian.com/world/2026/mar/01/ayatollah-ali-khamenei-obituary\u0022\u003EAli Khamenei\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EThe scale and depth of the march, however engineered, represents an extraordinary turnaround for a country that only seven months ago was gripped by \u003Ca href=\u0022https://www.theguardian.com/world/2026/jan/11/iran-protests-gather-momentum-demonstrators-protest-movement\u0022\u003Estreet protests\u003C/a\u003E at which thousands of people were killed by government security forces.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/ali-khamenei-funeral-procession-iran-supreme-leader\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-06T17:25:12Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181317Z"
+  },
+  {
+    "Id": "3e04db4b-647e-4a5b-9fbc-165d2373abaa",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Dowry murders in India no longer spark public anger or debate, study finds",
+    "Link": "https://www.theguardian.com/global-development/2026/jul/07/dowry-murders-in-india-no-longer-spark-public-anger-or-debate-study-finds",
+    "Summary": "\u003Cp\u003EThousands of women are killed in dowry disputes each year, despite the practice being banned in 1961\u003C/p\u003E\u003Cp\u003EDowry deaths in India no longer provoke the public anger they once did, despite thousands of women\u2019s lives still being lost every year, according to new research.\u003C/p\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/global-development/2018/jul/18/death-by-dowry-claim-by-bereaved-family-in-india\u0022\u003EThe killings\u003C/a\u003E \u2013 women who are murdered or driven to suicide following dowry disputes between families \u2013 have also faded from political debate, despite an increase in cases.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/global-development/2026/jul/07/dowry-murders-in-india-no-longer-spark-public-anger-or-debate-study-finds\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T04:00:29Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181318Z"
+  },
+  {
+    "Id": "7b472417-9634-4816-b5cc-4916995ebe24",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Sri Lanka prison riot kills 26, with more than 100 others wounded",
+    "Link": "https://www.theguardian.com/world/2026/jul/07/sri-lanka-prison-riot-death-toll-injuries",
+    "Summary": "\u003Cp\u003EVictims with cuts and gunshot injuries rushed to hospital after fighting between prisoners from two drug gangs\u003C/p\u003E\u003Cp\u003EClashes at a Sri Lankan jail have killed 26 people, including seven guards, and wounded more than 100 in the country\u2019s deadliest prison riot in years, officials said.\u003C/p\u003E\u003Cp\u003EVictims with cuts and gunshot injuries were rushed to Negombo hospital, north of the capital Colombo after overnight fighting between prisoners from two drug gangs, police said on Monday.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/07/sri-lanka-prison-riot-death-toll-injuries\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T00:35:19Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181319Z"
+  },
+  {
+    "Id": "2f984ba5-5441-45dd-8b21-67624612932d",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Pakistan roof collapse kills 14 children at tutoring centre",
+    "Link": "https://www.theguardian.com/world/2026/jul/01/pakistan-roof-collapse-lahore-tutoring-learning-centre",
+    "Summary": "\u003Cp\u003ELocal officials said preliminary reports showed the centre was unregistered and operating inside a privately owned residential building \u003C/p\u003E\u003Cp\u003EFourteen children died after \u2060the roof of a tutoring centre collapsed in Pakistan\u2019s eastern city of \u2060Lahore on Tuesday, \u2060rescue \u200Bofficials have said, as authorities opened the way for a possible negligence \u2060investigation.\u003C/p\u003E\u003Cp\u003EPunjab\u2019s emergency service said rescuers found children and a 30-year-old female teacher \u2060under the rubble of the private after-school facility. The \u200Bchildren killed were aged \u200Cfive to \u200C16 with most below nine.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/01/pakistan-roof-collapse-lahore-tutoring-learning-centre\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-06-30T23:34:00Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181321Z"
+  },
+  {
+    "Id": "8b692e35-6471-4c31-80e8-d15944e44317",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Delhi plans to ban petrol rickshaws and scooters in effort to cut toxic fumes",
+    "Link": "https://www.theguardian.com/world/2026/jun/30/delhi-gamechanger-ban-petrol-vehicles-tackle-air-pollution-electric-cars",
+    "Summary": "\u003Cp\u003EGovernment hopes for 30% of city\u2019s fleet to be electric by 2030, in move hailed as \u2018gamechanger\u2019 on air pollution\u003C/p\u003E\u003Cp\u003EThe unruly chaos of Delhi\u2019s roads would be unrecognisable without the rickshaws and scooters that zip through India\u2019s capital in their millions, emitting toxic fumes in their wake. But now, ambitious policies aim to give the city\u2019s most recognisable vehicles an environmental makeover.\u003C/p\u003E\u003Cp\u003EOn Monday, Delhi\u2019s government announced plans to eventually ban petrol scooters, motorbikes and autorickshaws in favour of those running on electricity, in an attempt to bring down dangerously high pollution levels in the city by the end of the decade.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jun/30/delhi-gamechanger-ban-petrol-vehicles-tackle-air-pollution-electric-cars\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-06-30T14:10:28Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181323Z"
+  },
+  {
+    "Id": "8675f019-42da-40ba-b914-f553473e1148",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "\u2018Humanity is a privilege\u2019: Umar Khalid on his six years in an Indian jail without trial",
+    "Link": "https://www.theguardian.com/world/2026/jun/30/umar-khalid-interview-six-years-indian-jail-without-trial-modi-opposition-political-prisoner",
+    "Summary": "\u003Cp\u003EExclusive: Activist tells of his life as one of India\u2019s most prominent political prisoners and his opposition to the government of Narendra Modi\u003C/p\u003E\u003Cp\u003EPrison is hardest at sunset. As the thousands of prisoners incarcerated in Delhi\u2019s most infamous jail are cast out of their cells and forced into the dank yard until darkness falls, prisoner number 626714 feels the punishing dread begin to rise.\u003C/p\u003E\u003Cp\u003EYet the inmate \u2013 better known as Umar Khalid \u2013 was recently moved to discover that another political prisoner, exiled at a camp thousands of miles from India, wrote of the very same feeling more than 150 years ago.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/world/2026/jun/30/umar-khalid-interview-six-years-indian-jail-without-trial-modi-opposition-political-prisoner\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-06-30T00:00:32Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181326Z"
+  },
+  {
+    "Id": "41bdad51-8523-4377-b282-23beaa53d6c9",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Labour, Tories and Lib Dems refuse to stand in byelection with Farage\u2019s resignation labelled \u2018desperate stunt\u2019 \u2013 as it happened",
+    "Link": "https://www.theguardian.com/politics/live/2026/jul/07/nigel-farage-reform-uk-donations-investigations-parliament-electoral-commission-defence-nato-keir-starmer-latest-news-updates",
+    "Summary": "\u003Cp\u003EReform UK leader to quit as MP but stand again, saying the people of Clacton  \u2018should be the judges of my actions\u2019 \u003C/p\u003E\u003Cp\u003E\u003Cem\u003EQ: Do you think the parliamentary commissioner for standards should investigate Nigel Farage\u2019s gifts from George Cottrell?\u003C/em\u003E\u003C/p\u003E\u003Cp\u003E\u003Cstrong\u003EBadenoch\u003C/strong\u003E said that was a matter for the commissioner.\u003C/p\u003E\u003Cp\u003E[Farage is] hinting at press regulation. For all of the criticism and the attacks, and I would even say abuse that I\u2019ve got from the press, I\u2019ve never once recommended curbing our free press. I think this is one of the amazing things about this country.\u003C/p\u003E\u003Cp\u003EI would be very worried about a Reform government using government power to control the press. I don\u2019t think that that would be right.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/politics/live/2026/jul/07/nigel-farage-reform-uk-donations-investigations-parliament-electoral-commission-defence-nato-keir-starmer-latest-news-updates\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T19:23:14Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181327Z"
+  },
+  {
+    "Id": "e6cd82a5-a4da-44e2-8c6c-06a598741336",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Prince Harry and other claimants could face \u00A350m legal bill after losing phone-hacking case",
+    "Link": "https://www.theguardian.com/media/2026/jul/07/prince-harry-lawsuit-mail-publisher-phone-hacking-claims",
+    "Summary": "\u003Cp\u003EHigh court dismisses claims by group including Duke of Sussex that Mail publisher used unlawful methods to source stories about them\u003C/p\u003E\u003Cp\u003E\u003C/p\u003E\u003Cp\u003EPrince Harry and six other prominent figures are facing a legal bill of up to \u00A350m after losing their case against the publisher of the Daily Mail over claims it used unlawful methods to source stories.\u003C/p\u003E\u003Cp\u003EIn an emphatic ruling that is likely to signal an end to new litigation relating to the phone-hacking scandal era, the high court dismissed all the group\u2019s claims, stating that the claimants had not proved that any information had been obtained unlawfully.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/media/2026/jul/07/prince-harry-lawsuit-mail-publisher-phone-hacking-claims\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T18:56:50Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181329Z"
+  },
+  {
+    "Id": "50dbd7d1-753a-4f6d-b472-2f3f374461ec",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Prince Harry gets burned in his mission to \u2018slay dragons\u2019 of British media",
+    "Link": "https://www.theguardian.com/uk-news/2026/jul/07/duke-of-sussex-calls-legal-battles-with-british-media-his-lifes-work-phone-hacking-daily-mail",
+    "Summary": "\u003Cp\u003EHarry claimed victory in two earlier legal actions but he and his co-claimants lost their lawsuit against ANL on Tuesday\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/media/2026/jul/07/prince-harry-lawsuit-mail-publisher-phone-hacking-claims\u0022\u003EPrince Harry and others could face \u00A350m legal bill after losing phone-hacking lawsuit\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EThe Duke of Sussex has variously described his long-running legal battles with certain sections of the British media as a \u201Cmission\u201D and a \u201Clife\u2019s work\u201D.\u003C/p\u003E\u003Cp\u003E\u201CI\u2019ve been told that slaying dragons will get you burned,\u201D was \u003Ca href=\u0022https://www.theguardian.com/uk-news/2023/dec/15/mission-continues-prince-harry-legal-crusade-against-uk-media\u0022\u003Ehis defiant response when he claimed victory against Mirror Group Newspapers \u003C/a\u003Ein December 2023 over historic allegations of unlawful information gathering, adding it was a \u201Cworthwhile price to pay\u201D.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/uk-news/2026/jul/07/duke-of-sussex-calls-legal-battles-with-british-media-his-lifes-work-phone-hacking-daily-mail\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T18:42:56Z",
+    "FetchedAt": "2026-07-07T22:00:47.318133Z"
+  },
+  {
+    "Id": "18ca2f7d-1eb2-4cc0-9b3d-ef90d7e08245",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Revealed: Farage\u2019s \u00A35m gift reported to UK crime agency over money laundering concerns",
+    "Link": "https://www.theguardian.com/politics/2026/jul/07/revealed-farages-5m-gift-reported-to-uk-agency-over-money-laundering-concerns",
+    "Summary": "\u003Cp\u003E\u003Cstrong\u003EExclusive:\u003C/strong\u003E Latest Guardian revelation about gift from cryptocurrency tycoon comes as Reform UK leader forces byelection\u003C/p\u003E\u003Cp\u003EThe \u00A35m gift to Nigel Farage by a cryptocurrency billionaire was reported to the National Crime Agency by bankers who were concerned it may have been laundered money, the Guardian can reveal.\u003C/p\u003E\u003Cp\u003EThe disclosure will put further pressure on the Reform UK leader, who is awaiting a decision by the standards commissioner over whether his failure to declare the money breached parliamentary rules.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/politics/2026/jul/07/revealed-farages-5m-gift-reported-to-uk-agency-over-money-laundering-concerns\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T18:36:47Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181331Z"
+  },
+  {
+    "Id": "1bb4a3f7-b453-466b-9fab-25fa936afba9",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Hundreds of jobs at risk as John Lewis announces closure of in-store services",
+    "Link": "https://www.theguardian.com/business/2026/jul/07/hundreds-of-jobs-at-risk-as-john-lewis-announces-closure-of-in-store-services",
+    "Summary": "\u003Cp\u003EDesks offering gift wrapping and bureau de change stations will be closed at dozens of stores nationwide \u003C/p\u003E\u003Cp\u003EJohn Lewis has put 200 jobs at risk as it plans to shut down desks operating gift wrapping and foreign exchange services.\u003C/p\u003E\u003Cp\u003EThe 36-strong department store chain said it had begun a consultation on redundancies as it plans to close the desks that operate bureau de change services in 30 stores, and specialist gift wrapping in 25 stores.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/business/2026/jul/07/hundreds-of-jobs-at-risk-as-john-lewis-announces-closure-of-in-store-services\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T16:48:00Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181332Z"
+  },
+  {
+    "Id": "bae0f5f2-dccc-4ebf-b878-87be1286c111",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Prosecutors say video shows suspect in Charlie Kirk killing climbing on to roof",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/charlie-kirk-muder-tyler-james-robinson-utah-hearing",
+    "Summary": "\u003Cp\u003EUtah county attorney\u2019s office says evidence against Tyler James Robinson is sufficient for case to move to trial\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/news/2026/feb/17/sign-up-for-the-breaking-news-us-email-to-get-newsletter-alerts-direct-to-your-inbox?utm_medium=ACQUISITIONS_STANDFIRST\u0026amp;utm_campaign=BN22326\u0026amp;utm_content=signup\u0026amp;utm_term=standfirst\u0026amp;utm_source=GUARDIAN_WEB\u0022\u003ESign up for the Breaking News US newsletter email\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EUtah prosecutors on Tuesday showed video from the day of Charlie Kirk\u2019s killing that they said depicted suspect Tyler James Robinson entering the Utah Valley University campus and climbing on to a roof where they say he fired a fatal shot at the conservative commentator.\u003C/p\u003E\u003Cp\u003EThe Utah county attorney\u2019s office presented the evidence on the second day of a week-long preliminary hearing in which the state must prove to a state district judge that there was enough evidence for the case to move to trial.\u003C/p\u003E\u003Cp\u003E\u003Cem\u003EThe Associated Press contributed reporting\u003C/em\u003E\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/charlie-kirk-muder-tyler-james-robinson-utah-hearing\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T21:24:30Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181334Z"
+  },
+  {
+    "Id": "aa4aec3d-3435-4439-aa5f-60d189ca904f",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Pressure mounts on Graham Platner to drop out of Maine Senate race as new allegation emerges \u2013 live",
+    "Link": "https://www.theguardian.com/us-news/live/2026/jul/07/graham-platner-democrats-senate-maine-trump-nato-us-politics-latest-news-updates",
+    "Summary": "\u003Cp\u003EDemocrats could replace Platner on the ballot if he ends his campaign by 13 July; woman accuses him of removing condom without consent, Washington Post reports\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/how-democrats-replace-graham-platner-maine-senate\u0022\u003EHow could Democrats replace Graham Platner?\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/news/2026/feb/17/sign-up-for-the-breaking-news-us-email-to-get-newsletter-alerts-direct-to-your-inbox?utm_medium=ACQUISITIONS_STANDFIRST\u0026amp;utm_campaign=BN22326\u0026amp;utm_content=signup\u0026amp;utm_term=standfirst\u0026amp;utm_source=GUARDIAN_WEB\u0022\u003ESign up for the Breaking News US email\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EDonald Trump said he had a \u201Cvery good talk\u201D withVladimir Putin, ahead of arriving in Turkey.\u003C/p\u003E\u003Cp\u003EThis comes amid a wave of recent Russian strikes across Ukraine that have killed \u003Ca href=\u0022https://www.theguardian.com/world/2026/jul/06/russia-launches-deadly-missile-drone-attacks-kyiv-ukraine\u0022\u003Eat least 21 people\u003C/a\u003E. The US president said that he also spoke with Ukrainian leader \u003Cstrong\u003EVolodymyr Zelenskyy\u003C/strong\u003E ahead of the Nato summit.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/live/2026/jul/07/graham-platner-democrats-senate-maine-trump-nato-us-politics-latest-news-updates\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T21:15:25Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181335Z"
+  },
+  {
+    "Id": "0fa0afdd-f315-46f2-8598-2db42584a694",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Body of missing 18-year-old Nolan Wells found on Mississippi island",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/nolan-wells-body-found-mississippi-island",
+    "Summary": "\u003Cp\u003ECollege freshman\u2019s mother identified his body after he was reported missing following 4 July boat trip with friends\u003C/p\u003E\u003Cp\u003EOn 4 July, Nolan Xavier Wells, an 18-year-old from Ocean Springs, Mississippi, and a group of friends went on a boat trip to Horn Island, a barrier island about 10 miles off the Mississippi Gulf coast. Wells\u2019s friends all returned back home that evening, but Wells did not, prompting his mother to report him missing and ask for help on social media, triggering a two-day search that caught national attention. That search came to an end on Monday, when a body was found on the island. On Tuesday, Wells\u2019s mother, Christine Wonsley, identified the body as belonging to Wells.\u003C/p\u003E\u003Cp\u003E\u201CHis father, our family, friends and I are absolutely devastated,\u201D Wonsley wrote in a Facebook post. \u201CMy heart is broken for my sweet son who was always willing to cheer and uplift others. Nolan was a special soul, God took his time creating our son.\u201D\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/nolan-wells-body-found-mississippi-island\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T20:37:19Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181338Z"
+  },
+  {
+    "Id": "37f5025c-c489-484b-9b5d-844fc8ea741b",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Lake Powell, a vital reservoir, plunges toward unprecedented low levels as water crisis deepens in US west",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/lake-powell-water-crisis",
+    "Summary": "\u003Cp\u003EExperts say the critical reservoir system is careening toward a breaking point as the US west\u2019s climate warms and dries\u003C/p\u003E\u003Cp\u003ELake Powell, the US\u2019s second-largest reservoir, threatens to plunge to unprecedentedly low levels this year after a historically bleak snowpack failed to raise its water level, scientists and water experts have said, adding renewed urgency to stalled talks over how to conserve a water source depended on by tens of millions of people in the US south-west.\u003C/p\u003E\u003Cp\u003EThe 185-mile Colorado River reservoir currently stands at about 22% of its capacity, or roughly 5.6m acre-feet. Lake Powell fell below that level for a few months three years ago. But those 2023 levels were recorded in the winter, when the reservoir, which straddles the Utah-Arizona border, hits its lowest ebb. Spring runoff carried the level back up to 9.6m acre-feet by June, according to data from the US Bureau of Reclamation.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/lake-powell-water-crisis\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T20:05:17Z",
+    "FetchedAt": "2026-07-07T22:00:47.3181339Z"
+  },
+  {
+    "Id": "3b018b8c-dbe5-46dd-b888-b864af41c66c",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "US appeals court strikes down key part of Florida law restricting campus race and gender discussions",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/stop-woke-act-appeal-florida-desantis",
+    "Summary": "\u003Cp\u003ERon DeSantis\u2019s Stop Woke Act suffers another legal setback, with the state accused of \u2018puppeteering\u2019\u003C/p\u003E\u003Cul\u003E\u003Cli\u003E\u003Cp\u003E\u003Ca href=\u0022https://www.theguardian.com/news/2026/feb/17/sign-up-for-the-breaking-news-us-email-to-get-newsletter-alerts-direct-to-your-inbox?utm_medium=ACQUISITIONS_STANDFIRST\u0026amp;utm_campaign=BN22326\u0026amp;utm_content=signup\u0026amp;utm_term=standfirst\u0026amp;utm_source=GUARDIAN_WEB\u0022\u003ESign up for the Breaking News US newsletter email\u003C/a\u003E\u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E\u003Cp\u003EA federal appeals panel struck down a significant chunk of \u003Ca href=\u0022https://www.theguardian.com/us-news/ron-desantis\u0022\u003ERon DeSantis\u003C/a\u003E\u2019s so-called \u003Ca href=\u0022https://scholarship.law.ufl.edu/facultypub/1200/\u0022\u003EStop Woke Act\u003C/a\u003E on Tuesday, delivering another rebuff to the Republican Florida governor\u2019s efforts to stifle free speech in higher education.\u003C/p\u003E\u003Cp\u003EIn a scathing order, judges of the 11th circuit court of appeal said by a 2-1 majority that the higher education component of the law \u2013 which prevented college and university professors teaching or sharing thoughts on concepts of race and gender \u2013 breached the free expression rights guaranteed under the US constitution\u2019s first amendment.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/stop-woke-act-appeal-florida-desantis\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T19:25:19Z",
+    "FetchedAt": "2026-07-07T22:00:47.318134Z"
+  },
+  {
+    "Id": "212fcb33-b419-416d-82d3-ed547caee573",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Fandango\u2019s Big Ticket Podcast: Episode Guide",
+    "Link": "https://editorial.rottentomatoes.com/article/fandango-big-ticket-podcast/",
+    "Summary": "Your weekly reminder of why you love going to the movies.",
+    "PublishedAt": "2026-07-07T19:52:46Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196455Z"
+  },
+  {
+    "Id": "4d9aaf3a-d791-4a6a-a92f-c016591b68ff",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Best TV Shows of 2026: New Series to Watch Now",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-new-tv-series-shows/",
+    "Summary": "The newest Certified Fresh shows, from \u0027Silo\u0027 to \u0027The Vampire Lestat.\u0027",
+    "PublishedAt": "2026-07-07T17:28:20Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196463Z"
+  },
+  {
+    "Id": "f7a22a38-3ac6-4075-be27-b1d3301d984d",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Rotten Tomatoes Predicts the 2026 Emmy Nominations",
+    "Link": "https://editorial.rottentomatoes.com/article/rotten-tomatoes-predicts-the-2026-emmy-nominations/",
+    "Summary": "We break down our picks for who and what will be nominated for the 78th  Emmy Awards.",
+    "PublishedAt": "2026-07-06T17:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196467Z"
+  },
+  {
+    "Id": "6f28a84e-5ff8-4ff1-b585-fb245e3173d4",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "7 TV and Streaming Shows You Should Binge-Watch in July",
+    "Link": "https://editorial.rottentomatoes.com/article/7-tv-and-streaming-shows-you-should-binge-watch-in-july-2026/",
+    "Summary": "This month, we\u0027ve got mutant superheroes, a starship crew, a massive subterranean society, survivors of a zombie apocalypse, and more.",
+    "PublishedAt": "2026-07-06T17:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196469Z"
+  },
+  {
+    "Id": "9c9ed8b2-9c64-4fab-b762-cddada88a499",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Best New Movies of 2026, Ranked by Tomatometer",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-new-movies/",
+    "Summary": "Discover every Certified Fresh movie of the year, including \u0027Project Hail Mary,\u0027 \u0027Obsession,\u0027 \u0027Backrooms,\u0027 and more.",
+    "PublishedAt": "2026-07-06T16:51:07Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196471Z"
+  },
+  {
+    "Id": "56b5c8bb-9c2f-4374-8a8e-657dc38249bd",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Free Movies Online: 100 Fresh Movies to Watch Online For Free",
+    "Link": "https://editorial.rottentomatoes.com/article/fresh-movies-you-can-watch-for-free-online-right-now/",
+    "Summary": "This month\u0027s new additions include \u0027Everything Everywhere All At Once\u0027, \u0027Cocaine Bear\u0027, \u0027The Shining\u0027, \u0027Big\u0027, and more.",
+    "PublishedAt": "2026-07-06T16:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196476Z"
+  },
+  {
+    "Id": "c8f3a76a-4b19-4cae-bfe3-637292be10b5",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "\u201CI Don\u2019t Know How the Hell We\u2019re Going to Do This\u201D \u2013 Christopher Nolan and the Cast on The Odyssey",
+    "Link": "https://editorial.rottentomatoes.com/article/the-odyssey-interview-christopher-nolan-matt-damon-anne-hathaway-tom-holland/",
+    "Summary": "The director and stars Matt Damon, Tom Holland, and Anne Hathaway talk about the challenges of IMAX and working on a film of epic scale.",
+    "PublishedAt": "2026-07-06T16:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196487Z"
+  },
+  {
+    "Id": "dbba9d73-ca93-4153-a016-38934e135f68",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Weekend Box Office: Minions \u0026 Monsters Takes No. 1 with Underwhelming Debut",
+    "Link": "https://editorial.rottentomatoes.com/article/weekend-box-office-minions-and-monsters-takes-no-1-with-underwhelming-debut/",
+    "Summary": "The animated comedy didn\u0027t rake in as much as its predecessors, but it\u0027s still a hit for Universal, while \u0027Young Washington\u0027 drew solid numbers over the holiday weekend.",
+    "PublishedAt": "2026-07-05T19:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.219649Z"
+  },
+  {
+    "Id": "24b06536-f7b8-4bf3-abd6-9d1695dac59d",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "How to Watch Every Match of the 2026 FIFA World Cup",
+    "Link": "https://editorial.rottentomatoes.com/article/how-to-watch-the-2026-fifa-world-cup/",
+    "Summary": "Want to watch the World Cup but can\u0027t get to any of the matches in person? Here\u0027s a handy guide to help plan your viewing schedule at home.",
+    "PublishedAt": "2026-07-05T17:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196496Z"
+  },
+  {
+    "Id": "ee06a016-4573-4029-af46-1ed5799ffbc2",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "15 Best Free TV Shows on Fandango at Home (July 2026)",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-free-tv-shows-fandango-at-home/",
+    "Summary": "This month\u0027s top Certified Fresh shows on Fandango\u0027s ad-supported streaming service!",
+    "PublishedAt": "2026-07-04T02:08:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196499Z"
+  },
+  {
+    "Id": "50ed3a47-44c3-4acc-abec-3d58e0c52f6a",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "50 Best Free Movies on Fandango (July 2026)",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-movies-fandango-at-home/",
+    "Summary": "This month\u0027s top Certified Fresh movies on Fandango\u0027s ad-supported streaming service!",
+    "PublishedAt": "2026-07-03T20:57:21Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196501Z"
+  },
+  {
+    "Id": "10d704e3-5c4d-4838-9fe5-519d09184bc2",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "30 Years Later, Independence Day Is Finally Certified Fresh",
+    "Link": "https://editorial.rottentomatoes.com/article/independence-day-certified-fresh-30th-anniversary/",
+    "Summary": "Thanks to 77 new reviews from its original theatrical run, the blockbuster sci-fi adventure\u0027s critical reception matches its pop cultural footprint.",
+    "PublishedAt": "2026-07-02T22:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196503Z"
+  },
+  {
+    "Id": "56e97fcf-03a0-4bdb-9975-3fda718575cd",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "What to Watch This Week",
+    "Link": "https://editorial.rottentomatoes.com/article/what-to-watch-this-week/",
+    "Summary": "The 5 movies, TV shows, and events everyone will be talking about, for the week of July 2 to July 8.",
+    "PublishedAt": "2026-07-02T19:16:43Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196505Z"
+  },
+  {
+    "Id": "77208f20-6a7b-43e6-9f66-6b47f7f6fda6",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Watch: Super Troopers 3 Exclusive Sneak Peek",
+    "Link": "https://editorial.rottentomatoes.com/article/super-troopers-3-exclusive-sneak-peek/",
+    "Summary": "\u0027Super Troopers 3\u0027 hits theaters on August 7!",
+    "PublishedAt": "2026-07-02T16:01:58Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196507Z"
+  },
+  {
+    "Id": "2e8087c1-5e37-4ade-aa40-af18134ee515",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "150 Best War Movies of All Time",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-war-movies-of-all-time/",
+    "Summary": "From peacetime to frontlines, from coming home to left behind: These are the 100 best-reviewed war movies of all time.",
+    "PublishedAt": "2026-07-02T15:53:38Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196509Z"
+  },
+  {
+    "Id": "7898ec5b-ba6b-412d-b066-61a292732c73",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "100 Best Netflix Series To Watch Right Now (July 2026)",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-netflix-shows-and-movies-to-binge-watch-now/",
+    "Summary": "The best-reviewed Netflix series still airing or recently ended, ranked by Tomatometer!",
+    "PublishedAt": "2026-07-01T23:36:50Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196511Z"
+  },
+  {
+    "Id": "a2bfd795-077c-4279-9588-b081d4a73684",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Netflix\u2019s 100 Best Movies Right Now (July 2026)",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-netflix-movies-to-watch-right-now/",
+    "Summary": "From \u0027A League of Their Own\u0027 to \u0027Born on the Fourth of July\u0027 ",
+    "PublishedAt": "2026-07-01T23:10:09Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196516Z"
+  },
+  {
+    "Id": "c2471b54-731d-46a2-bcb9-6eeefa39d13e",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Minions \u0026 Monsters First Reviews: A Silly, Entertaining Romp and a Love Letter to Classic Hollywood",
+    "Link": "https://editorial.rottentomatoes.com/article/minions-and-monsters-first-reviews/",
+    "Summary": "Critics say the movie packs plenty of slapstick for the kids and some surprisingly sophisticated references to classic film for grown-up movie buffs.",
+    "PublishedAt": "2026-07-01T19:30:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196519Z"
+  },
+  {
+    "Id": "b8d723b8-a463-49b0-b043-10bb5249c6e1",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "60 Movies You Can Watch July 4th Weekend",
+    "Link": "https://editorial.rottentomatoes.com/guide/movies-to-watch-july-4/",
+    "Summary": "Happy birthday, America! When you\u0027re done with the sun, fun, beach, and barbecue, cozy up on couch with one of these movies that capture the spirit of holiday.",
+    "PublishedAt": "2026-07-01T18:09:53Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196521Z"
+  },
+  {
+    "Id": "ffbfac34-a3ec-4b4e-ba05-10587b45d191",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Essential American History Movies",
+    "Link": "https://editorial.rottentomatoes.com/guide/american-history-movies/",
+    "Summary": "Catch up on American history with \u0027Lincoln,\u0027 \u0027Selma,\u0027 \u0027Jackie,\u0027 and more.",
+    "PublishedAt": "2026-07-01T16:45:18Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196523Z"
+  },
+  {
+    "Id": "b7c490af-165f-4663-ac95-710fb7b0ca03",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "RT Recommends: Our Favorite Movies This Week",
+    "Link": "https://editorial.rottentomatoes.com/guide/rtrecommends-our-favorite-movies-this-week/",
+    "Summary": "RT staff has spoken! Here are our recommended movies this week.  ",
+    "PublishedAt": "2026-07-01T09:31:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196524Z"
+  },
+  {
+    "Id": "4e63268a-35c8-4e3d-a782-a42e51ba32cf",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "All Despicable Me \u0026 Minions Movies Ranked",
+    "Link": "https://editorial.rottentomatoes.com/guide/despicable-me-minion-movies/",
+    "Summary": "Including the original Certified Fresh movies and the Minions spinoffs!",
+    "PublishedAt": "2026-06-30T23:42:57Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196526Z"
+  },
+  {
+    "Id": "06548063-61c9-4253-a2ad-fc483ca79ca5",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "25 Most Popular TV Shows Right Now: What to Watch on Streaming",
+    "Link": "https://editorial.rottentomatoes.com/guide/popular-tv-shows/",
+    "Summary": "See who tops the list this week! ",
+    "PublishedAt": "2026-06-30T21:53:04Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196528Z"
+  },
+  {
+    "Id": "70cec420-0810-477e-ada3-6fb9a7bcdaf6",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "30 Most Popular Movies Right Now: What to Watch In Theaters and Streaming",
+    "Link": "https://editorial.rottentomatoes.com/guide/popular-movies/",
+    "Summary": "See what films are buzzing with RT users this week! ",
+    "PublishedAt": "2026-06-30T21:49:10Z",
+    "FetchedAt": "2026-07-07T22:01:47.219653Z"
+  },
+  {
+    "Id": "520d5f6f-d0b6-4a90-8c7c-39906c47c181",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "TV Premiere Dates 2026",
+    "Link": "https://editorial.rottentomatoes.com/article/tv-premiere-dates-2026/",
+    "Summary": "Find out the premiere dates of the most anticipated new and returning shows in 2026.",
+    "PublishedAt": "2026-06-30T20:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196534Z"
+  },
+  {
+    "Id": "992621bd-3fd8-4adf-95ff-6b8541e047fc",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "William Franklyn-Miller on Making His Big-Screen Debut as Young Washington",
+    "Link": "https://editorial.rottentomatoes.com/article/william-franklyn-miller-on-making-his-big-screen-debut-as-young-washington/",
+    "Summary": "The 22-year-old actor talks about Ben Kingsley driving him to work his \u0022ass off,\u0022 the pressure of portraying a founding father, and more.",
+    "PublishedAt": "2026-06-30T19:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196556Z"
+  },
+  {
+    "Id": "0c11b6c1-699b-4c03-8e7f-297cfcab7947",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "The End of Oak Street: Release Date, Cast, Trailers \u0026 More",
+    "Link": "https://editorial.rottentomatoes.com/article/everything-we-know-about-the-end-of-oak-street/",
+    "Summary": "Here\u0027s everything we know about \u0027It Follows\u0027 director David Robert Mitchell\u0027s sci-fi thriller.",
+    "PublishedAt": "2026-06-30T19:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196558Z"
+  },
+  {
+    "Id": "bf54f3b7-7f13-4ef2-8fa8-88a6677cc97c",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Weekend Box Office: Toy Story 5 Holds off Supergirl",
+    "Link": "https://editorial.rottentomatoes.com/article/weekend-box-office-toy-story-5-holds-off-supergirl/",
+    "Summary": "The DC superhero was no match for Jessie, Buzz, and Woody as Craig Gillespie\u0027s space adventure came in well below expectations.",
+    "PublishedAt": "2026-06-29T02:40:21Z",
+    "FetchedAt": "2026-07-07T22:01:47.219656Z"
+  },
+  {
+    "Id": "26731a67-8fb1-4c9a-840d-0f045e341717",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Jackass Movies Ranked by Tomatometer",
+    "Link": "https://editorial.rottentomatoes.com/guide/jackass/",
+    "Summary": "We\u0027re ranking all the movies of the\u00A0Jackass franchise!",
+    "PublishedAt": "2026-06-26T20:10:48Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196562Z"
+  },
+  {
+    "Id": "bdf7ebdb-b36e-46fc-a469-2dd2c1f45022",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Jackass: Best and Last Audience Reviews: A Bittersweet but Laugh-Out-Loud Funny Goodbye",
+    "Link": "https://editorial.rottentomatoes.com/article/jackass-best-and-last-audience-reviews/",
+    "Summary": "Audiences say it\u0027s a hilarious and appropriately ridiculous send-off for its legendary crew of lovable idiots.",
+    "PublishedAt": "2026-06-26T19:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196564Z"
+  },
+  {
+    "Id": "0c13fa60-e340-477e-91e4-5666af293cad",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Jackass: Best and Last First Reviews: A Proper Send-Off Full of Gleeful Mayhem and A Bit of Nostalgia",
+    "Link": "https://editorial.rottentomatoes.com/article/jackass-best-and-last-first-reviews/",
+    "Summary": "Critics say this isn\u0027t necessarily the gang\u0027s most uproarious outing, but the new stunts complement the old stuff well enough and it feels like the right time to say goodbye.",
+    "PublishedAt": "2026-06-25T19:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196566Z"
+  },
+  {
+    "Id": "897ded7c-e996-45aa-b4b4-58f7782437d1",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "The Bear Season 5 First Reviews: An Intense, Entertaining, Satisfying Finale That Secures Its Legacy",
+    "Link": "https://editorial.rottentomatoes.com/article/the-bear-season-5-first-reviews/",
+    "Summary": "Critics say the acclaimed series\u0027 final season is a back-to-basics return to peak form that takes the show out in style and leaves no room for leftovers.",
+    "PublishedAt": "2026-06-25T18:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196568Z"
+  },
+  {
+    "Id": "40aadbe7-6f5c-474b-ad94-3d46af329911",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Best New Horror Movies of 2026",
+    "Link": "https://editorial.rottentomatoes.com/guide/best-new-horror-movies-2026/",
+    "Summary": "New scary movies to watch now!",
+    "PublishedAt": "2026-06-24T22:03:44Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196573Z"
+  },
+  {
+    "Id": "9dea7de8-8a70-46da-a1d7-4708b8bdc9b5",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "DC Comics Movies Ranked",
+    "Link": "https://editorial.rottentomatoes.com/guide/all-dc-comics-movies-ranked/",
+    "Summary": "From \u0027Supergirl\u0027 to \u0027Swamp Things,\u0027 it\u0027s all the theatrical DC movies by Tomatometer!",
+    "PublishedAt": "2026-06-24T19:41:28Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196576Z"
+  },
+  {
+    "Id": "40e9573e-1c61-499f-aa20-9e40f07756e3",
+    "FeedId": "f1a22e82-1b4c-47ed-bd66-0f77ab37416e",
+    "Title": "Supergirl First Reviews: A Superb Milly Alcock Stands Out in Uneven Entry in the DCU",
+    "Link": "https://editorial.rottentomatoes.com/article/supergirl-first-reviews/",
+    "Summary": "Critics say the latest chapter of the DC Universe isn\u0027t quite the must-see blockbuster of the summer, but its star makes it worth a watch.",
+    "PublishedAt": "2026-06-24T18:00:00Z",
+    "FetchedAt": "2026-07-07T22:01:47.2196577Z"
+  },
+  {
+    "Id": "f567bd44-31ad-444e-a4f1-893ce4e42161",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Designing Organisations That Can Keep Up With AI",
+    "Link": "https://openai.com/deployco/news/designing-organisations-that-can-keep-up-with-ai",
+    "Summary": "Why organisational latency is becoming the biggest barrier to fully realising AI\u2019s benefits",
+    "PublishedAt": "2026-06-25T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.9964246Z"
+  },
+  {
+    "Id": "03daaf8a-719c-4aff-b688-d0010656efe4",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Meta-Harness R\u0026D: Enterprise-Grade Self-Improvement for Long-Horizon AI Workflows",
+    "Link": "https://openai.com/deployco/news/meta-harness-enterprise-self-improvement-long-horizon-ai-workflows",
+    "Summary": "How autonomous code improvement can be made disciplined enough for enterprise use",
+    "PublishedAt": "2026-06-23T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.9964251Z"
+  },
+  {
+    "Id": "77fdf532-7b22-46f3-87ca-0bb378f6933d",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Responses are the Easy Part: What We\u2019ve Learned Building Real-time Voice Experiences at Scale",
+    "Link": "https://openai.com/deployco/news/building-realtime-voice-experiences-at-scale",
+    "Summary": "Timing, interruption, silence and recovery shape the experience as much as words",
+    "PublishedAt": "2026-05-28T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.9965339Z"
+  },
+  {
+    "Id": "17e55465-0dd4-4e40-b8dd-7695624ff784",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Conversational Design: Five Patterns to Shape Customer-facing AI Experiences",
+    "Link": "https://openai.com/deployco/news/conversational-design-five-patterns-to-shape-customer-facing-ai-experiences",
+    "Summary": "What held up in production when the goal wasn\u2019t just functional accuracy but better dialogue",
+    "PublishedAt": "2026-05-19T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.9965412Z"
+  },
+  {
+    "Id": "50f65d63-080d-4e7e-b3db-884b1d2346a8",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Deploying Business-Critical AI: How to Build the Confidence and Accountability to Go Live",
+    "Link": "https://openai.com/deployco/news/deploying-business-critical-ai-confidence-accountability-go-live",
+    "Summary": "Lacking confidence to put AI at the heart of your business?",
+    "PublishedAt": "2026-03-31T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.9966041Z"
+  },
+  {
+    "Id": "8fe5daee-c0e5-40df-b338-52e55aa61bba",
+    "FeedId": "b12d1b46-7774-433f-9aaf-43d125139ff6",
+    "Title": "Evals: Your Bridge From AI Experimentation To Confident Production Deployments",
+    "Link": "https://openai.com/deployco/news/evals-your-bridge-from-ai-experimentation-to-confident-production-deployments",
+    "Summary": "Most organisations have run an AI pilot. Far fewer have deployed an AI product. There is a fundamental gap between AI experimentation and production.",
+    "PublishedAt": "2026-02-18T12:00:00Z",
+    "FetchedAt": "2026-07-07T22:19:03.996622Z"
+  },
+  {
+    "Id": "bbd32369-40f0-4e0b-9cf7-16a4c74967b5",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Manhattan building sparks evacuations after two structural columns buckle",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/manhattan-building-columns-buckle-evacuations",
+    "Summary": "\u003Cp\u003EOfficials also find multiple cracks and sagging floors in building that is being converted into apartments\u003C/p\u003E\u003Cp\u003EA high-rise building in Manhattan was deemed unstable on Tuesday after authorities determined that support columns buckled, spurring evacuation of nearby buildings, according to officials and reports.\u003C/p\u003E\u003Cp\u003EThe former Pfizer pharmaceutical building, which is being converted into residential rentals, also had problematic floors, fire department officials said.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/manhattan-building-columns-buckle-evacuations\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T22:13:38Z",
+    "FetchedAt": "2026-07-07T22:21:10.4657625Z"
+  },
+  {
+    "Id": "4c7f2cfe-132e-4ced-8652-7f9954b9e9d8",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Major outage hits Telstra mobile network as thousands report they can\u2019t make calls or access internet",
+    "Link": "https://www.theguardian.com/australia-news/2026/jul/08/telstra-outage-down-network-mobile-outages-today",
+    "Summary": "\u003Cp\u003ECarrier confirms \u2018an issue\u2019 as mobile network used by millions goes down for many users\u003C/p\u003E\u003Cp\u003EThousands of Telstra customers have been unable to make calls or access their data on their mobiles on the country\u2019s largest network.\u003C/p\u003E\u003Cp\u003EThe telecommunications provider that powers some 25 million mobile services nationwide confirmed the outage on Wednesday.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/australia-news/2026/jul/08/telstra-outage-down-network-mobile-outages-today\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T22:29:11Z",
+    "FetchedAt": "2026-07-07T22:37:43.1300873Z"
+  },
+  {
+    "Id": "7483a612-f77f-476c-9b17-f68c80978111",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "Bernie Sanders calls on Graham Platner to withdraw from Senate race amid sexual assault claims",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/bernie-sanders-graham-platner-maine-senate-race",
+    "Summary": "\u003Cp\u003ESanders, one of Platner\u2019s earliest and most influential backers, is latest to call on him to withdraw from Maine race\u003C/p\u003E\u003Cp\u003EThe progressive senator Bernie Sanders called on Graham Platner to withdraw from the US Senate race in Maine, citing \u201Cvery serious allegations\u201D of sexual assault, hours before the embattled nominee faced another claim of sexual misconduct.\u003C/p\u003E\u003Cp\u003EWhile Platner has denied the claims, first reported by Politico, and later by the Washington Post, the initial report prompted a series of Democrats to urge him to stand aside as the party\u2019s candidate.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/bernie-sanders-graham-platner-maine-senate-race\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T22:18:11Z",
+    "FetchedAt": "2026-07-07T22:37:43.1300919Z"
+  },
+  {
+    "Id": "8baaeda2-361f-481d-b555-28d088c33d35",
+    "FeedId": "02a0ee99-c3ea-4c5c-b346-c944774d9d7a",
+    "Title": "\u2018Absolutely bananas\u2019: San Francisco homes sell for $1m above asking price amid AI boom",
+    "Link": "https://www.theguardian.com/us-news/2026/jul/07/san-francisco-home-sale-prices-ai",
+    "Summary": "\u003Cp\u003EReport finds widespread overbidding as rapid AI growth generates increased wealth in city where housing is scarce\u003C/p\u003E\u003Cp\u003ESan Francisco\u2019s AI boom has buyers spending unprecedented amounts of money on homes \u2013 much more than sellers are asking for.\u003C/p\u003E\u003Cp\u003EA new analysis from real-estate brokerage Compass, found that in the first half of 2026, \u003Ca href=\u0022https://www.sfchronicle.com/realestate/article/sf-homes-over-asking-22334362.php\u0022\u003Emore than 140 homes\u003C/a\u003E in the city sold for at least $1m above their asking price, 44 of them in June alone.\u003C/p\u003E \u003Ca href=\u0022https://www.theguardian.com/us-news/2026/jul/07/san-francisco-home-sale-prices-ai\u0022\u003EContinue reading...\u003C/a\u003E",
+    "PublishedAt": "2026-07-07T22:33:58Z",
+    "FetchedAt": "2026-07-07T22:50:01.5110655Z"
   }
 ]

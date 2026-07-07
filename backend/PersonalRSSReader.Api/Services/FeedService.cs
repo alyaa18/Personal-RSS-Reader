@@ -122,4 +122,41 @@ public class FeedService
 
         return newArticles;
     }
+
+    /// Refreshes all feeds server-side and returns aggregate totals,
+    /// so the frontend can issue a single request.
+    public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync()
+    {
+        var feeds = await _storage.ReadAllAsync<Feed>(FeedsFile);
+
+        var allNewArticles = new List<Article>();
+        var failedFeedsCount = 0;
+
+        // Sequential refresh avoids concurrent writes to JSON files.
+        foreach (var feed in feeds)
+        {
+            var newArticles = await RefreshFeedAsync(feed.Id);
+            if (newArticles == null)
+            {
+                failedFeedsCount++;
+                continue;
+            }
+
+            allNewArticles.AddRange(newArticles);
+        }
+
+        return new RefreshAllFeedsResult
+        {
+            NewArticlesCount = allNewArticles.Count,
+            Articles = allNewArticles,
+            FailedFeedsCount = failedFeedsCount
+        };
+    }
+}
+
+public class RefreshAllFeedsResult
+{
+    public int NewArticlesCount { get; set; }
+    public List<Article> Articles { get; set; } = new();
+    public int FailedFeedsCount { get; set; }
 }

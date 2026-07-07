@@ -1,10 +1,10 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
-import { cloneTemplate, formatDate, setFaviconWithFallback, truncateText } from './utils.js';
+import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText } from './utils.js';
 import { isFavorite, toggleFavorite } from './favorites.js';
 import { renderPagination } from './pagination.js';
 
-const SUMMARY_LIMIT = 240;
+const SUMMARY_WORD_LIMIT = 42;
 
 // ---------- Feed list (sidebar) ----------
 
@@ -74,7 +74,7 @@ export function setArticleListState(mode) {
 // ---------- Main article list render ----------
 
 export function renderArticles() {
-  dom.articleList.querySelectorAll('.article-card, .article-group-label').forEach((el) => el.remove());
+  dom.articleList.querySelectorAll('.article-card').forEach((el) => el.remove());
 
   const filtered = getFilteredArticles();
   const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
@@ -91,24 +91,24 @@ export function renderArticles() {
   const start = (state.currentPage - 1) * state.pageSize;
   const pageItems = filtered.slice(start, start + state.pageSize);
 
-  // Commit 8: group label whenever the feed changes, only in the mixed "All Articles" view.
-  let lastFeedId = null;
   pageItems.forEach((article) => {
-    if (state.activeView === 'all' && state.activeFeedId === 'all' && article.feedId !== lastFeedId) {
-      dom.articleList.appendChild(buildFeedGroupLabel(article));
-      lastFeedId = article.feedId;
-    }
     dom.articleList.appendChild(buildArticleCard(article));
   });
 
   renderPagination(filtered.length);
 }
 
-function buildFeedGroupLabel(article) {
-  const label = document.createElement('div');
-  label.className = 'article-group-label';
-  label.textContent = article.feedTitle;
-  return label;
+export function renderArticlesWithTransition() {
+  if (dom.articleList.classList.contains('is-refreshing')) {
+    renderArticles();
+    return;
+  }
+
+  dom.articleList.classList.add('is-refreshing');
+  renderArticles();
+  requestAnimationFrame(() => {
+    dom.articleList.classList.remove('is-refreshing');
+  });
 }
 
 function buildArticleCard(article) {
@@ -121,14 +121,12 @@ function buildArticleCard(article) {
   card.querySelector('.article-card__feed-title').textContent = article.feedTitle;
 
   const dateEl = card.querySelector('.article-card__date');
-  dateEl.textContent = formatDate(article.publishedAt);
+  dateEl.textContent = formatDateTime(article.publishedAt);
   dateEl.setAttribute('datetime', article.publishedAt);
 
   const link = card.querySelector('.article-card__link');
   link.href = article.link;
   link.textContent = article.title;
-
-  card.querySelector('.article-card__read-original').href = article.link;
 
   // Commit 4: Read More / Read Less truncation.
   const summaryEl = card.querySelector('.article-card__summary');
@@ -139,12 +137,12 @@ function buildArticleCard(article) {
 
   const plainTextHolder = document.createElement('div');
   plainTextHolder.innerHTML = cleanHtml;
-  const fullText = plainTextHolder.textContent;
-  const { truncated, isTruncated } = truncateText(fullText, SUMMARY_LIMIT);
+  const fullText = (plainTextHolder.textContent || '').trim();
+  const { truncated, isTruncated } = truncateText(fullText, SUMMARY_WORD_LIMIT);
   const isExpanded = state.expandedArticleIds.has(article.id);
 
   if (!isTruncated || isExpanded) {
-    summaryEl.innerHTML = cleanHtml;
+    summaryEl.textContent = fullText;
   } else {
     summaryEl.textContent = truncated;
   }

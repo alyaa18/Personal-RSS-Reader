@@ -2,16 +2,36 @@ export function cloneTemplate(tpl) {
   return tpl.content.firstElementChild.cloneNode(true);
 }
 
+const FAVICON_DENYLIST = new Set([
+  'feeds.arstechnica.com',
+]);
+
 export function formatDate(isoString) {
   const date = new Date(isoString);
   if (isNaN(date.getTime())) return '';
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+export function formatDateTime(isoString) {
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) return '';
+  const dateText = date.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  const timeText = date.toLocaleTimeString(undefined, {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+  return `${dateText} ${timeText}`;
+}
+
 export function getFaviconUrl(feedUrl) {
   try {
-    const hostname = new URL(feedUrl).hostname;
-    return `https://www.google.com/s2/favicons?sz=32&domain=${hostname}`;
+    const normalizedUrl = new URL(feedUrl);
+    if (FAVICON_DENYLIST.has(normalizedUrl.hostname)) return null;
+    return `https://www.google.com/s2/favicons?sz=32&domain_url=${encodeURIComponent(normalizedUrl.href)}`;
   } catch {
     return null;
   }
@@ -46,10 +66,8 @@ export function debounce(fn, delay = 250) {
   };
 }
 
-export function truncateText(text, maxLength = 240) {
-  if (text.length <= maxLength) return { truncated: text, isTruncated: false };
-  let cut = text.slice(0, maxLength);
-  const lastSpace = cut.lastIndexOf(' ');
-  if (lastSpace > 0) cut = cut.slice(0, lastSpace);
-  return { truncated: cut + '…', isTruncated: true };
+export function truncateText(text, maxWords = 42) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length <= maxWords) return { truncated: text, isTruncated: false };
+  return { truncated: words.slice(0, maxWords).join(' ') + '…', isTruncated: true };
 }

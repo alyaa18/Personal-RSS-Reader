@@ -38,6 +38,14 @@ function setActiveView(view) {
 dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));
 dom.navStarred.addEventListener('click', () => setActiveView('starred'));
 
+dom.feedScrollLeftBtn?.addEventListener('click', () => {
+  dom.feedList.scrollBy({ left: -180, behavior: 'smooth' });
+});
+
+dom.feedScrollRightBtn?.addEventListener('click', () => {
+  dom.feedList.scrollBy({ left: 180, behavior: 'smooth' });
+});
+
 dom.feedList.addEventListener('click', (event) => {
   const li = event.target.closest('.feed-item');
   if (!li) return;

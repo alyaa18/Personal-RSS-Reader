@@ -1,5 +1,7 @@
 export const dom = {
   feedList: document.getElementById('feed-list'),
+  feedScrollLeftBtn: document.getElementById('feed-scroll-left'),
+  feedScrollRightBtn: document.getElementById('feed-scroll-right'),
   feedListEmpty: document.getElementById('feed-list-empty'),
   articleList: document.getElementById('article-list'),
   stateEmpty: document.getElementById('state-empty'),

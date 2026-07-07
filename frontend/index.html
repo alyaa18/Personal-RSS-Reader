@@ -33,7 +33,13 @@
       </nav>
 
       <div class="sidebar__section">
-        <p class="sidebar__section-label">Feeds</p>
+        <div class="sidebar__section-head">
+          <p class="sidebar__section-label">Feeds</p>
+          <div class="feed-scroll-controls" aria-label="Feed list scroll controls">
+            <button type="button" class="feed-scroll-btn" id="feed-scroll-left" aria-label="Scroll feeds left">&#8249;</button>
+            <button type="button" class="feed-scroll-btn" id="feed-scroll-right" aria-label="Scroll feeds right">&#8250;</button>
+          </div>
+        </div>
         <ul class="feed-list" id="feed-list">
           <li class="feed-list__empty" id="feed-list-empty">
             No feeds yet. Add one below to get started.
@@ -41,22 +47,21 @@
         </ul>
       </div>
 
-      <div class="sidebar__footer">
-        <button type="button" class="btn btn--primary" id="open-add-feed">
-          <span aria-hidden="true">+</span> Add Feed
-        </button>
-        <button type="button" class="btn btn--ghost" id="refresh-all-feeds">
-          <span aria-hidden="true">&#8635;</span> Refresh All
-        </button>
-      </div>
     </aside>
 
     <main class="content">
       <header class="content__header">
         <h2 class="content__title" id="content-title">All Articles</h2>
         <div class="content__toolbar">
+          <div class="content__actions">
+            <button type="button" class="btn btn--primary" id="open-add-feed">
+              <span aria-hidden="true">+</span> Add Feed
+            </button>
+            <button type="button" class="btn btn--ghost" id="refresh-all-feeds">
+              <span aria-hidden="true">&#8635;</span> Refresh All
+            </button>
+          </div>
           <div class="search-field">
-            <span class="search-field__icon" aria-hidden="true">&#128269;</span>
             <input type="search" id="search-input" class="search-field__input"
                    placeholder="Search articles by title or content…" aria-label="Search articles">
           </div>
@@ -157,7 +162,6 @@
       <p class="article-card__summary"></p>
       <button type="button" class="article-card__toggle is-hidden"></button>
       <div class="article-card__footer">
-        <a class="article-card__read-original" href="#" target="_blank" rel="noopener noreferrer">Read original &rarr;</a>
         <button type="button" class="article-card__star" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
       </div>
     </article>

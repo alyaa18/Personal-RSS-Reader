@@ -25,6 +25,10 @@
   --color-success-text: #2F7A44;
   --color-success-border: #C7E6CD;
 
+  --color-danger: #A23B3B;
+  --color-danger-hover: #8B2F2F;
+  --color-skeleton: #EDE7D8;
+
   /* Typography */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

@@ -26,6 +26,10 @@
           <span class="nav-item__icon" aria-hidden="true">&#9776;</span>
           <span>All Articles</span>
         </button>
+        <button type="button" class="nav-item" id="nav-starred">
+          <span class="nav-item__icon" aria-hidden="true">&#9733;</span>
+          <span>Starred</span>
+        </button>
       </nav>
 
       <div class="sidebar__section">
@@ -38,10 +42,10 @@
       </div>
 
       <div class="sidebar__footer">
-        <button type="button" class="btn btn--primary btn--block" id="open-add-feed">
+        <button type="button" class="btn btn--primary" id="open-add-feed">
           <span aria-hidden="true">+</span> Add Feed
         </button>
-        <button type="button" class="btn btn--ghost btn--block" id="refresh-all-feeds">
+        <button type="button" class="btn btn--ghost" id="refresh-all-feeds">
           <span aria-hidden="true">&#8635;</span> Refresh All
         </button>
       </div>
@@ -50,7 +54,13 @@
     <main class="content">
       <header class="content__header">
         <h2 class="content__title" id="content-title">All Articles</h2>
-        <p class="content__subtitle" id="content-subtitle">Reverse chronological order</p>
+        <div class="content__toolbar">
+          <div class="search-field">
+            <span class="search-field__icon" aria-hidden="true">&#128269;</span>
+            <input type="search" id="search-input" class="search-field__input"
+                   placeholder="Search articles by title or content…" aria-label="Search articles">
+          </div>
+        </div>
       </header>
 
       <div class="banner-region" id="banner-region" aria-live="polite"></div>
@@ -66,10 +76,28 @@
         </div>
 
         <div class="state state--loading is-hidden" id="state-loading">
-          <div class="spinner" aria-hidden="true"></div>
-          <p class="state__body">Loading articles…</p>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton-line skeleton-line--meta"></div>
+            <div class="skeleton-line skeleton-line--title"></div>
+            <div class="skeleton-line skeleton-line--body"></div>
+            <div class="skeleton-line skeleton-line--body short"></div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton-line skeleton-line--meta"></div>
+            <div class="skeleton-line skeleton-line--title"></div>
+            <div class="skeleton-line skeleton-line--body"></div>
+            <div class="skeleton-line skeleton-line--body short"></div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton-line skeleton-line--meta"></div>
+            <div class="skeleton-line skeleton-line--title"></div>
+            <div class="skeleton-line skeleton-line--body"></div>
+            <div class="skeleton-line skeleton-line--body short"></div>
+          </div>
         </div>
       </section>
+
+      <div class="pagination is-hidden" id="pagination"></div>
     </main>
 
   </div>
@@ -91,6 +119,17 @@
     </form>
   </dialog>
 
+  <dialog class="modal modal--confirm" id="confirm-dialog">
+    <div class="modal__form">
+      <h2 class="modal__title" id="confirm-title">Are you sure?</h2>
+      <p class="modal__subtitle" id="confirm-message"></p>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="confirm-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-action-btn">Confirm</button>
+      </div>
+    </div>
+  </dialog>
+
   <template id="feed-item-template">
     <li class="feed-item" data-feed-id="">
       <button type="button" class="feed-item__button">
@@ -107,7 +146,7 @@
   <template id="article-item-template">
     <article class="article-card">
       <div class="article-card__meta">
-        <img class="article-card__favicon" src="" alt="" width="14" height="14">
+        <img class="article-card__favicon" src="" alt="" width="16" height="16">
         <span class="article-card__feed-title"></span>
         <span class="article-card__dot" aria-hidden="true">&middot;</span>
         <time class="article-card__date"></time>
@@ -116,11 +155,16 @@
         <a class="article-card__link" href="#" target="_blank" rel="noopener noreferrer"></a>
       </h3>
       <p class="article-card__summary"></p>
+      <button type="button" class="article-card__toggle is-hidden"></button>
+      <div class="article-card__footer">
+        <a class="article-card__read-original" href="#" target="_blank" rel="noopener noreferrer">Read original &rarr;</a>
+        <button type="button" class="article-card__star" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
+      </div>
     </article>
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script src="js/api.js"></script>
-  <script src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

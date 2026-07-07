@@ -3,7 +3,10 @@ using PersonalRSSReader.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<JsonStorageService>();
-builder.Services.AddHttpClient<RssService>();
+builder.Services.AddHttpClient<RssService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(15);
+});
 builder.Services.AddSingleton<FeedService>();
 builder.Services.AddSingleton<ArticleService>();
 
@@ -68,11 +71,15 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedServ
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
 });
 
-app.MapMethods("/api/feeds/refresh", new[] { "POST", "GET" }, async (FeedService feedService) =>
+app.MapPost("/api/feeds/refreshall", RefreshAllFeeds);
+
+app.MapMethods("/api/feeds/refresh", new[] { "POST", "GET" }, RefreshAllFeeds);
+
+static async Task<IResult> RefreshAllFeeds(FeedService feedService)
 {
     var result = await feedService.RefreshAllFeedsAsync();
     return Results.Ok(result);
-});
+}
 
 app.MapGet("/api/articles", async (ArticleService articleService) =>
 {

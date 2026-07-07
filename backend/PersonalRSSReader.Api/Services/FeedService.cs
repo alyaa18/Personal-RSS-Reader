@@ -128,21 +128,56 @@ public class FeedService
     public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync()
     {
         var feeds = await _storage.ReadAllAsync<Feed>(FeedsFile);
+        var allArticles = await _storage.ReadAllAsync<Article>(ArticlesFile);
 
-        var allNewArticles = new List<Article>();
-        var failedFeedsCount = 0;
+        var existingLinksByFeedId = allArticles
+            .GroupBy(a => a.FeedId)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(a => a.Link).ToHashSet());
 
-        // Sequential refresh avoids concurrent writes to JSON files.
-        foreach (var feed in feeds)
+        var refreshTasks = feeds.Select(async feed =>
         {
-            var newArticles = await RefreshFeedAsync(feed.Id);
-            if (newArticles == null)
+            var parsedFeed = await _rssService.TryFetchFeedAsync(feed.Url);
+            if (parsedFeed == null)
             {
-                failedFeedsCount++;
-                continue;
+                return new FeedRefreshResult(feed, null);
             }
 
-            allNewArticles.AddRange(newArticles);
+            existingLinksByFeedId.TryGetValue(feed.Id, out var existingLinks);
+            existingLinks ??= new HashSet<string>();
+
+            var newArticles = _rssService.MapToArticles(parsedFeed, feed.Id)
+                .Where(a => !existingLinks.Contains(a.Link))
+                .ToList();
+
+            return new FeedRefreshResult(feed, newArticles);
+        });
+
+        var refreshResults = await Task.WhenAll(refreshTasks);
+        var successfulResults = refreshResults
+            .Where(result => result.NewArticles != null)
+            .ToList();
+        var allNewArticles = successfulResults
+            .SelectMany(result => result.NewArticles!)
+            .ToList();
+        var failedFeedsCount = refreshResults.Length - successfulResults.Count;
+        var now = DateTime.UtcNow;
+
+        foreach (var result in successfulResults)
+        {
+            allArticles.AddRange(result.NewArticles!);
+            result.Feed.LastFetchedAt = now;
+        }
+
+        if (allNewArticles.Count > 0)
+        {
+            await _storage.WriteAllAsync(ArticlesFile, allArticles);
+        }
+
+        if (feeds.Count > failedFeedsCount)
+        {
+            await _storage.WriteAllAsync(FeedsFile, feeds);
         }
 
         return new RefreshAllFeedsResult
@@ -152,6 +187,8 @@ public class FeedService
             FailedFeedsCount = failedFeedsCount
         };
     }
+
+    private record FeedRefreshResult(Feed Feed, List<Article>? NewArticles);
 }
 
 public class RefreshAllFeedsResult

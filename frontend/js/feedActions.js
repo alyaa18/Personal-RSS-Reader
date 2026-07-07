@@ -51,12 +51,12 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
       );
       renderArticlesWithTransition();
     }
-    showBanner(
-      result.newArticlesCount > 0
-        ? `${result.newArticlesCount} new article${result.newArticlesCount === 1 ? '' : 's'} from "${feed.title}".`
-        : `No new articles from "${feed.title}".`,
-      'success'
-    );
+    if (result.newArticlesCount > 0) {
+      showBanner(
+        `${result.newArticlesCount} new article${result.newArticlesCount === 1 ? '' : 's'} from "${feed.title}".`,
+        'success'
+      );
+    }
   } catch (error) {
     showBanner(error.message || `Could not refresh "${feed.title}".`, 'error');
   } finally {
@@ -89,11 +89,9 @@ export async function handleRefreshAll() {
 
     const failedCount = result.failedFeedsCount ?? 0;
     if (failedCount > 0) showBanner(`${failedCount} feed(s) could not be refreshed.`, 'error');
-    showBanner(
-      totalNew > 0 ? `${totalNew} new article(s) found.` : 'No new articles found.',
-      'success',
-      totalNew > 0 ? 4000 : 6500
-    );
+    if (totalNew > 0) {
+      showBanner(`${totalNew} new article(s) found.`, 'success');
+    }
   } catch (error) {
     showBanner(error.message || 'Could not refresh feeds.', 'error');
   } finally {

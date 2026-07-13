@@ -8,6 +8,12 @@
 *.log
 backend/PersonalRSSReader.Api/Data/*.db
 backend/PersonalRSSReader.Api/Data/*.sqlite
+backend/PersonalRSSReader.Api/Data/*.db-shm
+backend/PersonalRSSReader.Api/Data/*.db-wal
 frontend/node_modules/
 frontend/dist/
 frontend/build/
+# SQLite local database files (not committed — Data/ is a persistent volume in production)
+*.db
+*.db-shm
+*.db-wal

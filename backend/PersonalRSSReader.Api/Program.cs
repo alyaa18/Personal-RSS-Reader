@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using PersonalRSSReader.Api.Data;
 using PersonalRSSReader.Api.Middleware;
 using PersonalRSSReader.Api.Models.DTOs;
 using PersonalRSSReader.Api.Services;
@@ -12,6 +14,9 @@ builder.Services.AddHttpClient<RssService>(client =>
 builder.Services.AddSingleton<FeedService>();
 builder.Services.AddSingleton<ArticleService>();
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -23,6 +28,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Ensure the database is created and migrations are applied on startup.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
@@ -88,6 +100,22 @@ app.MapGet("/api/articles", async (ArticleService articleService) =>
 {
     var articles = await articleService.GetAllArticlesAsync();
     return Results.Ok(articles);
+});
+
+// ── Diagnostics ─────────────────────────────────────────────────
+
+app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
+{
+    var dbPath = Path.Combine(env.ContentRootPath, "Data", "app.db");
+    var exists = File.Exists(dbPath);
+    var info = exists ? new FileInfo(dbPath) : null;
+
+    return Results.Ok(new
+    {
+        exists,
+        sizeBytes = info?.Length,
+        lastModifiedUtc = info?.LastWriteTimeUtc
+    });
 });
 
 app.Run();

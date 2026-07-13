@@ -1,3 +1,5 @@
+using PersonalRSSReader.Api.Middleware;
+using PersonalRSSReader.Api.Models.DTOs;
 using PersonalRSSReader.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +24,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
+
+// ── Feed endpoints ──────────────────────────────────────────────
 
 app.MapGet("/api/feeds", async (FeedService feedService) =>
 {
@@ -71,15 +76,13 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedServ
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
 });
 
-app.MapPost("/api/feeds/refreshall", RefreshAllFeeds);
-
-app.MapMethods("/api/feeds/refresh", new[] { "POST", "GET" }, RefreshAllFeeds);
-
-static async Task<IResult> RefreshAllFeeds(FeedService feedService)
+app.MapPost("/api/feeds/refresh", async (FeedService feedService) =>
 {
     var result = await feedService.RefreshAllFeedsAsync();
     return Results.Ok(result);
-}
+});
+
+// ── Article endpoints ───────────────────────────────────────────
 
 app.MapGet("/api/articles", async (ArticleService articleService) =>
 {
@@ -88,5 +91,3 @@ app.MapGet("/api/articles", async (ArticleService articleService) =>
 });
 
 app.Run();
-
-record AddFeedRequest(string Url);

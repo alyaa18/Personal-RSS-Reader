@@ -42,6 +42,6 @@ const api = {
   addFeed: (url) => apiRequest('/feeds', { method: 'POST', body: JSON.stringify({ url }) }),
   removeFeed: (id) => apiRequest(`/feeds/${id}`, { method: 'DELETE' }),
   refreshFeed: (id) => apiRequest(`/feeds/${id}/refresh`, { method: 'POST' }),
-  refreshAllFeeds: () => apiRequest('/feeds/refreshall', { method: 'POST' }),
+  refreshAllFeeds: () => apiRequest('/feeds/refresh', { method: 'POST' }),
   getArticles: () => apiRequest('/articles'),
 };

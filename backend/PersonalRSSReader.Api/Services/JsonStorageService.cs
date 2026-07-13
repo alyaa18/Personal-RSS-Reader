@@ -6,15 +6,17 @@ public class JsonStorageService
 {
     private readonly string _dataDirectory;
     private readonly SemaphoreSlim _lock = new(1, 1);
+    private readonly ILogger<JsonStorageService> _logger;
     private static readonly JsonSerializerOptions _jsonOptions = new()
     {
         WriteIndented = true
     };
 
-    public JsonStorageService(IConfiguration configuration, IWebHostEnvironment env)
+    public JsonStorageService(IConfiguration configuration, IWebHostEnvironment env, ILogger<JsonStorageService> logger)
     {
         var relativeDir = configuration["Storage:DataDirectory"] ?? "Data";
         _dataDirectory = Path.Combine(env.ContentRootPath, relativeDir);
+        _logger = logger;
     }
 
     public async Task<List<T>> ReadAllAsync<T>(string fileName)
@@ -35,7 +37,9 @@ public class JsonStorageService
                 return new List<T>();
             }
 
-            return JsonSerializer.Deserialize<List<T>>(json, _jsonOptions) ?? new List<T>();
+            var items = JsonSerializer.Deserialize<List<T>>(json, _jsonOptions) ?? new List<T>();
+            _logger.LogDebug("Read {Count} items from {FilePath}", items.Count, filePath);
+            return items;
         }
         finally
         {
@@ -56,6 +60,7 @@ public class JsonStorageService
             var filePath = Path.Combine(_dataDirectory, fileName);
             var json = JsonSerializer.Serialize(items, _jsonOptions);
             await File.WriteAllTextAsync(filePath, json);
+            _logger.LogDebug("Wrote {Count} items to {FilePath}", items.Count, filePath);
         }
         finally
         {

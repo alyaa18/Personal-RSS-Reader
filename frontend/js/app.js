@@ -17,8 +17,8 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 
 setRerenderCallback(renderArticles);
 
-function setActiveFeed(feedId) {
-  state.activeView = 'all';
+function navigateTo(feedId, view) {
+  state.activeView = view;
   state.activeFeedId = feedId;
   state.currentPage = 1;
   updateActiveStyles();
@@ -26,13 +26,12 @@ function setActiveFeed(feedId) {
   renderArticles();
 }
 
+function setActiveFeed(feedId) {
+  navigateTo(feedId, 'all');
+}
+
 function setActiveView(view) {
-  state.activeView = view;
-  state.activeFeedId = 'all';
-  state.currentPage = 1;
-  updateActiveStyles();
-  updateContentHeader();
-  renderArticles();
+  navigateTo('all', view);
 }
 
 dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));

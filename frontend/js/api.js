@@ -1,6 +1,6 @@
 import { getToken, triggerUnauthorized } from './auth.js';
 
-const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+export const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
   ? 'http://localhost:5001/api'
   : 'https://personal-rss-reader-production-feb0.up.railway.app/api';
 
@@ -83,7 +83,6 @@ const api = {
   addFavorite: (articleId) => apiRequest('/favorites', { method: 'POST', body: JSON.stringify({ articleId }) }),
   removeFavorite: (articleId) => apiRequest(`/favorites/${articleId}`, { method: 'DELETE' }),
 
-  // Prepped for the upcoming playlist UI milestone — not wired up yet.
   getPlaylists: () => apiRequest('/playlists'),
   createPlaylist: (name) => apiRequest('/playlists', { method: 'POST', body: JSON.stringify({ name }) }),
   deletePlaylist: (id) => apiRequest(`/playlists/${id}`, { method: 'DELETE' }),

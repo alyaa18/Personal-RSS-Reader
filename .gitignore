@@ -13,6 +13,10 @@ backend/PersonalRSSReader.Api/Data/*.db-wal
 frontend/node_modules/
 frontend/dist/
 frontend/build/
+
+# Runtime JSON data (generated/modified by JsonStorageService)
+backend/PersonalRSSReader.Api/Data/articles.json
+backend/PersonalRSSReader.Api/Data/feeds.json
 # SQLite local database files (not committed — Data/ is a persistent volume in production)
 *.db
 *.db-shm

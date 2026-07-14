@@ -18,6 +18,8 @@ builder.Services.AddHttpClient<RssService>(client =>
 });
 builder.Services.AddSingleton<FeedService>();
 builder.Services.AddSingleton<ArticleService>();
+builder.Services.AddScoped<FavoriteService>();
+builder.Services.AddScoped<PlaylistService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -183,5 +185,74 @@ app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
         lastModifiedUtc = info?.LastWriteTimeUtc
     });
 });
+
+// ── Favorites ────────────────────────────────────────────────
+
+app.MapGet("/api/favorites", async (ClaimsPrincipal user, FavoriteService favoriteService, ArticleService articleService) =>
+{
+    var ids = await favoriteService.GetFavoriteArticleIdsAsync(user.GetUserId());
+    var articles = await articleService.GetArticlesByIdsAsync(ids);
+    return Results.Ok(articles);
+}).RequireAuthorization();
+
+app.MapPost("/api/favorites", async (AddFavoriteRequest request, ClaimsPrincipal user, FavoriteService favoriteService) =>
+{
+    var added = await favoriteService.AddFavoriteAsync(user.GetUserId(), request.ArticleId);
+    return added
+        ? Results.Created($"/api/favorites/{request.ArticleId}", new { request.ArticleId })
+        : Results.Ok(new { message = "Already favorited." });
+}).RequireAuthorization();
+
+app.MapDelete("/api/favorites/{articleId:guid}", async (Guid articleId, ClaimsPrincipal user, FavoriteService favoriteService) =>
+{
+    var removed = await favoriteService.RemoveFavoriteAsync(user.GetUserId(), articleId);
+    return removed ? Results.NoContent() : Results.NotFound(new { error = "Favorite not found." });
+}).RequireAuthorization();
+
+// ── Playlists ────────────────────────────────────────────────
+
+app.MapGet("/api/playlists", async (ClaimsPrincipal user, PlaylistService playlistService) =>
+{
+    var playlists = await playlistService.GetPlaylistsAsync(user.GetUserId());
+    return Results.Ok(playlists.Select(p => new { p.Id, p.Name, p.Slug, p.CreatedAt }));
+}).RequireAuthorization();
+
+app.MapPost("/api/playlists", async (CreatePlaylistRequest request, ClaimsPrincipal user, PlaylistService playlistService) =>
+{
+    if (string.IsNullOrWhiteSpace(request.Name))
+    {
+        return Results.BadRequest(new { error = "Playlist name is required." });
+    }
+
+    var playlist = await playlistService.CreatePlaylistAsync(user.GetUserId(), request.Name.Trim());
+    return Results.Created($"/api/playlists/{playlist.Id}", new { playlist.Id, playlist.Name, playlist.Slug, playlist.CreatedAt });
+}).RequireAuthorization();
+
+app.MapDelete("/api/playlists/{id:guid}", async (Guid id, ClaimsPrincipal user, PlaylistService playlistService) =>
+{
+    var removed = await playlistService.DeletePlaylistAsync(user.GetUserId(), id);
+    return removed ? Results.NoContent() : Results.NotFound(new { error = "Playlist not found." });
+}).RequireAuthorization();
+
+app.MapGet("/api/playlists/{id:guid}", async (Guid id, ClaimsPrincipal user, PlaylistService playlistService, ArticleService articleService) =>
+{
+    var playlist = await playlistService.GetOwnedPlaylistAsync(user.GetUserId(), id);
+    if (playlist == null) return Results.NotFound(new { error = "Playlist not found." });
+
+    var articles = await articleService.GetArticlesByIdsAsync(playlist.Articles.Select(a => a.ArticleId));
+    return Results.Ok(new { playlist.Id, playlist.Name, playlist.Slug, playlist.CreatedAt, Articles = articles });
+}).RequireAuthorization();
+
+app.MapPost("/api/playlists/{id:guid}/articles", async (Guid id, AddPlaylistArticleRequest request, ClaimsPrincipal user, PlaylistService playlistService) =>
+{
+    var added = await playlistService.AddArticleAsync(user.GetUserId(), id, request.ArticleId);
+    return added ? Results.Ok(new { message = "Added." }) : Results.NotFound(new { error = "Playlist not found." });
+}).RequireAuthorization();
+
+app.MapDelete("/api/playlists/{id:guid}/articles/{articleId:guid}", async (Guid id, Guid articleId, ClaimsPrincipal user, PlaylistService playlistService) =>
+{
+    var removed = await playlistService.RemoveArticleAsync(user.GetUserId(), id, articleId);
+    return removed ? Results.NoContent() : Results.NotFound(new { error = "Article not in playlist." });
+}).RequireAuthorization();
 
 app.Run();

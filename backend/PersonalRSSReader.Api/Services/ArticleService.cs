@@ -47,4 +47,32 @@ public class ArticleService
 
         return result;
     }
+
+    /// Resolves full article details for a specific set of IDs, joined with
+    /// feed titles. Used by Favorites, Playlists, and the public RSS feed —
+    /// anywhere a caller has ArticleIds from SQLite and needs the actual
+    /// content, which still lives only in the JSON cache.
+    public async Task<List<ArticleWithFeedInfo>> GetArticlesByIdsAsync(IEnumerable<Guid> articleIds)
+    {
+        var idSet = articleIds.ToHashSet();
+        var articles = await _storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
+        var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
+        var feedTitleById = feeds.ToDictionary(f => f.Id, f => f.Title);
+
+        return articles
+            .Where(a => idSet.Contains(a.Id))
+            .Select(a => new ArticleWithFeedInfo
+            {
+                Id = a.Id,
+                FeedId = a.FeedId,
+                FeedTitle = feedTitleById.GetValueOrDefault(a.FeedId, "(unknown feed)"),
+                Title = a.Title,
+                Link = a.Link,
+                Summary = a.Summary,
+                PublishedAt = a.PublishedAt,
+                FetchedAt = a.FetchedAt
+            })
+            .OrderByDescending(a => a.PublishedAt)
+            .ToList();
+    }
 }

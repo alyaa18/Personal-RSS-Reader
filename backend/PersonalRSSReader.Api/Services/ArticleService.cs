@@ -14,14 +14,23 @@ public class ArticleService
         _logger = logger;
     }
 
-    public async Task<List<ArticleWithFeedInfo>> GetAllArticlesAsync()
+    /// Returns all articles belonging to the given user's feeds, newest
+    /// first. Filtering happens via feed ownership, since Article has no
+    /// UserId of its own — a feed's owner implicitly owns its articles.
+    public async Task<List<ArticleWithFeedInfo>> GetAllArticlesAsync(Guid userId)
     {
         var articles = await _storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
         var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
 
-        var feedTitleById = feeds.ToDictionary(f => f.Id, f => f.Title);
+        var userFeeds = feeds.Where(f => f.UserId == userId).ToList();
+        var userFeedIds = userFeeds.Select(f => f.Id).ToHashSet();
+        var feedTitleById = userFeeds.ToDictionary(f => f.Id, f => f.Title);
+
+        _logger.LogDebug("Retrieved {ArticleCount} candidate articles across {FeedCount} feeds for user {UserId}",
+            articles.Count, userFeeds.Count, userId);
 
         var result = articles
+            .Where(a => userFeedIds.Contains(a.FeedId))
             .Select(a => new ArticleWithFeedInfo
             {
                 Id = a.Id,
@@ -36,7 +45,6 @@ public class ArticleService
             .OrderByDescending(a => a.PublishedAt)
             .ToList();
 
-        _logger.LogDebug("Retrieved {Count} articles across {FeedCount} feeds", result.Count, feeds.Count);
         return result;
     }
 }

@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using PersonalRSSReader.Api.Models;
 
 namespace PersonalRSSReader.Api.Data;
 
 /// <summary>
-/// EF Core context for SQLite-backed, user-owned relational data
-/// (accounts, favorites, playlists — added in later milestones).
+/// EF Core context for SQLite-backed, user-owned relational data.
 /// Feeds and articles intentionally remain in JSON files via
-/// JsonStorageService; this context is scoped only to data that
-/// genuinely needs relational integrity.
+/// JsonStorageService; this context is scoped to data that genuinely
+/// needs relational integrity, starting with accounts.
 /// </summary>
 public class AppDbContext : DbContext
 {
@@ -15,8 +15,12 @@ public class AppDbContext : DbContext
     {
     }
 
-    // DbSets are added incrementally starting in Milestone 2 (Users),
-    // then Milestone 3 (Favorites, Playlists). Left empty here so this
-    // milestone is a pure infrastructure check, deployable and
-    // verifiable in isolation before any real data model depends on it.
+    public DbSet<User> Users => Set<User>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+    }
 }

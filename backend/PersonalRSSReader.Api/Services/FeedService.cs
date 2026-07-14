@@ -16,14 +16,17 @@ public class FeedService
         _logger = logger;
     }
 
-    public async Task<List<Feed>> GetAllFeedsAsync()
+    public async Task<List<Feed>> GetAllFeedsAsync(Guid userId)
     {
-        return await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
+        var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
+        return feeds.Where(f => f.UserId == userId).ToList();
     }
 
-    /// Validates the given URL as an RSS/Atom feed, and if valid, saves it.
-    /// Returns null if the URL is not a valid feed.
-    public async Task<Feed?> AddFeedAsync(string url)
+    /// Validates the given URL as an RSS/Atom feed, and if valid, saves it
+    /// under the given user's subscriptions.
+    /// Returns null if the URL is invalid, unreachable, or already
+    /// subscribed to by this user.
+    public async Task<Feed?> AddFeedAsync(Guid userId, string url)
     {
         var parsedFeed = await _rssService.TryFetchFeedAsync(url);
         if (parsedFeed == null)
@@ -34,16 +37,18 @@ public class FeedService
 
         var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
 
-        // Avoid adding a duplicate subscription to the same URL.
-        if (feeds.Any(f => f.Url.Equals(url, StringComparison.OrdinalIgnoreCase)))
+        // Duplicate check is scoped per user — two different users may
+        // both subscribe to the same public feed URL.
+        if (feeds.Any(f => f.UserId == userId && f.Url.Equals(url, StringComparison.OrdinalIgnoreCase)))
         {
-            _logger.LogInformation("Duplicate feed URL rejected: {Url}", url);
+            _logger.LogInformation("Duplicate feed URL rejected for user {UserId}: {Url}", userId, url);
             return null;
         }
 
         var newFeed = new Feed
         {
             Id = Guid.NewGuid(),
+            UserId = userId,
             Title = string.IsNullOrWhiteSpace(parsedFeed.Title) ? url : parsedFeed.Title,
             Url = url,
             CreatedAt = DateTime.UtcNow,
@@ -53,53 +58,51 @@ public class FeedService
         feeds.Add(newFeed);
         await _storage.WriteAllAsync(StorageConstants.FeedsFile, feeds);
 
-        // Fetch initial articles right away so the feed isn't empty until first manual refresh.
         var articles = _rssService.MapToArticles(parsedFeed, newFeed.Id);
         var allArticles = await _storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
         allArticles.AddRange(articles);
         await _storage.WriteAllAsync(StorageConstants.ArticlesFile, allArticles);
 
-        _logger.LogInformation("Added feed '{Title}' with {ArticleCount} initial articles", newFeed.Title, articles.Count);
+        _logger.LogInformation("User {UserId} added feed '{Title}' with {ArticleCount} initial articles",
+            userId, newFeed.Title, articles.Count);
         return newFeed;
     }
 
-    /// Removes a feed by its ID. Returns true if a feed was found and removed,
-    /// false if no feed with that ID existed.
-    public async Task<bool> RemoveFeedAsync(Guid feedId)
+    /// Removes a feed by its ID, only if it belongs to the given user.
+    /// Returns true if a matching feed was found and removed.
+    public async Task<bool> RemoveFeedAsync(Guid userId, Guid feedId)
     {
         var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
-        var feedToRemove = feeds.FirstOrDefault(f => f.Id == feedId);
+        var feedToRemove = feeds.FirstOrDefault(f => f.Id == feedId && f.UserId == userId);
         if (feedToRemove == null)
         {
-            _logger.LogWarning("Attempted to remove non-existent feed {FeedId}", feedId);
+            _logger.LogWarning("User {UserId} attempted to remove non-existent or unowned feed {FeedId}", userId, feedId);
             return false;
         }
 
         feeds.Remove(feedToRemove);
         await _storage.WriteAllAsync(StorageConstants.FeedsFile, feeds);
 
-        // Also clean up articles belonging to the removed feed,
-        // otherwise orphaned articles would linger forever.
         var articles = await _storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
         var remainingArticles = articles.Where(a => a.FeedId != feedId).ToList();
         await _storage.WriteAllAsync(StorageConstants.ArticlesFile, remainingArticles);
 
         var removedCount = articles.Count - remainingArticles.Count;
-        _logger.LogInformation("Removed feed '{Title}' and {ArticleCount} associated articles",
-            feedToRemove.Title, removedCount);
+        _logger.LogInformation("User {UserId} removed feed '{Title}' and {ArticleCount} associated articles",
+            userId, feedToRemove.Title, removedCount);
         return true;
     }
 
-    /// Re-fetches a specific feed's articles, adding any new ones and
-    /// updating the feed's LastFetchedAt timestamp.
-    /// Returns null if the feed doesn't exist or can no longer be fetched.
-    public async Task<List<Article>?> RefreshFeedAsync(Guid feedId)
+    /// Re-fetches a specific feed's articles, only if it belongs to the
+    /// given user. Returns null if the feed doesn't exist, isn't owned
+    /// by this user, or can no longer be fetched.
+    public async Task<List<Article>?> RefreshFeedAsync(Guid userId, Guid feedId)
     {
         var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
-        var feed = feeds.FirstOrDefault(f => f.Id == feedId);
+        var feed = feeds.FirstOrDefault(f => f.Id == feedId && f.UserId == userId);
         if (feed == null)
         {
-            _logger.LogWarning("Refresh requested for non-existent feed {FeedId}", feedId);
+            _logger.LogWarning("User {UserId} requested refresh for non-existent or unowned feed {FeedId}", userId, feedId);
             return null;
         }
 
@@ -118,7 +121,6 @@ public class FeedService
             .Select(a => a.Link)
             .ToHashSet();
 
-        // Only keep articles we haven't already stored, identified by their link.
         var newArticles = fetchedArticles
             .Where(a => !existingLinks.Contains(a.Link))
             .ToList();
@@ -129,15 +131,22 @@ public class FeedService
         feed.LastFetchedAt = DateTime.UtcNow;
         await _storage.WriteAllAsync(StorageConstants.FeedsFile, feeds);
 
-        _logger.LogInformation("Refreshed feed '{Title}': {NewCount} new articles", feed.Title, newArticles.Count);
+        _logger.LogInformation("User {UserId} refreshed feed '{Title}': {NewCount} new articles",
+            userId, feed.Title, newArticles.Count);
         return newArticles;
     }
 
-    /// Refreshes all feeds server-side and returns aggregate totals,
-    /// so the frontend can issue a single request.
-    public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync()
+    /// Refreshes only the given user's feeds. Reads and writes the FULL
+    /// feeds/articles files (all users), but only operates on this user's
+    /// subset — Feed/Article are reference types, so mutating the filtered
+    /// subset mutates the same objects present in the full list, which is
+    /// what gets persisted. Filtering before writing back would silently
+    /// delete every other user's data.
+    public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync(Guid userId)
     {
-        var feeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
+        var allFeeds = await _storage.ReadAllAsync<Feed>(StorageConstants.FeedsFile);
+        var userFeeds = allFeeds.Where(f => f.UserId == userId).ToList();
+
         var allArticles = await _storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
 
         var existingLinksByFeedId = allArticles
@@ -146,7 +155,7 @@ public class FeedService
                 group => group.Key,
                 group => group.Select(a => a.Link).ToHashSet());
 
-        var refreshTasks = feeds.Select(async feed =>
+        var refreshTasks = userFeeds.Select(async feed =>
         {
             var parsedFeed = await _rssService.TryFetchFeedAsync(feed.Url);
             if (parsedFeed == null)
@@ -177,7 +186,7 @@ public class FeedService
         foreach (var result in successfulResults)
         {
             allArticles.AddRange(result.NewArticles!);
-            result.Feed.LastFetchedAt = now;
+            result.Feed.LastFetchedAt = now; // mutates the shared object also present in allFeeds
         }
 
         if (allNewArticles.Count > 0)
@@ -185,14 +194,15 @@ public class FeedService
             await _storage.WriteAllAsync(StorageConstants.ArticlesFile, allArticles);
         }
 
-        if (feeds.Count > failedFeedsCount)
+        if (userFeeds.Count > failedFeedsCount)
         {
-            await _storage.WriteAllAsync(StorageConstants.FeedsFile, feeds);
+            // Write the FULL list — see method summary above.
+            await _storage.WriteAllAsync(StorageConstants.FeedsFile, allFeeds);
         }
 
         _logger.LogInformation(
-            "RefreshAllFeeds completed: {NewCount} new articles, {FailedCount} failed feeds out of {TotalCount}",
-            allNewArticles.Count, failedFeedsCount, feeds.Count);
+            "User {UserId} RefreshAllFeeds completed: {NewCount} new articles, {FailedCount} failed feeds out of {TotalCount}",
+            userId, allNewArticles.Count, failedFeedsCount, userFeeds.Count);
 
         return new RefreshAllFeedsResult
         {

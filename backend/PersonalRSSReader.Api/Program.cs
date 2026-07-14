@@ -1,5 +1,10 @@
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PersonalRSSReader.Api.Data;
+using PersonalRSSReader.Api.Helpers;
 using PersonalRSSReader.Api.Middleware;
 using PersonalRSSReader.Api.Models.DTOs;
 using PersonalRSSReader.Api.Services;
@@ -17,6 +22,28 @@ builder.Services.AddSingleton<ArticleService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<AuthService>();
+
+var jwtSecret = builder.Configuration["Jwt:Secret"]
+    ?? "ThisIsJustADevelopmentSecretKeyThatIsLongEnough123!";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -29,7 +56,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Ensure the database is created and migrations are applied on startup.
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -38,23 +64,63 @@ using (var scope = app.Services.CreateScope())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 
-// ── Feed endpoints ──────────────────────────────────────────────
+// ── Auth endpoints ──────────────────────────────────────────────
 
-app.MapGet("/api/feeds", async (FeedService feedService) =>
+app.MapPost("/api/auth/register", async (RegisterRequest request, AuthService authService) =>
 {
-    var feeds = await feedService.GetAllFeedsAsync();
-    return Results.Ok(feeds);
+    if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+    {
+        return Results.BadRequest(new { error = "Email and password are required." });
+    }
+    if (request.Password.Length < 8)
+    {
+        return Results.BadRequest(new { error = "Password must be at least 8 characters." });
+    }
+
+    var result = await authService.RegisterAsync(request);
+    if (result == null)
+    {
+        return Results.BadRequest(new { error = "An account with this email already exists." });
+    }
+
+    return Results.Created("/api/auth/me", result);
 });
 
-app.MapPost("/api/feeds", async (AddFeedRequest request, FeedService feedService) =>
+app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authService) =>
+{
+    if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+    {
+        return Results.BadRequest(new { error = "Email and password are required." });
+    }
+
+    var result = await authService.LoginAsync(request);
+    if (result == null)
+    {
+        return Results.Json(new { error = "Invalid email or password." }, statusCode: 401);
+    }
+
+    return Results.Ok(result);
+});
+
+// ── Feed endpoints (all require a logged-in user) ───────────────
+
+app.MapGet("/api/feeds", async (ClaimsPrincipal user, FeedService feedService) =>
+{
+    var feeds = await feedService.GetAllFeedsAsync(user.GetUserId());
+    return Results.Ok(feeds);
+}).RequireAuthorization();
+
+app.MapPost("/api/feeds", async (AddFeedRequest request, ClaimsPrincipal user, FeedService feedService) =>
 {
     if (string.IsNullOrWhiteSpace(request.Url))
     {
         return Results.BadRequest(new { error = "URL is required." });
     }
 
-    var newFeed = await feedService.AddFeedAsync(request.Url);
+    var newFeed = await feedService.AddFeedAsync(user.GetUserId(), request.Url);
 
     if (newFeed == null)
     {
@@ -62,11 +128,11 @@ app.MapPost("/api/feeds", async (AddFeedRequest request, FeedService feedService
     }
 
     return Results.Created($"/api/feeds/{newFeed.Id}", newFeed);
-});
+}).RequireAuthorization();
 
-app.MapDelete("/api/feeds/{id:guid}", async (Guid id, FeedService feedService) =>
+app.MapDelete("/api/feeds/{id:guid}", async (Guid id, ClaimsPrincipal user, FeedService feedService) =>
 {
-    var removed = await feedService.RemoveFeedAsync(id);
+    var removed = await feedService.RemoveFeedAsync(user.GetUserId(), id);
 
     if (!removed)
     {
@@ -74,11 +140,11 @@ app.MapDelete("/api/feeds/{id:guid}", async (Guid id, FeedService feedService) =
     }
 
     return Results.NoContent();
-});
+}).RequireAuthorization();
 
-app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedService) =>
+app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, ClaimsPrincipal user, FeedService feedService) =>
 {
-    var newArticles = await feedService.RefreshFeedAsync(id);
+    var newArticles = await feedService.RefreshFeedAsync(user.GetUserId(), id);
 
     if (newArticles == null)
     {
@@ -86,23 +152,23 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, FeedService feedServ
     }
 
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
-});
+}).RequireAuthorization();
 
-app.MapPost("/api/feeds/refresh", async (FeedService feedService) =>
+app.MapPost("/api/feeds/refresh", async (ClaimsPrincipal user, FeedService feedService) =>
 {
-    var result = await feedService.RefreshAllFeedsAsync();
+    var result = await feedService.RefreshAllFeedsAsync(user.GetUserId());
     return Results.Ok(result);
-});
+}).RequireAuthorization();
 
 // ── Article endpoints ───────────────────────────────────────────
 
-app.MapGet("/api/articles", async (ArticleService articleService) =>
+app.MapGet("/api/articles", async (ClaimsPrincipal user, ArticleService articleService) =>
 {
-    var articles = await articleService.GetAllArticlesAsync();
+    var articles = await articleService.GetAllArticlesAsync(user.GetUserId());
     return Results.Ok(articles);
-});
+}).RequireAuthorization();
 
-// ── Diagnostics ─────────────────────────────────────────────────
+// ── Diagnostics (intentionally public — no user data exposed) ──
 
 app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
 {

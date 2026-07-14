@@ -1,8 +1,12 @@
 export const state = {
   feeds: [],
   articles: [],
-  activeFeedId: 'all',      
-  activeView: 'all',        
+  playlists: [],
+  playlistArticles: [],
+  currentPlaylistMeta: null,
+  activeFeedId: 'all',
+  activeView: 'all',          // 'all' | 'starred' | 'playlist'
+  activePlaylistId: null,
   searchQuery: '',
   currentPage: 1,
   pageSize: 10,

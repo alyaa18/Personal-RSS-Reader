@@ -1,16 +1,12 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
-import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText } from './utils.js';
+import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText, copyToClipboard } from './utils.js';
 import { isFavorite, toggleFavorite } from './favorites.js';
 import { renderPagination } from './pagination.js';
 import { showBanner } from './banner.js';
 
 const SUMMARY_WORD_LIMIT = 42;
 
-// RTL detection: prefer the feed-declared language (from backend Milestone
-// 5); fall back to sniffing the text itself when no language is declared.
-// This governs only the article's own content direction, independent of
-// whatever UI language the interface is displayed in.
 const RTL_LANGS = new Set(['ar', 'he', 'fa', 'ur']);
 const RTL_CHAR_PATTERN = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
 
@@ -23,20 +19,11 @@ function detectDirection(languageCode, sampleText) {
   return RTL_CHAR_PATTERN.test(sampleText || '') ? 'rtl' : 'ltr';
 }
 
-async function copyToClipboard(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-  // Fallback for non-secure contexts / older browsers.
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  textarea.style.position = 'fixed';
-  textarea.style.opacity = '0';
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
+// Set by app.js to avoid a circular import with playlistUI.js — same
+// indirection pattern pagination.js already uses for its rerender callback.
+let openPlaylistPickerCallback = () => {};
+export function setPlaylistPickerHandler(fn) {
+  openPlaylistPickerCallback = fn;
 }
 
 // ---------- Feed list (sidebar) ----------
@@ -56,17 +43,38 @@ function buildFeedItem(feed) {
   return li;
 }
 
+// ---------- Playlist list (sidebar) ----------
+
+export function renderPlaylistList() {
+  dom.playlistList.querySelectorAll('.playlist-item').forEach((el) => el.remove());
+  dom.playlistListEmpty.classList.toggle('is-hidden', state.playlists.length > 0);
+  state.playlists.forEach((playlist) => dom.playlistList.appendChild(buildPlaylistItem(playlist)));
+  updateActiveStyles();
+}
+
+function buildPlaylistItem(playlist) {
+  const li = cloneTemplate(dom.playlistItemTemplate);
+  li.dataset.playlistId = playlist.id;
+  li.querySelector('.playlist-item__title').textContent = playlist.name;
+  return li;
+}
+
 export function updateActiveStyles() {
   dom.navAllArticles.classList.toggle('is-active', state.activeView === 'all' && state.activeFeedId === 'all');
   dom.navStarred.classList.toggle('is-active', state.activeView === 'starred');
   dom.feedList.querySelectorAll('.feed-item').forEach((li) => {
     li.classList.toggle('is-active', state.activeView === 'all' && li.dataset.feedId === state.activeFeedId);
   });
+  dom.playlistList.querySelectorAll('.playlist-item').forEach((li) => {
+    li.classList.toggle('is-active', state.activeView === 'playlist' && li.dataset.playlistId === state.activePlaylistId);
+  });
 }
 
 export function updateContentHeader() {
   if (state.activeView === 'starred') {
     dom.contentTitle.textContent = 'Starred';
+  } else if (state.activeView === 'playlist') {
+    dom.contentTitle.textContent = state.currentPlaylistMeta ? state.currentPlaylistMeta.name : 'Playlist';
   } else if (state.activeFeedId === 'all') {
     dom.contentTitle.textContent = 'All Articles';
   } else {
@@ -75,15 +83,19 @@ export function updateContentHeader() {
   }
 }
 
-// ---------- Filtering pipeline: view -> feed -> search ----------
+// ---------- Filtering pipeline: view -> feed/playlist -> search ----------
 
 export function getFilteredArticles() {
-  let list = state.articles;
+  let list;
 
   if (state.activeView === 'starred') {
-    list = list.filter((a) => state.favorites.has(a.id));
+    list = state.articles.filter((a) => state.favorites.has(a.id));
+  } else if (state.activeView === 'playlist') {
+    list = state.playlistArticles;
   } else if (state.activeFeedId !== 'all') {
-    list = list.filter((a) => a.feedId === state.activeFeedId);
+    list = state.articles.filter((a) => a.feedId === state.activeFeedId);
+  } else {
+    list = state.articles;
   }
 
   const query = state.searchQuery.trim().toLowerCase();
@@ -131,12 +143,9 @@ export function renderArticlesWithTransition() {
     renderArticles();
     return;
   }
-
   dom.articleList.classList.add('is-refreshing');
   renderArticles();
-  requestAnimationFrame(() => {
-    dom.articleList.classList.remove('is-refreshing');
-  });
+  requestAnimationFrame(() => dom.articleList.classList.remove('is-refreshing'));
 }
 
 function buildArticleCard(article) {
@@ -156,42 +165,31 @@ function buildArticleCard(article) {
   link.href = article.link;
   link.textContent = article.title;
 
-  // Summary + Show more/less
   const summaryEl = card.querySelector('.article-card__summary');
   const cleanHtml = DOMPurify.sanitize(article.summary || '', {
     ALLOWED_TAGS: ['b', 'strong', 'i', 'em', 'a', 'p', 'br'],
     ALLOWED_ATTR: ['href'],
   });
-
   const plainTextHolder = document.createElement('div');
   plainTextHolder.innerHTML = cleanHtml;
   const fullText = (plainTextHolder.textContent || '').trim();
   const { truncated, isTruncated } = truncateText(fullText, SUMMARY_WORD_LIMIT);
   const isExpanded = state.expandedArticleIds.has(article.id);
 
-  if (!isTruncated || isExpanded) {
-    summaryEl.textContent = fullText;
-  } else {
-    summaryEl.textContent = truncated;
-  }
+  summaryEl.textContent = (!isTruncated || isExpanded) ? fullText : truncated;
 
   const toggleBtn = card.querySelector('.article-card__toggle');
   if (isTruncated) {
     toggleBtn.classList.remove('is-hidden');
     toggleBtn.textContent = isExpanded ? 'Show less' : 'Show more';
     toggleBtn.addEventListener('click', () => {
-      if (isExpanded) {
-        state.expandedArticleIds.delete(article.id);
-      } else {
-        state.expandedArticleIds.add(article.id);
-      }
+      isExpanded ? state.expandedArticleIds.delete(article.id) : state.expandedArticleIds.add(article.id);
       renderArticles();
     });
   } else {
     toggleBtn.classList.add('is-hidden');
   }
 
-  // Image (Milestone 5)
   const imageEl = card.querySelector('.article-card__image');
   if (article.imageUrl) {
     imageEl.src = article.imageUrl;
@@ -200,17 +198,14 @@ function buildArticleCard(article) {
     imageEl.onerror = () => imageEl.classList.add('is-hidden');
   }
 
-  // Podcast audio (Milestone 5)
   const audioEl = card.querySelector('.article-card__audio');
   if (article.enclosureUrl && article.enclosureType && article.enclosureType.startsWith('audio/')) {
     audioEl.src = article.enclosureUrl;
     audioEl.classList.remove('is-hidden');
   }
 
-  // Per-article content direction (Milestone 7, content-level)
   card.setAttribute('dir', detectDirection(article.language, fullText || article.title));
 
-  // Favorites star
   const starBtn = card.querySelector('.article-card__star');
   const favorited = isFavorite(article.id);
   starBtn.textContent = favorited ? '★' : '☆';
@@ -223,9 +218,7 @@ function buildArticleCard(article) {
       starBtn.textContent = nowFavorited ? '★' : '☆';
       starBtn.classList.toggle('is-favorited', nowFavorited);
       starBtn.setAttribute('aria-pressed', String(nowFavorited));
-      if (state.activeView === 'starred' && !nowFavorited) {
-        renderArticles();
-      }
+      if (state.activeView === 'starred' && !nowFavorited) renderArticles();
     } catch (error) {
       showBanner(error.message || 'Could not update favorite.', 'error');
     } finally {
@@ -233,19 +226,19 @@ function buildArticleCard(article) {
     }
   });
 
-  // Share/copy link (Milestone 9)
   const shareBtn = card.querySelector('.article-card__share');
   shareBtn.addEventListener('click', async () => {
     try {
       await copyToClipboard(article.link);
       shareBtn.textContent = 'Copied!';
-      setTimeout(() => {
-        shareBtn.innerHTML = '&#128279; Copy link';
-      }, 1500);
+      setTimeout(() => { shareBtn.innerHTML = '&#128279; Copy link'; }, 1500);
     } catch {
       showBanner('Could not copy link — copy it manually from the address bar instead.', 'error');
     }
   });
+
+  const playlistAddBtn = card.querySelector('.article-card__playlist-add');
+  playlistAddBtn.addEventListener('click', () => openPlaylistPickerCallback(article.id));
 
   return card;
 }

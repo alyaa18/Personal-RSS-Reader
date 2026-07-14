@@ -86,6 +86,16 @@
         </ul>
       </div>
 
+      <div class="sidebar__section">
+        <div class="sidebar__section-head">
+          <p class="sidebar__section-label">Playlists</p>
+        </div>
+        <ul class="playlist-list" id="playlist-list">
+          <li class="playlist-list__empty" id="playlist-list-empty">No playlists yet.</li>
+        </ul>
+        <button type="button" class="btn btn--ghost btn--sm btn--block" id="new-playlist-btn">+ New Playlist</button>
+      </div>
+
       <div class="sidebar__footer">
         <div class="sidebar__user">
           <span class="sidebar__user-name" id="sidebar-user-name"></span>
@@ -98,6 +108,12 @@
     <main class="content">
       <header class="content__header">
         <h2 class="content__title" id="content-title">All Articles</h2>
+        <div class="playlist-toolbar is-hidden" id="playlist-toolbar">
+          <span class="playlist-toolbar__label">Public RSS feed:</span>
+          <code class="playlist-toolbar__url" id="playlist-feed-url"></code>
+          <button type="button" class="btn btn--ghost btn--sm" id="copy-playlist-feed-url">Copy URL</button>
+          <button type="button" class="btn btn--danger btn--sm" id="delete-playlist-btn">Delete Playlist</button>
+        </div>
         <div class="content__toolbar">
           <div class="content__actions">
             <button type="button" class="btn btn--primary" id="open-add-feed">
@@ -181,6 +197,38 @@
     </div>
   </dialog>
 
+  <dialog class="modal" id="create-playlist-dialog">
+    <form class="modal__form" id="create-playlist-form">
+      <h2 class="modal__title">New playlist</h2>
+      <p class="modal__subtitle">Give your playlist a name.</p>
+
+      <label class="field-label" for="playlist-name-input">Name</label>
+      <input type="text" id="playlist-name-input" class="field-input" placeholder="Weekend Reading" required>
+
+      <div class="modal__error is-hidden" id="create-playlist-error"></div>
+
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="cancel-create-playlist">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="submit-create-playlist">Create</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="playlist-picker-dialog">
+    <div class="modal__form">
+      <h2 class="modal__title">Add to playlist</h2>
+      <p class="modal__subtitle">Choose one or more playlists.</p>
+
+      <ul class="playlist-picker-list" id="playlist-picker-list"></ul>
+      <p class="playlist-picker-empty is-hidden" id="playlist-picker-empty">You don't have any playlists yet.</p>
+
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="playlist-picker-new">+ New Playlist</button>
+        <button type="button" class="btn btn--primary" id="playlist-picker-done">Done</button>
+      </div>
+    </div>
+  </dialog>
+
   <template id="feed-item-template">
     <li class="feed-item" data-feed-id="">
       <button type="button" class="feed-item__button">
@@ -191,6 +239,16 @@
         <button type="button" class="icon-btn feed-item__refresh" title="Refresh feed" aria-label="Refresh feed">&#8635;</button>
         <button type="button" class="icon-btn feed-item__remove" title="Remove feed" aria-label="Remove feed">&times;</button>
       </div>
+    </li>
+  </template>
+
+  <template id="playlist-item-template">
+    <li class="playlist-item" data-playlist-id="">
+      <button type="button" class="playlist-item__button">
+        <span class="playlist-item__icon" aria-hidden="true">&#127911;</span>
+        <span class="playlist-item__title"></span>
+      </button>
+      <button type="button" class="icon-btn playlist-item__remove" title="Delete playlist" aria-label="Delete playlist">&times;</button>
     </li>
   </template>
 
@@ -209,9 +267,12 @@
       <p class="article-card__summary"></p>
       <button type="button" class="article-card__toggle is-hidden"></button>
       <audio class="article-card__audio is-hidden" controls></audio>
-      <div class="article-card__footer">
+      <<div class="article-card__footer">
         <button type="button" class="article-card__share">&#128279; Copy link</button>
-        <button type="button" class="article-card__star" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
+        <div class="article-card__footer-right">
+          <button type="button" class="article-card__playlist-add" title="Add to playlist" aria-label="Add to playlist">&#128194;</button>
+          <button type="button" class="article-card__star" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
+        </div>
       </div>
     </article>
   </template>

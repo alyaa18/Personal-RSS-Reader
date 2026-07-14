@@ -31,7 +31,6 @@ export const dom = {
   confirmActionBtn: document.getElementById('confirm-action-btn'),
   confirmCancelBtn: document.getElementById('confirm-cancel-btn'),
 
-  // Auth
   authScreen: document.getElementById('auth-screen'),
   appRoot: document.querySelector('.app'),
   authTabLogin: document.getElementById('auth-tab-login'),
@@ -49,4 +48,28 @@ export const dom = {
   registerSubmit: document.getElementById('register-submit'),
   sidebarUserName: document.getElementById('sidebar-user-name'),
   logoutBtn: document.getElementById('logout-btn'),
+
+  // Playlists
+  playlistList: document.getElementById('playlist-list'),
+  playlistListEmpty: document.getElementById('playlist-list-empty'),
+  newPlaylistBtn: document.getElementById('new-playlist-btn'),
+  playlistItemTemplate: document.getElementById('playlist-item-template'),
+
+  createPlaylistDialog: document.getElementById('create-playlist-dialog'),
+  createPlaylistForm: document.getElementById('create-playlist-form'),
+  playlistNameInput: document.getElementById('playlist-name-input'),
+  createPlaylistError: document.getElementById('create-playlist-error'),
+  cancelCreatePlaylistBtn: document.getElementById('cancel-create-playlist'),
+  submitCreatePlaylistBtn: document.getElementById('submit-create-playlist'),
+
+  playlistPickerDialog: document.getElementById('playlist-picker-dialog'),
+  playlistPickerList: document.getElementById('playlist-picker-list'),
+  playlistPickerEmpty: document.getElementById('playlist-picker-empty'),
+  playlistPickerNewBtn: document.getElementById('playlist-picker-new'),
+  playlistPickerDoneBtn: document.getElementById('playlist-picker-done'),
+
+  playlistToolbar: document.getElementById('playlist-toolbar'),
+  playlistFeedUrl: document.getElementById('playlist-feed-url'),
+  copyPlaylistFeedUrlBtn: document.getElementById('copy-playlist-feed-url'),
+  deletePlaylistBtn: document.getElementById('delete-playlist-btn'),
 };

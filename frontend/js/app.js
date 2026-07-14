@@ -7,6 +7,7 @@ import { initSearch } from './search.js';
 import { initAddFeedModal } from './modal.js';
 import { handleRemoveFeed, handleRefreshFeed, handleRefreshAll } from './feedActions.js';
 import { showBanner, clearBanners } from './banner.js';
+import { initAuthUI } from './authUI.js';
 
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   if (node.tagName === 'A') {
@@ -71,18 +72,28 @@ async function loadArticles() {
   renderArticles();
 }
 
-async function init() {
+// Runs once per successful login/register, and once at startup if a
+// valid session already exists in sessionStorage.
+async function loadAppData() {
   loadFavorites();
   setArticleListState('loading');
   clearBanners();
-  initSearch();
-  initAddFeedModal();
   try {
     await Promise.all([loadFeeds(), loadArticles()]);
   } catch (error) {
     setArticleListState('empty');
     showBanner(error.message || 'Something went wrong loading your feeds.', 'error');
   }
+}
+
+function init() {
+  initSearch();
+  initAddFeedModal();
+  // initAuthUI shows either the login screen or the app shell depending on
+  // whether a valid session exists, and calls loadAppData() once logged in
+  // (either immediately, on existing session, or after a successful
+  // login/register submission).
+  initAuthUI(loadAppData);
 }
 
 init();

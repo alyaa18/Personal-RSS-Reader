@@ -30,4 +30,23 @@ export const dom = {
   confirmMessage: document.getElementById('confirm-message'),
   confirmActionBtn: document.getElementById('confirm-action-btn'),
   confirmCancelBtn: document.getElementById('confirm-cancel-btn'),
+
+  // Auth
+  authScreen: document.getElementById('auth-screen'),
+  appRoot: document.querySelector('.app'),
+  authTabLogin: document.getElementById('auth-tab-login'),
+  authTabRegister: document.getElementById('auth-tab-register'),
+  loginForm: document.getElementById('login-form'),
+  loginEmail: document.getElementById('login-email'),
+  loginPassword: document.getElementById('login-password'),
+  loginError: document.getElementById('login-error'),
+  loginSubmit: document.getElementById('login-submit'),
+  registerForm: document.getElementById('register-form'),
+  registerName: document.getElementById('register-name'),
+  registerEmail: document.getElementById('register-email'),
+  registerPassword: document.getElementById('register-password'),
+  registerError: document.getElementById('register-error'),
+  registerSubmit: document.getElementById('register-submit'),
+  sidebarUserName: document.getElementById('sidebar-user-name'),
+  logoutBtn: document.getElementById('logout-btn'),
 };

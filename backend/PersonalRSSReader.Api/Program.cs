@@ -11,6 +11,7 @@ using PersonalRSSReader.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<RssFeedGeneratorService>();
 builder.Services.AddSingleton<JsonStorageService>();
 builder.Services.AddHttpClient<RssService>(client =>
 {
@@ -256,5 +257,20 @@ app.MapDelete("/api/playlists/{id:guid}/articles/{articleId:guid}", async (Guid 
     var removed = await playlistService.RemoveArticleAsync(user.GetUserId(), id, articleId);
     return removed ? Results.NoContent() : Results.NotFound(new { error = "Article not in playlist." });
 }).RequireAuthorization();
+
+// Intentionally public/unauthenticated — this is meant to be subscribed
+// to by external RSS readers, which can't attach a JWT. Only reachable
+// by anyone who has the unguessable slug.
+app.MapGet("/api/playlists/{slug}/rss", async (string slug, HttpContext httpContext, PlaylistService playlistService, ArticleService articleService, RssFeedGeneratorService rssGenerator) =>
+{
+    var playlist = await playlistService.GetBySlugAsync(slug);
+    if (playlist == null) return Results.NotFound();
+
+    var articles = await articleService.GetArticlesByIdsAsync(playlist.Articles.Select(a => a.ArticleId));
+    var baseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
+    var xml = rssGenerator.GeneratePlaylistFeed(playlist, articles, baseUrl);
+
+    return Results.Text(xml, "application/rss+xml; charset=utf-8");
+});
 
 app.Run();

@@ -8,4 +8,5 @@ public class Feed
     public string Url { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastFetchedAt { get; set; }
+    public string? Language { get; set; }
 }

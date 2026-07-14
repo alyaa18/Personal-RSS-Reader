@@ -56,6 +56,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHostedService<PersonalRSSReader.Api.Services.BackgroundJobs.RetentionCleanupService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

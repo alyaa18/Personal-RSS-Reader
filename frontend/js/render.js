@@ -3,8 +3,41 @@ import { dom } from './dom.js';
 import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText } from './utils.js';
 import { isFavorite, toggleFavorite } from './favorites.js';
 import { renderPagination } from './pagination.js';
+import { showBanner } from './banner.js';
 
 const SUMMARY_WORD_LIMIT = 42;
+
+// RTL detection: prefer the feed-declared language (from backend Milestone
+// 5); fall back to sniffing the text itself when no language is declared.
+// This governs only the article's own content direction, independent of
+// whatever UI language the interface is displayed in.
+const RTL_LANGS = new Set(['ar', 'he', 'fa', 'ur']);
+const RTL_CHAR_PATTERN = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+
+function detectDirection(languageCode, sampleText) {
+  if (languageCode) {
+    const primary = languageCode.split('-')[0].toLowerCase();
+    if (RTL_LANGS.has(primary)) return 'rtl';
+    if (primary) return 'ltr';
+  }
+  return RTL_CHAR_PATTERN.test(sampleText || '') ? 'rtl' : 'ltr';
+}
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  // Fallback for non-secure contexts / older browsers.
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
 
 // ---------- Feed list (sidebar) ----------
 
@@ -63,15 +96,10 @@ export function getFilteredArticles() {
   return list;
 }
 
-// ---------- Loading / empty state (Commit 6) ----------
-
 export function setArticleListState(mode) {
-  // mode: 'loading' | 'empty' | 'content'
   dom.stateEmpty.classList.toggle('is-hidden', mode !== 'empty');
   dom.stateLoading.classList.toggle('is-hidden', mode !== 'loading');
 }
-
-// ---------- Main article list render ----------
 
 export function renderArticles() {
   dom.articleList.querySelectorAll('.article-card').forEach((el) => el.remove());
@@ -128,7 +156,7 @@ function buildArticleCard(article) {
   link.href = article.link;
   link.textContent = article.title;
 
-  // Commit 4: Read More / Read Less truncation.
+  // Summary + Show more/less
   const summaryEl = card.querySelector('.article-card__summary');
   const cleanHtml = DOMPurify.sanitize(article.summary || '', {
     ALLOWED_TAGS: ['b', 'strong', 'i', 'em', 'a', 'p', 'br'],
@@ -163,20 +191,59 @@ function buildArticleCard(article) {
     toggleBtn.classList.add('is-hidden');
   }
 
-  // Commit 10: favorites star.
+  // Image (Milestone 5)
+  const imageEl = card.querySelector('.article-card__image');
+  if (article.imageUrl) {
+    imageEl.src = article.imageUrl;
+    imageEl.alt = article.title;
+    imageEl.classList.remove('is-hidden');
+    imageEl.onerror = () => imageEl.classList.add('is-hidden');
+  }
+
+  // Podcast audio (Milestone 5)
+  const audioEl = card.querySelector('.article-card__audio');
+  if (article.enclosureUrl && article.enclosureType && article.enclosureType.startsWith('audio/')) {
+    audioEl.src = article.enclosureUrl;
+    audioEl.classList.remove('is-hidden');
+  }
+
+  // Per-article content direction (Milestone 7, content-level)
+  card.setAttribute('dir', detectDirection(article.language, fullText || article.title));
+
+  // Favorites star
   const starBtn = card.querySelector('.article-card__star');
   const favorited = isFavorite(article.id);
   starBtn.textContent = favorited ? '★' : '☆';
   starBtn.classList.toggle('is-favorited', favorited);
   starBtn.setAttribute('aria-pressed', String(favorited));
-  starBtn.addEventListener('click', () => {
-    toggleFavorite(article.id);
-    const nowFavorited = isFavorite(article.id);
-    starBtn.textContent = nowFavorited ? '★' : '☆';
-    starBtn.classList.toggle('is-favorited', nowFavorited);
-    starBtn.setAttribute('aria-pressed', String(nowFavorited));
-    if (state.activeView === 'starred' && !nowFavorited) {
-      renderArticles();
+  starBtn.addEventListener('click', async () => {
+    starBtn.disabled = true;
+    try {
+      const nowFavorited = await toggleFavorite(article.id);
+      starBtn.textContent = nowFavorited ? '★' : '☆';
+      starBtn.classList.toggle('is-favorited', nowFavorited);
+      starBtn.setAttribute('aria-pressed', String(nowFavorited));
+      if (state.activeView === 'starred' && !nowFavorited) {
+        renderArticles();
+      }
+    } catch (error) {
+      showBanner(error.message || 'Could not update favorite.', 'error');
+    } finally {
+      starBtn.disabled = false;
+    }
+  });
+
+  // Share/copy link (Milestone 9)
+  const shareBtn = card.querySelector('.article-card__share');
+  shareBtn.addEventListener('click', async () => {
+    try {
+      await copyToClipboard(article.link);
+      shareBtn.textContent = 'Copied!';
+      setTimeout(() => {
+        shareBtn.innerHTML = '&#128279; Copy link';
+      }, 1500);
+    } catch {
+      showBanner('Could not copy link — copy it manually from the address bar instead.', 'error');
     }
   });
 

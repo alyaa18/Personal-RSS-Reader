@@ -17,10 +17,7 @@ async function apiRequest(path, options = {}) {
 
   let response;
   try {
-    response = await fetch(`${API_BASE_URL}${path}`, {
-      headers,
-      ...options,
-    });
+    response = await fetch(`${API_BASE_URL}${path}`, { headers, ...options });
   } catch (networkError) {
     throw new Error('Could not reach the server. Is the backend running?');
   }
@@ -49,8 +46,6 @@ async function apiRequest(path, options = {}) {
   return body;
 }
 
-// Auth calls never attach a token (register/login are how you GET a token),
-// so they bypass apiRequest's automatic header and 401-handling logic.
 async function authRequest(path, body) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method: 'POST',
@@ -83,6 +78,18 @@ const api = {
   refreshFeed: (id) => apiRequest(`/feeds/${id}/refresh`, { method: 'POST' }),
   refreshAllFeeds: () => apiRequest('/feeds/refresh', { method: 'POST' }),
   getArticles: () => apiRequest('/articles'),
+
+  getFavorites: () => apiRequest('/favorites'),
+  addFavorite: (articleId) => apiRequest('/favorites', { method: 'POST', body: JSON.stringify({ articleId }) }),
+  removeFavorite: (articleId) => apiRequest(`/favorites/${articleId}`, { method: 'DELETE' }),
+
+  // Prepped for the upcoming playlist UI milestone — not wired up yet.
+  getPlaylists: () => apiRequest('/playlists'),
+  createPlaylist: (name) => apiRequest('/playlists', { method: 'POST', body: JSON.stringify({ name }) }),
+  deletePlaylist: (id) => apiRequest(`/playlists/${id}`, { method: 'DELETE' }),
+  getPlaylist: (id) => apiRequest(`/playlists/${id}`),
+  addArticleToPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles`, { method: 'POST', body: JSON.stringify({ articleId }) }),
+  removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
 };
 
 window.api = api;

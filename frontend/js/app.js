@@ -72,14 +72,14 @@ async function loadArticles() {
   renderArticles();
 }
 
-// Runs once per successful login/register, and once at startup if a
-// valid session already exists in sessionStorage.
 async function loadAppData() {
-  loadFavorites();
   setArticleListState('loading');
   clearBanners();
   try {
-    await Promise.all([loadFeeds(), loadArticles()]);
+    await Promise.all([loadFeeds(), loadArticles(), loadFavorites()]);
+    // Favorites may resolve after articles already rendered with stale
+    // star states — one more pass guarantees stars match the server.
+    renderArticles();
   } catch (error) {
     setArticleListState('empty');
     showBanner(error.message || 'Something went wrong loading your feeds.', 'error');
@@ -89,10 +89,6 @@ async function loadAppData() {
 function init() {
   initSearch();
   initAddFeedModal();
-  // initAuthUI shows either the login screen or the app shell depending on
-  // whether a valid session exists, and calls loadAppData() once logged in
-  // (either immediately, on existing session, or after a successful
-  // login/register submission).
   initAuthUI(loadAppData);
 }
 

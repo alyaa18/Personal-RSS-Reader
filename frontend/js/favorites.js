@@ -1,21 +1,13 @@
 import { state } from './state.js';
 
-const STORAGE_KEY = 'rss-reader:favorites';
-
-export function loadFavorites() {
+export async function loadFavorites() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    state.favorites = new Set(raw ? JSON.parse(raw) : []);
+    const favoriteArticles = await api.getFavorites();
+    state.favorites = new Set(favoriteArticles.map((a) => a.id));
   } catch {
+    // Non-fatal — app still works, just starts with no favorites known
+    // until the next successful load.
     state.favorites = new Set();
-  }
-}
-
-function saveFavorites() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.favorites]));
-  } catch {
-    // localStorage unavailable (e.g. private browsing) — favorites just won't persist.
   }
 }
 
@@ -23,11 +15,34 @@ export function isFavorite(articleId) {
   return state.favorites.has(articleId);
 }
 
-export function toggleFavorite(articleId) {
-  if (state.favorites.has(articleId)) {
+/**
+ * Flips local state immediately (so the star responds instantly), then
+ * confirms with the server. On failure, rolls back and re-throws so the
+ * caller (render.js) can revert the icon and show an error.
+ * Returns the new favorited state on success.
+ */
+export async function toggleFavorite(articleId) {
+  const wasFavorited = state.favorites.has(articleId);
+
+  if (wasFavorited) {
     state.favorites.delete(articleId);
   } else {
     state.favorites.add(articleId);
   }
-  saveFavorites();
+
+  try {
+    if (wasFavorited) {
+      await api.removeFavorite(articleId);
+    } else {
+      await api.addFavorite(articleId);
+    }
+    return !wasFavorited;
+  } catch (error) {
+    if (wasFavorited) {
+      state.favorites.add(articleId);
+    } else {
+      state.favorites.delete(articleId);
+    }
+    throw error;
+  }
 }

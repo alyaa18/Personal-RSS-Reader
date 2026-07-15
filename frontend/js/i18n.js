@@ -73,6 +73,11 @@ const translations = {
     'modal.add_feed_subtitle': 'Paste the URL of an RSS or Atom feed.',
     'modal.feed_url': 'Feed URL',
     'modal.cancel': 'Cancel',
+    'modal.suggestions': 'Recommended feeds',
+    'modal.suggestions_bbc': 'BBC News',
+    'modal.suggestions_github': 'GitHub Blog',
+    'modal.suggestions_mit': 'MIT News',
+    'modal.suggestions_hackernews': 'Hacker News',
     'modal.add_feed': 'Add Feed',
     'modal.adding': 'Adding\u2026',
 

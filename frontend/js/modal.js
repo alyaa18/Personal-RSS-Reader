@@ -13,6 +13,14 @@ const SUGGESTED_FEEDS = [
   { url: 'https://hnrss.org/frontpage', labelKey: 'modal.suggestions_hackernews' },
 ];
 
+// Friendly fallback names used when the t() key is missing
+const SUGGESTION_FALLBACKS = {
+  'modal.suggestions_bbc': 'BBC News',
+  'modal.suggestions_github': 'GitHub Blog',
+  'modal.suggestions_mit': 'MIT News',
+  'modal.suggestions_hackernews': 'Hacker News',
+};
+
 export function initAddFeedModal() {
   dom.openAddFeedBtn.addEventListener('click', openAddFeedDialog);
   dom.stateEmptyCta.addEventListener('click', openAddFeedDialog);
@@ -26,7 +34,7 @@ export function initAddFeedModal() {
       const chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'feed-suggestion-chip';
-      chip.textContent = t(feed.labelKey);
+      chip.textContent = t(feed.labelKey) || SUGGESTION_FALLBACKS[feed.labelKey] || feed.labelKey;
       chip.dataset.url = feed.url;
       chip.addEventListener('click', () => {
         dom.feedUrlInput.value = feed.url;

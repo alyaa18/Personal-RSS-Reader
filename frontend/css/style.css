@@ -414,10 +414,23 @@ button { font-family: inherit; cursor: pointer; }
 /* ============ Banners ============ */
 
 .banner-region { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
-.banner { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); border: 1px solid transparent; animation: fadeIn 0.2s ease; }
+.banner {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+  font-size: var(--text-sm); border: 1px solid transparent;
+  animation: fadeIn 0.2s ease; transition: opacity 0.3s ease;
+}
 .banner--error { background: var(--color-danger-bg); color: var(--color-danger-text); border-color: var(--color-danger-border); }
 .banner--success { background: var(--color-success-bg); color: var(--color-success-text); border-color: var(--color-success-border); }
 .banner--info { background: var(--color-accent-soft); color: var(--color-accent); border-color: var(--color-accent); }
+.banner--fading { opacity: 0; }
+.banner__text { flex: 1; }
+.banner__close {
+  flex-shrink: 0; background: none; border: none; cursor: pointer;
+  font-size: 1.25rem; line-height: 1; padding: 0; opacity: 0.6;
+  color: inherit; transition: opacity 0.15s;
+}
+.banner__close:hover { opacity: 1; }
 
 /* ============ States: empty / skeleton (Commit 6) ============ */
 

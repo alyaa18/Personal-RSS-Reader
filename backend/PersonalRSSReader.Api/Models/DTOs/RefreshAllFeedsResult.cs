@@ -11,4 +11,5 @@ public class RefreshAllFeedsResult
     public int NewArticlesCount { get; set; }
     public List<Article> Articles { get; set; } = new();
     public int FailedFeedsCount { get; set; }
+    public List<string> FailedFeedNames { get; set; } = new();
 }

@@ -226,6 +226,7 @@ public class FeedService
             var parsedFeed = await _rssService.TryFetchFeedAsync(feed.Url);
             if (parsedFeed == null)
             {
+                _logger.LogWarning("Feed '{Title}' ({Url}) failed to refresh", feed.Title, feed.Url);
                 return new FeedRefreshResult(feed, null);
             }
 
@@ -246,7 +247,8 @@ public class FeedService
         var allNewArticles = successfulResults
             .SelectMany(result => result.NewArticles!)
             .ToList();
-        var failedFeedsCount = refreshResults.Length - successfulResults.Count;
+        var failedResults = refreshResults.Where(result => result.NewArticles == null).ToList();
+        var failedFeedsCount = failedResults.Count;
         var now = DateTime.UtcNow;
 
         foreach (var result in successfulResults)
@@ -271,7 +273,8 @@ public class FeedService
         {
             NewArticlesCount = allNewArticles.Count,
             Articles = allNewArticles,
-            FailedFeedsCount = failedFeedsCount
+            FailedFeedsCount = failedFeedsCount,
+            FailedFeedNames = failedResults.Select(r => r.Feed.Title).ToList()
         };
     }
 

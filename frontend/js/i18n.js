@@ -121,7 +121,7 @@ const translations = {
     'banner.new_articles_single': '{count} new article from "{name}".',
     'banner.new_articles_plural': '{count} new articles from "{name}".',
     'banner.new_articles_total': '{count} new article(s) found.',
-    'banner.feeds_refresh_failed': '{count} feed(s) could not be refreshed.',
+    'banner.feeds_refresh_failed': 'Could not refresh {count} feed(s)',
     'banner.load_error': 'Something went wrong loading your feeds.',
     'banner.server_error': 'Could not reach the server. Is the backend running?',
     'banner.favorite_error': 'Could not update favorite.',

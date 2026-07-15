@@ -31,10 +31,11 @@ export function getFaviconUrl(feedUrl) {
   try {
     const normalizedUrl = new URL(feedUrl);
     if (FAVICON_DENYLIST.has(normalizedUrl.hostname)) return null;
-    // Use only the domain origin — Google's favicon service doesn't
-    // resolve favicons for full feed URLs, just for site domains.
-    const domain = `${normalizedUrl.protocol}//${normalizedUrl.hostname}`;
-    return `https://www.google.com/s2/favicons?sz=32&domain=${encodeURIComponent(domain)}`;
+    // Use Google's favicon service with the protocol+hostname origin.
+    // Google handles subdomains better than other services — it follows
+    // redirects and falls back to the root domain's favicon.
+    const origin = `${normalizedUrl.protocol}//${normalizedUrl.hostname}`;
+    return `https://www.google.com/s2/favicons?sz=32&domain=${encodeURIComponent(origin)}`;
   } catch {
     return null;
   }

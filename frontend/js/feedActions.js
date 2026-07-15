@@ -100,7 +100,11 @@ export async function handleRefreshAll() {
     }
 
     const failedCount = result.failedFeedsCount ?? 0;
-    if (failedCount > 0) showBanner(t('banner.feeds_refresh_failed', { count: failedCount }), 'error');
+    if (failedCount > 0) {
+      const names = result.failedFeedNames ?? [];
+      const suffix = names.length > 0 ? ' (' + names.join(', ') + ')' : '';
+      showBanner(t('banner.feeds_refresh_failed', { count: failedCount }) + suffix, 'error');
+    }
     if (totalNew > 0) {
       showBanner(t('banner.new_articles_total', { count: totalNew }), 'success');
     }

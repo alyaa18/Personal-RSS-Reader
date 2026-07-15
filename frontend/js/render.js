@@ -140,6 +140,16 @@ export function getFilteredArticles() {
   return list;
 }
 
+/**
+ * Clears all article cards and pagination from the content area.
+ * Call this before rendering a non-article view (e.g. playlists)
+ * so old article cards don't bleed through underneath.
+ */
+export function clearArticleRiver() {
+  dom.articleList.querySelectorAll('.article-card').forEach((el) => el.remove());
+  renderPagination(0);
+}
+
 export function setArticleListState(mode) {
   dom.stateEmpty.classList.toggle('is-hidden', mode !== 'empty');
   dom.stateLoading.classList.toggle('is-hidden', mode !== 'loading');

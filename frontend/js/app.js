@@ -4,7 +4,7 @@ import { isLoggedIn } from './auth.js';
 import { loadFavorites } from './favorites.js';
 import { loadPlaylists } from './playlists.js';
 import {
-  renderSidebar, renderArticles,
+  renderSidebar, renderArticles, clearArticleRiver,
   renderArticlesSyncWrapper,
   updateActiveStyles, updateContentHeader, setArticleListState,
   setPlaylistPickerHandler,
@@ -82,6 +82,7 @@ async function setActiveView(view) {
 }
 
 async function setActivePlaylist(playlistId) {
+  clearArticleRiver();
   state.activeView = 'playlist';
   state.activeFeedId = 'all';
   state.activePlaylistId = playlistId;
@@ -115,10 +116,11 @@ dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));
 dom.navStarred.addEventListener('click', () => setActiveView('starred'));
 dom.navPlaylists.addEventListener('click', () => {
   state.sidebarMode = 'playlists';
+  clearArticleRiver();
   if (state.playlists.length > 0) {
     setActivePlaylist(state.playlists[0].id);
   } else {
-    // Show playlist view with empty state
+    // Show playlist view with empty state (no article river visible)
     state.activeView = 'playlist';
     state.activePlaylistId = null;
     state.currentPlaylistMeta = null;
@@ -128,7 +130,6 @@ dom.navPlaylists.addEventListener('click', () => {
     updateContentHeader();
     updatePlaylistToolbar();
     setArticleListState('empty');
-    renderPagination(0);
   }
 });
 

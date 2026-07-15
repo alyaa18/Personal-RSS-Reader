@@ -34,6 +34,7 @@ export function renderFeedList() {
   dom.feedListEmpty.classList.toggle('is-hidden', state.feeds.length > 0);
   state.feeds.forEach((feed) => dom.feedList.appendChild(buildFeedItem(feed)));
   updateActiveStyles();
+  updateArticleCounts();
 }
 
 function buildFeedItem(feed) {
@@ -44,11 +45,25 @@ function buildFeedItem(feed) {
   return li;
 }
 
+export function updateArticleCounts() {
+  const total = getFilteredArticles().length;
+  dom.countAllArticles.textContent = total > 0 ? total : '';
+
+  state.feeds.forEach((feed) => {
+    const count = state.articles.filter((a) => a.feedId === feed.id).length;
+    const li = dom.feedList.querySelector(`[data-feed-id="${feed.id}"]`);
+    if (li) {
+      const countEl = li.querySelector('.feed-item__count');
+      if (countEl) countEl.textContent = count > 0 ? count : '';
+    }
+  });
+}
+
 // ---------- Playlist list (sidebar) ----------
 
 export function renderPlaylistList() {
   dom.playlistList.querySelectorAll('.playlist-item').forEach((el) => el.remove());
-  dom.playlistListEmpty.classList.toggle('is-hidden', state.playlists.length > 0);
+  dom.playlistListEmpty.classList.add('is-hidden');
   state.playlists.forEach((playlist) => dom.playlistList.appendChild(buildPlaylistItem(playlist)));
   updateActiveStyles();
 }
@@ -63,6 +78,7 @@ function buildPlaylistItem(playlist) {
 export function updateActiveStyles() {
   dom.navAllArticles.classList.toggle('is-active', state.activeView === 'all' && state.activeFeedId === 'all');
   dom.navStarred.classList.toggle('is-active', state.activeView === 'starred');
+  dom.navPlaylists.classList.toggle('is-active', state.activeView === 'playlist');
   dom.feedList.querySelectorAll('.feed-item').forEach((li) => {
     li.classList.toggle('is-active', state.activeView === 'all' && li.dataset.feedId === state.activeFeedId);
   });
@@ -115,8 +131,13 @@ export function setArticleListState(mode) {
 
   if (mode === 'empty') {
     if (state.activeView === 'playlist') {
-      dom.stateEmpty.querySelector('.state__title').textContent = t('state.playlist_empty_title');
-      dom.stateEmpty.querySelector('.state__body').textContent = t('state.playlist_empty_body');
+      if (state.playlists.length === 0) {
+        dom.stateEmpty.querySelector('.state__title').textContent = t('state.no_playlists_title');
+        dom.stateEmpty.querySelector('.state__body').textContent = t('state.no_playlists_body');
+      } else {
+        dom.stateEmpty.querySelector('.state__title').textContent = t('state.playlist_empty_title');
+        dom.stateEmpty.querySelector('.state__body').textContent = t('state.playlist_empty_body');
+      }
       dom.stateEmptyCta.classList.add('is-hidden');
     } else {
       // Restore default content from data-i18n attributes
@@ -157,6 +178,7 @@ export async function renderArticles() {
   });
 
   renderPagination(filtered.length);
+  updateArticleCounts();
 }
 
 export function renderArticlesSync() {
@@ -170,6 +192,7 @@ export function renderArticlesSync() {
   if (filtered.length === 0) {
     setArticleListState('empty');
     renderPagination(0);
+    updateArticleCounts();
     return;
   }
 
@@ -183,6 +206,7 @@ export function renderArticlesSync() {
   });
 
   renderPagination(filtered.length);
+  updateArticleCounts();
 }
 
 export async function renderArticlesWithTransition() {

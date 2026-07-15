@@ -1,14 +1,26 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
+import { isLoggedIn } from './auth.js';
 import { showBanner } from './banner.js';
 import { renderFeedList, renderArticles, renderArticlesWithTransition } from './render.js';
 import { confirmAction } from './confirmModal.js';
 import { t } from './i18n.js';
+import { redirectToAuth } from './authUI.js';
 
 let isRefreshAllInFlight = false;
 const refreshingFeedIds = new Set();
 
+function requireLogin() {
+  if (!isLoggedIn()) {
+    showBanner(t('guest.login_required'), 'info');
+    redirectToAuth();
+    return false;
+  }
+  return true;
+}
+
 export async function handleRemoveFeed(feedId) {
+  if (!requireLogin()) return;
   const feed = state.feeds.find((f) => f.id === feedId);
   if (!feed) return;
 
@@ -35,6 +47,7 @@ export async function handleRemoveFeed(feedId) {
 }
 
 export async function handleRefreshFeed(feedId, refreshBtnEl) {
+  if (!requireLogin()) return;
   if (isRefreshAllInFlight || refreshingFeedIds.has(feedId)) return;
 
   const feed = state.feeds.find((f) => f.id === feedId);
@@ -66,6 +79,7 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
 }
 
 export async function handleRefreshAll() {
+  if (!requireLogin()) return;
   if (state.feeds.length === 0 || isRefreshAllInFlight) return;
 
   isRefreshAllInFlight = true;

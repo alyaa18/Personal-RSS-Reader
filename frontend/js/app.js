@@ -1,5 +1,6 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
+import { isLoggedIn } from './auth.js';
 import { loadFavorites } from './favorites.js';
 import { loadPlaylists } from './playlists.js';
 import {
@@ -13,13 +14,23 @@ import { initSearch } from './search.js';
 import { initAddFeedModal } from './modal.js';
 import { handleRemoveFeed, handleRefreshFeed, handleRefreshAll } from './feedActions.js';
 import { showBanner, clearBanners } from './banner.js';
-import { initAuthUI } from './authUI.js';
+import { initAuthUI, enterGuestMode } from './authUI.js';
 import {
   initPlaylistUI, openPlaylistPicker, updatePlaylistToolbar,
   handleDeletePlaylist, setOnPlaylistDeleted,
 } from './playlistUI.js';
 import { loadPlaylistDetail } from './playlists.js';
 import { t, getCurrentLang, initLangSwitch, setOnLangChanged, updateUILanguage } from './i18n.js';
+
+// ── Constants ──
+
+const DEMO_FEED_URLS = [
+  'https://github.blog/feed/',
+  'https://feeds.bbci.co.uk/news/rss.xml',
+  'https://news.mit.edu/rss/feed',
+];
+
+// ── DOMPurify ──
 
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   if (node.tagName === 'A') {
@@ -30,6 +41,8 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 
 setRerenderCallback(renderArticlesSyncWrapper);
 setPlaylistPickerHandler(openPlaylistPicker);
+
+// ── Navigation ──
 
 function resetNavigationState() {
   state.activeView = 'all';
@@ -47,6 +60,15 @@ async function setActiveFeed(feedId) {
   updateContentHeader();
   updatePlaylistToolbar();
   await renderArticles();
+
+  // Auto-refresh: silently fetch new articles for this feed
+  const feed = state.feeds.find((f) => f.id === feedId);
+  if (feed && isLoggedIn()) {
+    const refreshBtn = dom.feedList.querySelector(`[data-feed-id="${feedId}"] .feed-item__refresh`);
+    if (refreshBtn && !refreshBtn.disabled) {
+      handleRefreshFeed(feedId, refreshBtn);
+    }
+  }
 }
 
 async function setActiveView(view) {
@@ -59,10 +81,9 @@ async function setActiveView(view) {
 }
 
 async function setActivePlaylist(playlistId) {
+  resetNavigationState();
   state.activeView = 'playlist';
-  state.activeFeedId = 'all';
   state.activePlaylistId = playlistId;
-  state.currentPage = 1;
   updateActiveStyles();
   setArticleListState('loading');
 
@@ -85,8 +106,27 @@ setOnPlaylistDeleted((deletedPlaylistId) => {
   }
 });
 
+// ── Event listeners ──
+
 dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));
 dom.navStarred.addEventListener('click', () => setActiveView('starred'));
+dom.navPlaylists.addEventListener('click', () => {
+  if (state.playlists.length > 0) {
+    setActivePlaylist(state.playlists[0].id);
+  } else {
+    // Show playlist view with empty state
+    state.activeView = 'playlist';
+    state.activePlaylistId = null;
+    state.currentPlaylistMeta = null;
+    state.playlistArticles = [];
+    state.currentPage = 1;
+    updateActiveStyles();
+    updateContentHeader();
+    updatePlaylistToolbar();
+    setArticleListState('empty');
+    renderPagination(0);
+  }
+});
 
 dom.feedScrollLeftBtn?.addEventListener('click', () => {
   const isRtl = getCurrentLang() === 'ar';
@@ -128,12 +168,16 @@ dom.playlistList.addEventListener('click', (event) => {
 
 dom.refreshAllBtn.addEventListener('click', handleRefreshAll);
 
+// ── Data loading ──
+
 async function loadFeeds() {
+  if (!isLoggedIn()) return;
   state.feeds = await api.getFeeds();
   renderFeedList();
 }
 
 async function loadArticles() {
+  if (!isLoggedIn()) return;
   state.articles = await api.getArticles();
   await renderArticles();
 }
@@ -151,7 +195,43 @@ async function loadAppData() {
   }
 }
 
-// Called when language changes — re-render dynamic content
+// ── Guest mode ──
+
+async function loadGuestData() {
+  setArticleListState('loading');
+  clearBanners();
+  try {
+    const demo = await api.getDemoData();
+    // Build mock feeds
+    state.feeds = demo.feeds.map((f) => ({ id: f.id, title: f.title, url: f.url }));
+    state.articles = demo.articles.map((a) => ({
+      id: a.id,
+      feedId: a.feedId,
+      feedTitle: a.feedTitle,
+      title: a.title,
+      link: a.link,
+      summary: a.summary,
+      publishedAt: a.publishedAt,
+      fetchedAt: a.fetchedAt,
+      imageUrl: null,
+      enclosureUrl: null,
+      enclosureType: null,
+      language: null,
+      author: a.author,
+    }));
+    state.favorites = new Set();
+    state.playlists = [];
+    renderFeedList();
+    renderPlaylistList();
+    await renderArticles();
+  } catch (error) {
+    setArticleListState('empty');
+    showBanner(error.message || 'Could not load demo data.', 'error');
+  }
+}
+
+// ── Language change ──
+
 async function onLanguageChanged() {
   updateUILanguage();
   updateContentHeader();
@@ -159,22 +239,40 @@ async function onLanguageChanged() {
   updatePlaylistToolbar();
 }
 
+// ── Back to top ──
+
+function initBackToTop() {
+  let ticking = false;
+  dom.backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        dom.backToTopBtn.classList.toggle('is-hidden', window.scrollY < 300);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
+// ── Init ──
+
 function init() {
   initSearch();
   initAddFeedModal();
   initPlaylistUI();
-  initAuthUI(loadAppData);
+  initAuthUI(loadAppData, loadGuestData);
+  initBackToTop();
 
-  // Register language change listener to re-render
   setOnLangChanged(onLanguageChanged);
 
-  // Add language switch button in the content header (top-right corner)
   const langSwitchContainer = document.getElementById('lang-switch-container');
   if (langSwitchContainer) {
     initLangSwitch(langSwitchContainer);
   }
 
-  // Apply initial static translations
   updateUILanguage();
 }
 

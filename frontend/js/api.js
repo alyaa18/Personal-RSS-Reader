@@ -91,6 +91,8 @@ const api = {
   removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
 
   updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
+
+  getDemoData: () => apiRequest('/demo'),
 };
 
 window.api = api;

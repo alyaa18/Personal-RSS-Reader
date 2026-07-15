@@ -1,6 +1,14 @@
 import { state } from './state.js';
+import { isLoggedIn } from './auth.js';
+import { showBanner } from './banner.js';
+import { t } from './i18n.js';
+import { redirectToAuth } from './authUI.js';
 
 export async function loadFavorites() {
+  if (!isLoggedIn()) {
+    state.favorites = new Set();
+    return;
+  }
   try {
     const favoriteArticles = await api.getFavorites();
     state.favorites = new Set(favoriteArticles.map((a) => a.id));
@@ -22,6 +30,11 @@ export function isFavorite(articleId) {
  * Returns the new favorited state on success.
  */
 export async function toggleFavorite(articleId) {
+  if (!isLoggedIn()) {
+    showBanner(t('guest.login_required'), 'info');
+    redirectToAuth();
+    throw new Error('login_required');
+  }
   const wasFavorited = state.favorites.has(articleId);
 
   if (wasFavorited) {

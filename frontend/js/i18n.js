@@ -53,6 +53,9 @@ const translations = {
     'state.playlist_empty_title': 'This playlist is empty',
     'state.playlist_empty_body':
       'Browse your feeds and use the 📁 button on any article to add it to this playlist.',
+    'state.no_playlists_title': 'No playlists yet',
+    'state.no_playlists_body':
+      'Create your first playlist to start curating articles from your feeds.',
 
     /* ── Pagination ── */
     'pagination.previous': 'Previous',
@@ -114,14 +117,31 @@ const translations = {
     'banner.copy_error': 'Could not copy link \u2014 copy it manually from the address bar instead.',
     'banner.copy_url_error': 'Could not copy \u2014 select and copy the URL manually.',
     'banner.add_to_playlist_error': 'Could not add to playlist.',
+    'banner.feed_exists': '"{name}" is already in your feeds \u2014 navigating there now.',
 
     /* ── Language ── */
     'lang.switch': '\u0627\u0644\u0639\u0631\u0628\u064A\u0629',
     'lang.current': 'English',
 
+    /* ── Guest mode ── */
+    'guest.welcome_title': 'Welcome to RSS Reader',
+    'guest.welcome_body':
+      'You are browsing a demo view. Sign in or create an account to save your feeds, favorites, and playlists.',
+    'guest.guest_badge': 'Guest',
+    'guest.login_prompt': 'Sign in',
+    'guest.login_required': 'Please sign in or create an account to use this feature.',
+
+    /* ── Onboarding ── */
+    'onboarding.title': 'Welcome! Add some starter feeds',
+    'onboarding.body': 'Get started by adding a few popular feeds with one click:',
+    'onboarding.add_feed': 'Add',
+    'onboarding.added': 'Added \u2713',
+    'onboarding.skip': "Skip, I\u2019ll add my own",
+
     /* ── General ── */
     'general.or': 'or',
     'general.loading': 'Loading\u2026',
+    'general.back_to_top': 'Back to top',
 
     /* ── Playlist toolbar ── */
     'playlist.public_rss': 'Public RSS feed:',
@@ -179,6 +199,9 @@ const translations = {
     'state.playlist_empty_title': '\u0647\u0630\u0647 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u062A\u0634\u063A\u064A\u0644 \u0641\u0627\u0631\u063A\u0629',
     'state.playlist_empty_body':
       '\u062A\u0635\u0641\u062D \u0645\u0635\u0627\u062F\u0631\u0643 \u0648\u0627\u0633\u062A\u062E\u062F\u0645 \u0632\u0631 \uD83D\uDCC2 \u0627\u0644\u0645\u0648\u062C\u0648\u062F \u0639\u0644\u0649 \u0623\u064A \u0645\u0642\u0627\u0644\u0629 \u0644\u0625\u0636\u0627\u0641\u062A\u0647\u0627 \u0625\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0642\u0627\u0626\u0645\u0629.',
+    'state.no_playlists_title': '\u0644\u0627 \u062A\u0648\u062C\u062F \u0642\u0648\u0627\u0626\u0645 \u062A\u0634\u063A\u064A\u0644 \u0628\u0639\u062F',
+    'state.no_playlists_body':
+      '\u0627\u0646\u0634\u0623 \u0642\u0627\u0626\u0645\u062A\u0643 \u0627\u0644\u0623\u0648\u0644\u0649 \u0644\u0628\u062F\u0621 \u062A\u0646\u0638\u064A\u0645 \u0627\u0644\u0645\u0642\u0627\u0644\u0627\u062A \u0645\u0646 \u0645\u0635\u0627\u062F\u0631\u0643.',
 
     /* ── Pagination ── */
     'pagination.previous': '\u0627\u0644\u0633\u0627\u0628\u0642',
@@ -240,14 +263,31 @@ const translations = {
     'banner.copy_error': '\u062A\u0639\u0630\u0631 \u0646\u0633\u062E \u0627\u0644\u0631\u0627\u0628\u0637 \u2014 \u0627\u0646\u0633\u062E\u0647 \u064A\u062F\u0648\u064A\u0627\u064B \u0645\u0646 \u0634\u0631\u064A\u0637 \u0627\u0644\u0639\u0646\u0648\u0627\u0646.',
     'banner.copy_url_error': '\u062A\u0639\u0630\u0631 \u0627\u0644\u0646\u0633\u062E \u2014 \u062D\u062F\u062F \u0648\u0627\u0646\u0633\u062E \u0627\u0644\u0631\u0627\u0628\u0637 \u064A\u062F\u0648\u064A\u0627\u064B.',
     'banner.add_to_playlist_error': '\u062A\u0639\u0630\u0631\u062A \u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u0625\u0644\u0649 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u062A\u0634\u063A\u064A\u0644.',
+    'banner.feed_exists': '"{name}" \u0645\u0648\u062C\u0648\u062F \u0641\u0639\u0644\u0627\u064B \u0641\u064A \u0645\u0635\u0627\u062F\u0631\u0643 \u2014 \u062C\u0627\u0631\u064D \u0627\u0644\u0627\u0646\u062A\u0642\u0627\u0644 \u0625\u0644\u064A\u0647.',
 
     /* ── Language ── */
     'lang.switch': 'English',
     'lang.current': '\u0627\u0644\u0639\u0631\u0628\u064A\u0629',
 
+    /* ── Guest mode ── */
+    'guest.welcome_title': '\u0645\u0631\u062D\u0628\u0627\u064B \u0641\u064A RSS Reader',
+    'guest.welcome_body':
+      '\u0623\u0646\u062A \u062A\u062A\u0635\u0641\u062D \u0639\u0631\u0636\u0627\u064B \u062A\u062C\u0631\u064A\u0628\u064A\u0627\u064B. \u0633\u062C\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0623\u0648 \u0623\u0646\u0634\u0621 \u062D\u0633\u0627\u0628\u0627\u064B \u0644\u062D\u0641\u0638 \u0645\u0635\u0627\u062F\u0631\u0643 \u0648\u0627\u0644\u0645\u0641\u0636\u0644\u0629 \u0648\u0642\u0648\u0627\u0626\u0645 \u0627\u0644\u062A\u0634\u063A\u064A\u0644.',
+    'guest.guest_badge': '\u0636\u064A\u0641',
+    'guest.login_prompt': '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
+    'guest.login_required': '\u064A\u0631\u062C\u0649 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0623\u0648 \u0625\u0646\u0634\u0627\u0621 \u062D\u0633\u0627\u0628 \u0644\u0627\u0633\u062A\u062E\u062F\u0627\u0645 \u0647\u0630\u0647 \u0627\u0644\u0645\u064A\u0632\u0629.',
+
+    /* ── Onboarding ── */
+    'onboarding.title': '\u0645\u0631\u062D\u0628\u0627\u064B! \u0623\u0636\u0641 \u0628\u0639\u0636 \u0627\u0644\u0645\u0635\u0627\u062F\u0631 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A\u0629',
+    'onboarding.body': '\u0627\u0628\u062F\u0623 \u0628\u0625\u0636\u0627\u0641\u0629 \u0628\u0639\u0636 \u0627\u0644\u0645\u0635\u0627\u062F\u0631 \u0627\u0644\u0634\u0627\u0626\u0639\u0629 \u0628\u0646\u0642\u0631\u0629 \u0648\u0627\u062D\u062F\u0629:',
+    'onboarding.add_feed': '\u0625\u0636\u0627\u0641\u0629',
+    'onboarding.added': '\u062A\u0645\u062A \u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u2713',
+    'onboarding.skip': '\u062A\u062C\u0627\u0648\u0632\u060C \u0633\u0623\u0636\u064A\u0641 \u0645\u0635\u0627\u062F\u0631\u064A \u062E\u0627\u0635\u0629',
+
     /* ── General ── */
     'general.or': '\u0623\u0648',
     'general.loading': '\u062C\u0627\u0631\u064A \u0627\u0644\u062A\u062D\u0645\u064A\u0644\u2026',
+    'general.back_to_top': '\u0627\u0644\u0639\u0648\u062F\u0629 \u0625\u0644\u0649 \u0627\u0644\u0623\u0639\u0644\u0649',
 
     /* ── Playlist toolbar ── */
     'playlist.public_rss': '\u062E\u0644\u0627\u0635\u0629 RSS \u0639\u0627\u0645\u0629:',

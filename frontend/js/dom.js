@@ -46,8 +46,13 @@ export const dom = {
   registerPassword: document.getElementById('register-password'),
   registerError: document.getElementById('register-error'),
   registerSubmit: document.getElementById('register-submit'),
-  sidebarUserName: document.getElementById('sidebar-user-name'),
-  logoutBtn: document.getElementById('logout-btn'),
+
+  guestBadge: document.getElementById('guest-badge'),
+  sidebarUserName: document.getElementById('topbar-user-name'),
+  sidebarLoginBtn: document.getElementById('topbar-login-btn'),
+  logoutBtn: document.getElementById('topbar-logout-btn'),
+  navPlaylists: document.getElementById('nav-playlists'),
+  countAllArticles: document.getElementById('count-all-articles'),
 
   // Playlists
   playlistList: document.getElementById('playlist-list'),
@@ -72,4 +77,10 @@ export const dom = {
   playlistFeedUrl: document.getElementById('playlist-feed-url'),
   copyPlaylistFeedUrlBtn: document.getElementById('copy-playlist-feed-url'),
   deletePlaylistBtn: document.getElementById('delete-playlist-btn'),
+
+  onboardingDialog: document.getElementById('onboarding-dialog'),
+  onboardingList: document.getElementById('onboarding-list'),
+  onboardingSkipBtn: document.getElementById('onboarding-skip'),
+
+  backToTopBtn: document.getElementById('back-to-top'),
 };

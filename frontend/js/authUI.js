@@ -1,11 +1,16 @@
 import { dom } from './dom.js';
+import { state } from './state.js';
 import { saveSession, clearSession, isLoggedIn, getCurrentUser, setOnUnauthorized } from './auth.js';
 import { t, setLanguage, getCurrentLang } from './i18n.js';
+import { showOnboarding } from './onboarding.js';
 
 let onLoginSuccess = () => {};
+let onGuestMode = () => {};
+let isFirstLogin = false;
 
-export function initAuthUI(onLoginSuccessCallback) {
+export function initAuthUI(onLoginSuccessCallback, onGuestModeCallback) {
   onLoginSuccess = onLoginSuccessCallback;
+  onGuestMode = onGuestModeCallback;
 
   dom.authTabLogin.addEventListener('click', () => switchTab('login'));
   dom.authTabRegister.addEventListener('click', () => switchTab('register'));
@@ -13,12 +18,21 @@ export function initAuthUI(onLoginSuccessCallback) {
   dom.registerForm.addEventListener('submit', handleRegister);
   dom.logoutBtn.addEventListener('click', handleLogout);
 
+  // Sidebar: "Sign in" → show auth screen
+  dom.sidebarLoginBtn.addEventListener('click', redirectToAuth);
+  // Auth screen: "Try as Guest" → enter guest mode
+  document.querySelectorAll('.guest-try-btn').forEach((btn) => {
+    btn.addEventListener('click', enterGuestMode);
+  });
+
   setOnUnauthorized(() => showAuthScreen());
 
   if (isLoggedIn()) {
     showApp();
+    onLoginSuccess();
   } else {
-    showAuthScreen();
+    // Start in guest mode by default — no auth screen shown first
+    enterGuestMode();
   }
 }
 
@@ -30,24 +44,55 @@ function switchTab(tab) {
   dom.registerForm.classList.toggle('is-hidden', isLogin);
 }
 
-function showAuthScreen() {
+function updateUserRow(loggedIn) {
+  const user = getCurrentUser();
+  dom.guestBadge.classList.toggle('is-hidden', loggedIn);
+  dom.sidebarLoginBtn.classList.toggle('is-hidden', loggedIn);
+  dom.sidebarUserName.classList.toggle('is-hidden', !loggedIn);
+  dom.logoutBtn.classList.toggle('is-hidden', !loggedIn);
+
+  if (user) {
+    dom.sidebarUserName.textContent = user.displayName;
+  }
+}
+
+export function showAuthScreen() {
   dom.authScreen.classList.remove('is-hidden');
   dom.appRoot.classList.add('is-hidden');
 }
 
-function showApp() {
+export function showApp() {
   dom.authScreen.classList.add('is-hidden');
   dom.appRoot.classList.remove('is-hidden');
 
   const user = getCurrentUser();
-  if (user) {
-    dom.sidebarUserName.textContent = user.displayName;
+  const loggedIn = isLoggedIn();
 
-    // Apply server-stored language preference (only on fresh login/register)
-    if (user.preferredLanguage && user.preferredLanguage !== getCurrentLang()) {
-      setLanguage(user.preferredLanguage);
-    }
+  updateUserRow(loggedIn);
+
+  if (user && user.preferredLanguage && user.preferredLanguage !== getCurrentLang()) {
+    setLanguage(user.preferredLanguage);
   }
+
+  // Show onboarding on first login/register (only if user has no feeds yet)
+  if (isFirstLogin && loggedIn) {
+    isFirstLogin = false;
+    setTimeout(() => {
+      if (state.feeds.length === 0) {
+        showOnboarding();
+      }
+    }, 500);
+  }
+}
+
+export function enterGuestMode() {
+  isFirstLogin = false;
+  showApp();
+  onGuestMode();
+}
+
+export function redirectToAuth() {
+  showAuthScreen();
 }
 
 function setFieldError(errorEl, message) {
@@ -65,6 +110,7 @@ async function handleLogin(event) {
     const result = await api.login(dom.loginEmail.value.trim(), dom.loginPassword.value);
     saveSession(result);
     dom.loginForm.reset();
+    isFirstLogin = false;
     showApp();
     await onLoginSuccess();
   } catch (error) {
@@ -89,6 +135,7 @@ async function handleRegister(event) {
     );
     saveSession(result);
     dom.registerForm.reset();
+    isFirstLogin = true;
     showApp();
     await onLoginSuccess();
   } catch (error) {
@@ -101,5 +148,8 @@ async function handleRegister(event) {
 
 function handleLogout() {
   clearSession();
-  showAuthScreen();
+  updateUserRow(false);
+  enterGuestMode();
+  // Reload guest data
+  onGuestMode();
 }

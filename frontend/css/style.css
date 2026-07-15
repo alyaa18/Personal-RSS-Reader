@@ -115,6 +115,18 @@ button { font-family: inherit; cursor: pointer; }
 .nav-item:hover { background: rgba(255, 255, 255, 0.06); }
 .nav-item.is-active { background: var(--color-accent); color: #fff; }
 
+.nav-item__count,
+.feed-item__count {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-sidebar-text-muted);
+  min-width: 20px;
+  text-align: right;
+}
+
+.nav-item.is-active .nav-item__count { color: rgba(255, 255, 255, 0.8); }
+
 .sidebar__section { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 
 .sidebar__section-label {
@@ -207,7 +219,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .feed-item__favicon { border-radius: 3px; flex-shrink: 0; }
-.feed-item__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.feed-item__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
 
 .feed-item__actions { display: flex; gap: var(--space-1); opacity: 0; transition: opacity var(--transition-fast); }
 .feed-item:hover .feed-item__actions { opacity: 1; }
@@ -230,10 +242,8 @@ button { font-family: inherit; cursor: pointer; }
 
 .sidebar__footer {
   border-top: 1px solid var(--color-sidebar-border);
-  padding-top: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  padding-top: var(--space-3);
+  min-height: 0;
 }
 
 /* ============ Buttons ============ */
@@ -316,11 +326,44 @@ button { font-family: inherit; cursor: pointer; }
   border-bottom: 1px solid var(--color-border);
 }
 
-.lang-switch-container {
+.top-right-cluster {
   position: fixed;
   top: var(--space-3);
   right: var(--space-3);
   z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.top-right-cluster .btn--sm,
+.top-right-cluster .icon-btn,
+.top-right-cluster .lang-switch-btn {
+  height: 34px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-xs);
+  border-radius: var(--radius-sm);
+  line-height: 1;
+}
+
+.top-right-cluster .icon-btn {
+  width: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-switch-container {
+  display: inline-flex;
+  align-items: center;
+}
+
+.topbar-user-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
 }
 
 .content__title {
@@ -374,6 +417,7 @@ button { font-family: inherit; cursor: pointer; }
 .banner { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); border: 1px solid transparent; animation: fadeIn 0.2s ease; }
 .banner--error { background: var(--color-danger-bg); color: var(--color-danger-text); border-color: var(--color-danger-border); }
 .banner--success { background: var(--color-success-bg); color: var(--color-success-text); border-color: var(--color-success-border); }
+.banner--info { background: var(--color-accent-soft); color: var(--color-accent); border-color: var(--color-accent); }
 
 /* ============ States: empty / skeleton (Commit 6) ============ */
 
@@ -582,23 +626,22 @@ button { font-family: inherit; cursor: pointer; }
 
 .auth-hint { margin: 0 0 var(--space-1); font-size: var(--text-xs); color: var(--color-text-secondary); }
 
-/* ============ Sidebar user footer ============ */
-
-.sidebar__user {
+.auth-divider {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-sidebar-border);
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-
-.sidebar__user-name {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-sidebar-text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
 }
 
 .btn--sm { min-height: 34px; padding: var(--space-1) var(--space-3); font-size: var(--text-xs); }
@@ -733,4 +776,101 @@ button { font-family: inherit; cursor: pointer; }
   .modal__form { padding: var(--space-4); }
   .pagination { gap: var(--space-1); }
   .pagination__jump { width: 100%; justify-content: center; margin-left: 0; margin-top: var(--space-2); }
+}
+
+.guest-badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+}
+
+/* ============ Back to top button ============ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.back-to-top:hover {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.back-to-top.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+/* ============ Feed highlight animation ============ */
+
+@keyframes feed-highlight {
+  0%   { background-color: var(--color-accent-soft); }
+  100% { background-color: transparent; }
+}
+
+.feed-item.is-highlighted {
+  animation: feed-highlight 1.5s ease-out;
+}
+
+/* ============ Onboarding ============ */
+
+.onboarding-list {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.onboarding-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.onboarding-item__title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: var(--space-2);
+}
+
+.onboarding-item__url {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
 }

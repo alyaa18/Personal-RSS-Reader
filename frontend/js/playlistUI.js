@@ -1,11 +1,22 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
+import { isLoggedIn } from './auth.js';
 import { showBanner } from './banner.js';
 import { copyToClipboard } from './utils.js';
 import { confirmAction } from './confirmModal.js';
 import { renderPlaylistList, updateContentHeader, updateActiveStyles } from './render.js';
 import { createPlaylist, deletePlaylist, addArticleToPlaylist, getPlaylistFeedUrl } from './playlists.js';
 import { t } from './i18n.js';
+import { redirectToAuth } from './authUI.js';
+
+function requireLogin() {
+  if (!isLoggedIn()) {
+    showBanner(t('guest.login_required'), 'info');
+    redirectToAuth();
+    return false;
+  }
+  return true;
+}
 
 let pendingArticleIdForPicker = null;
 let onPlaylistCreated = () => {}; // wired by app.js to its navigation reset logic when needed
@@ -35,6 +46,7 @@ function openCreatePlaylistDialog(reopenPickerForArticleId) {
 
 async function handleCreatePlaylistSubmit(event) {
   event.preventDefault();
+  if (!requireLogin()) return;
   const name = dom.playlistNameInput.value.trim();
   if (!name) return;
 
@@ -61,6 +73,7 @@ async function handleCreatePlaylistSubmit(event) {
 }
 
 export function openPlaylistPicker(articleId) {
+  if (!requireLogin()) return;
   pendingArticleIdForPicker = articleId;
   dom.playlistPickerList.innerHTML = '';
   dom.playlistPickerEmpty.classList.toggle('is-hidden', state.playlists.length > 0);
@@ -125,6 +138,7 @@ async function handleDeletePlaylistFromToolbar() {
 }
 
 export async function handleDeletePlaylist(playlistId, playlistName) {
+  if (!requireLogin()) return;
   const confirmed = await confirmAction({
     title: t('confirm.delete_playlist_title'),
     message: t('confirm.delete_playlist_message', { name: playlistName }),

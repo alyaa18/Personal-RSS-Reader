@@ -1,7 +1,12 @@
 import { state } from './state.js';
+import { isLoggedIn } from './auth.js';
 import { API_BASE_URL } from './api.js';
 
 export async function loadPlaylists() {
+  if (!isLoggedIn()) {
+    state.playlists = [];
+    return;
+  }
   try {
     state.playlists = await api.getPlaylists();
   } catch {

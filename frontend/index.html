@@ -51,10 +51,20 @@
 
         <button type="submit" class="btn btn--primary btn--block" id="register-submit" data-i18n="auth.create_account">Create account</button>
       </form>
+
+      <div class="auth-divider"><span data-i18n="general.or">or</span></div>
+      <button type="button" class="btn btn--ghost btn--block guest-try-btn" data-i18n="guest.guest_badge">Try as Guest</button>
     </div>
   </div>
   <div class="app">
-    <div id="lang-switch-container" class="lang-switch-container"></div>
+    <div class="top-right-cluster" id="top-right-cluster">
+      <span class="guest-badge is-hidden" id="guest-badge" data-i18n="guest.guest_badge">Guest</span>
+      <span class="topbar-user-name is-hidden" id="topbar-user-name"></span>
+      <button type="button" class="btn btn--ghost btn--sm" id="new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
+      <button type="button" class="btn btn--ghost btn--sm is-hidden" id="topbar-login-btn" data-i18n="guest.login_prompt">Sign in</button>
+      <button type="button" class="icon-btn is-hidden" id="topbar-logout-btn" data-i18n-title="auth.logout" title="Log out" data-i18n-aria-label="auth.logout" aria-label="Log out">&#8618;</button>
+      <div id="lang-switch-container" class="lang-switch-container"></div>
+    </div>
 
     <aside class="sidebar">
       <div class="sidebar__brand">
@@ -63,13 +73,17 @@
       </div>
 
       <nav class="sidebar__nav">
-        <button type="button" class="nav-item is-active" id="nav-all-articles" data-feed-id="all">
+        <button type="button" class="nav-item is-active" id="nav-all-articles">
           <span class="nav-item__icon" aria-hidden="true">&#9776;</span>
           <span data-i18n="nav.all_articles">All Articles</span>
+          <span class="nav-item__count" id="count-all-articles"></span>
         </button>
         <button type="button" class="nav-item" id="nav-starred">
           <span class="nav-item__icon" aria-hidden="true">&#9733;</span>
           <span data-i18n="nav.starred">Starred</span>
+        </button>
+        <button type="button" class="nav-item" id="nav-playlists">
+          <span data-i18n="nav.playlists">Playlists</span>
         </button>
       </nav>
 
@@ -89,21 +103,12 @@
       </div>
 
       <div class="sidebar__section">
-        <div class="sidebar__section-head">
-          <p class="sidebar__section-label" data-i18n="nav.playlists">Playlists</p>
-        </div>
         <ul class="playlist-list" id="playlist-list">
           <li class="playlist-list__empty" id="playlist-list-empty" data-i18n="sidebar.no_playlists">No playlists yet.</li>
         </ul>
-        <button type="button" class="btn btn--ghost btn--sm btn--block" id="new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       </div>
 
-      <div class="sidebar__footer">
-        <div class="sidebar__user">
-          <span class="sidebar__user-name" id="sidebar-user-name"></span>
-          <button type="button" class="icon-btn" id="logout-btn" data-i18n-title="auth.logout" title="Log out" data-i18n-aria-label="auth.logout" aria-label="Log out">&#8618;</button>
-        </div>
-      </div>
+      <div class="sidebar__footer"></div>
 
     </aside>
 
@@ -237,6 +242,7 @@
       <button type="button" class="feed-item__button">
         <img class="feed-item__favicon" src="" alt="" width="16" height="16">
         <span class="feed-item__title"></span>
+        <span class="feed-item__count"></span>
       </button>
       <div class="feed-item__actions">
         <button type="button" class="icon-btn feed-item__refresh" data-i18n-title="sidebar.refresh_feed" title="Refresh feed" data-i18n-aria-label="sidebar.refresh_feed" aria-label="Refresh feed">&#8635;</button>
@@ -280,6 +286,19 @@
       </div>
     </article>
   </template>
+
+  <button type="button" class="back-to-top is-hidden" id="back-to-top" data-i18n-title="general.back_to_top" title="Back to top" aria-label="Back to top">&#8593;</button>
+
+  <dialog class="modal" id="onboarding-dialog">
+    <div class="modal__form">
+      <h2 class="modal__title" data-i18n="onboarding.title">Welcome! Add some starter feeds</h2>
+      <p class="modal__subtitle" data-i18n="onboarding.body">Get started by adding a few popular feeds with one click:</p>
+      <ul class="onboarding-list" id="onboarding-list"></ul>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="onboarding-skip" data-i18n="onboarding.skip">Skip, I&rsquo;ll add my own</button>
+      </div>
+    </div>
+  </dialog>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script type="module" src="js/api.js"></script>

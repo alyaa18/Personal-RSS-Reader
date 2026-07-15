@@ -22,6 +22,7 @@ builder.Services.AddHttpClient<TranslationService>(client =>
 });
 builder.Services.AddScoped<FeedService>();
 builder.Services.AddScoped<ArticleService>();
+builder.Services.AddSingleton<DemoService>();
 builder.Services.AddScoped<FavoriteService>();
 builder.Services.AddScoped<PlaylistService>();
 
@@ -121,18 +122,33 @@ app.MapGet("/api/feeds", async (ClaimsPrincipal user, FeedService feedService) =
     return Results.Ok(feeds);
 }).RequireAuthorization();
 
-app.MapPost("/api/feeds", async (AddFeedRequest request, ClaimsPrincipal user, FeedService feedService) =>
+app.MapPost("/api/feeds", async (AddFeedRequest request, ClaimsPrincipal user, FeedService feedService, AppDbContext db) =>
 {
     if (string.IsNullOrWhiteSpace(request.Url))
     {
         return Results.BadRequest(new { error = "URL is required." });
     }
 
-    var newFeed = await feedService.AddFeedAsync(user.GetUserId(), request.Url);
+    var userId = user.GetUserId();
+
+    // Check if user is already subscribed — return the existing feed ID
+    var normalizedUrl = request.Url.ToLowerInvariant();
+    var existingSub = await db.UserFeedSubscriptions
+        .Include(ufs => ufs.Feed)
+        .FirstOrDefaultAsync(ufs =>
+            ufs.UserId == userId &&
+            ufs.Feed.Url!.ToLower() == normalizedUrl);
+
+    if (existingSub != null)
+    {
+        return Results.Ok(new { duplicate = true, feed = existingSub.Feed });
+    }
+
+    var newFeed = await feedService.AddFeedAsync(userId, request.Url);
 
     if (newFeed == null)
     {
-        return Results.BadRequest(new { error = "Invalid, unreachable, or duplicate feed URL." });
+        return Results.BadRequest(new { error = "Invalid or unreachable feed URL." });
     }
 
     return Results.Created($"/api/feeds/{newFeed.Id}", newFeed);
@@ -207,6 +223,19 @@ app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
         exists,
         sizeBytes = info?.Length,
         lastModifiedUtc = info?.LastWriteTimeUtc
+    });
+});
+
+// ── Demo / Guest mode (no auth) ─────────────────────────────
+
+app.MapGet("/api/demo", async (DemoService demoService) =>
+{
+    var (feeds, articles) = await demoService.GetDemoDataAsync();
+
+    return Results.Ok(new
+    {
+        feeds = feeds.Select(f => new { f.Id, f.Title, f.Url, f.CreatedAt, f.LastFetchedAt, f.Language }),
+        articles
     });
 });
 

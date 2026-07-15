@@ -1,13 +1,13 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
 import { isLoggedIn } from './auth.js';
-import { loadFavorites } from './favorites.js';
+import { loadFavorites, setOnCountsChanged } from './favorites.js';
 import { loadPlaylists } from './playlists.js';
 import {
   renderSidebar, renderArticles, clearArticleRiver,
   renderArticlesSyncWrapper,
   updateActiveStyles, updateContentHeader, setArticleListState,
-  setPlaylistPickerHandler,
+  setPlaylistPickerHandler, updateArticleCounts,
 } from './render.js';
 import { setRerenderCallback } from './pagination.js';
 import { initSearch } from './search.js';
@@ -276,6 +276,9 @@ function init() {
   if (langSwitchContainer) {
     initLangSwitch(langSwitchContainer);
   }
+
+  // Wire up count badge updates for favorite toggles
+  setOnCountsChanged(updateArticleCounts);
 
   updateUILanguage();
 }

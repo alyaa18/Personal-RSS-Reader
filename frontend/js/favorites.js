@@ -4,6 +4,10 @@ import { showBanner } from './banner.js';
 import { t } from './i18n.js';
 import { redirectToAuth } from './authUI.js';
 
+// Set by app.js to avoid circular import with render.js
+let _onCountsChanged = () => {};
+export function setOnCountsChanged(fn) { _onCountsChanged = fn; }
+
 export async function loadFavorites() {
   if (!isLoggedIn()) {
     state.favorites = new Set();
@@ -49,6 +53,7 @@ export async function toggleFavorite(articleId) {
     } else {
       await api.addFavorite(articleId);
     }
+    _onCountsChanged();
     return !wasFavorited;
   } catch (error) {
     if (wasFavorited) {

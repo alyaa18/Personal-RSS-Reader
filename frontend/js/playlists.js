@@ -1,6 +1,7 @@
 import { state } from './state.js';
 import { isLoggedIn } from './auth.js';
 import { API_BASE_URL } from './api.js';
+import { updateArticleCounts } from './render.js';
 
 export async function loadPlaylists() {
   if (!isLoggedIn()) {
@@ -17,12 +18,14 @@ export async function loadPlaylists() {
 export async function createPlaylist(name) {
   const playlist = await api.createPlaylist(name);
   state.playlists.push(playlist);
+  updateArticleCounts();
   return playlist;
 }
 
 export async function deletePlaylist(id) {
   await api.deletePlaylist(id);
   state.playlists = state.playlists.filter((p) => p.id !== id);
+  updateArticleCounts();
 }
 
 export async function loadPlaylistDetail(id) {

@@ -61,8 +61,17 @@ function buildFeedItem(feed) {
 }
 
 export function updateArticleCounts() {
-  const total = getFilteredArticles().length;
+  // All Articles: always shows the grand total regardless of active view
+  const total = state.articles.length;
   dom.countAllArticles.textContent = total > 0 ? total : '';
+
+  // Starred: number of favorited articles
+  const starredCount = state.favorites?.size ?? 0;
+  dom.countStarred.textContent = starredCount > 0 ? starredCount : '';
+
+  // Playlists: number of playlists
+  const playlistCount = state.playlists?.length ?? 0;
+  dom.countPlaylists.textContent = playlistCount > 0 ? playlistCount : '';
 
   state.feeds.forEach((feed) => {
     const count = state.articles.filter((a) => a.feedId === feed.id).length;

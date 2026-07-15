@@ -100,6 +100,57 @@ function setFieldError(errorEl, message) {
   errorEl.classList.toggle('is-hidden', !message);
 }
 
+function showVerificationNotice(email) {
+  // Switch to a simple inline notice on the auth screen
+  dom.loginForm.classList.add('is-hidden');
+  dom.registerForm.classList.add('is-hidden');
+  dom.authTabLogin.style.display = 'none';
+  dom.authTabRegister.style.display = 'none';
+  document.querySelectorAll('.guest-try-btn').forEach((el) => el.classList.add('is-hidden'));
+
+  // Create or show verification notice
+  let notice = document.getElementById('verification-notice');
+  if (!notice) {
+    notice = document.createElement('div');
+    notice.id = 'verification-notice';
+    notice.className = 'auth-form';
+    dom.authScreen.querySelector('.auth-card').appendChild(notice);
+  }
+  notice.innerHTML = `
+    <div style="text-align:center;padding:var(--space-4) 0;">
+      <div style="font-size:40px;margin-bottom:var(--space-3);">&#9993;</div>
+      <h3 style="margin:0 0 var(--space-2);font-size:var(--text-lg);">${t('auth.verify_title')}</h3>
+      <p style="margin:0 0 var(--space-3);color:var(--color-text-secondary);font-size:var(--text-sm);">
+        ${t('auth.verify_body').replace('{email}', email)}
+      </p>
+      <button type="button" class="btn btn--primary btn--block" id="resend-verify-btn">${t('auth.resend_verify')}</button>
+      <button type="button" class="btn btn--ghost btn--block" id="back-to-auth-btn" style="margin-top:var(--space-2);">${t('auth.back_to_login')}</button>
+    </div>
+  `;
+  notice.classList.remove('is-hidden');
+
+  document.getElementById('resend-verify-btn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('resend-verify-btn');
+    btn.disabled = true;
+    btn.textContent = t('auth.sending');
+    try {
+      await api.resendVerification(email);
+      btn.textContent = t('auth.resent');
+    } catch {
+      btn.disabled = false;
+      btn.textContent = t('auth.resend_verify');
+    }
+  });
+
+  document.getElementById('back-to-auth-btn')?.addEventListener('click', () => {
+    notice?.classList.add('is-hidden');
+    dom.authTabLogin.style.display = '';
+    dom.authTabRegister.style.display = '';
+    document.querySelectorAll('.guest-try-btn').forEach((el) => el.classList.remove('is-hidden'));
+    switchTab('login');
+  });
+}
+
 async function handleLogin(event) {
   event.preventDefault();
   setFieldError(dom.loginError, '');
@@ -108,6 +159,10 @@ async function handleLogin(event) {
 
   try {
     const result = await api.login(dom.loginEmail.value.trim(), dom.loginPassword.value);
+    if (result.emailVerificationRequired) {
+      showVerificationNotice(result.email);
+      return;
+    }
     saveSession(result);
     dom.loginForm.reset();
     isFirstLogin = false;
@@ -133,6 +188,10 @@ async function handleRegister(event) {
       dom.registerPassword.value,
       dom.registerName.value.trim()
     );
+    if (result.emailVerificationRequired) {
+      showVerificationNotice(result.email);
+      return;
+    }
     saveSession(result);
     dom.registerForm.reset();
     isFirstLogin = true;

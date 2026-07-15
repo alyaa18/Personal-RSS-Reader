@@ -91,6 +91,7 @@ const api = {
   removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
 
   updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
+  resendVerification: (email) => apiRequest('/auth/resend-verification', { method: 'POST', body: JSON.stringify({ email }) }),
 
   getDemoData: () => apiRequest('/demo'),
 };

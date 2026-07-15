@@ -30,6 +30,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddSingleton<EmailService>();
 
 var jwtSecret = builder.Configuration["Jwt:Secret"]
     ?? "ThisIsJustADevelopmentSecretKeyThatIsLongEnough123!";
@@ -92,7 +93,7 @@ app.MapPost("/api/auth/register", async (RegisterRequest request, AuthService au
     var result = await authService.RegisterAsync(request);
     if (result == null)
     {
-        return Results.BadRequest(new { error = "An account with this email already exists." });
+        return Results.BadRequest(new { error = "An account with this email already exists. Try logging in instead." });
     }
 
     return Results.Created("/api/auth/me", result);
@@ -112,6 +113,51 @@ app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authServ
     }
 
     return Results.Ok(result);
+});
+
+// ── Email verification (no auth — token-based) ─────────────────
+
+app.MapGet("/api/auth/verify", async (string? token, AuthService authService) =>
+{
+    var (success, message) = await authService.VerifyEmailAsync(token ?? "");
+
+    var heading = success ? "Email Verified &#10003;" : "Verification Failed";
+    var color = success ? "#1a1a1a" : "#cc3333";
+    var cta = success ? "<a href=\"/\" class=\"btn\">Go to RSS Reader</a>" : "";
+
+    var messageEncoded = System.Net.WebUtility.HtmlEncode(message);
+    var html = "<!DOCTYPE html>\n" +
+      "<html><head><meta charset=\"utf-8\"><title>Email Verification</title>\n" +
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+      "<style>\n" +
+      "  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }\n" +
+      "  .card { background: #fff; border-radius: 12px; padding: 40px; max-width: 420px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }\n" +
+      $"  h1 {{ font-size: 22px; color: {color}; margin: 0 0 12px; }}\n" +
+      "  p { font-size: 15px; color: #555; margin: 0 0 24px; line-height: 1.5; }\n" +
+      "  .btn { display: inline-block; background: #1a1a1a; color: #fff; text-decoration: none; padding: 10px 28px; border-radius: 6px; font-size: 15px; }\n" +
+      "</style>\n" +
+      "</head><body>\n" +
+      "<div class=\"card\">\n" +
+      $"  <h1>{heading}</h1>\n" +
+      $"  <p>{messageEncoded}</p>\n" +
+      $"  {cta}\n" +
+      "</div>\n" +
+      "</body></html>";
+
+    return Results.Content(html, "text/html; charset=utf-8");
+});
+
+app.MapPost("/api/auth/resend-verification", async (ResendVerificationRequest request, AuthService authService) =>
+{
+    if (string.IsNullOrWhiteSpace(request.Email))
+    {
+        return Results.BadRequest(new { error = "Email is required." });
+    }
+
+    var (success, message) = await authService.ResendVerificationAsync(request.Email.Trim().ToLowerInvariant());
+    return success
+        ? Results.Ok(new { message })
+        : Results.BadRequest(new { error = message });
 });
 
 // ── Feed endpoints (all require a logged-in user) ───────────────

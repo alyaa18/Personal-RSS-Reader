@@ -11,6 +11,10 @@ public class User
     // Nullable: unset means "use app default."
     public string? PreferredLanguage { get; set; }
 
+    // Email verification
+    public bool EmailVerified { get; set; } = false;
+    public string? VerificationToken { get; set; }
+
     // Navigation
     public List<UserFeedSubscription> Subscriptions { get; set; } = new();
     public List<Favorite> Favorites { get; set; } = new();

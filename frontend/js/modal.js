@@ -6,11 +6,35 @@ import { showBanner } from './banner.js';
 import { t } from './i18n.js';
 import { redirectToAuth } from './authUI.js';
 
+const SUGGESTED_FEEDS = [
+  { url: 'https://feeds.bbci.co.uk/news/rss.xml', labelKey: 'modal.suggestions_bbc' },
+  { url: 'https://github.blog/feed/', labelKey: 'modal.suggestions_github' },
+  { url: 'https://news.mit.edu/rss/feed', labelKey: 'modal.suggestions_mit' },
+  { url: 'https://hnrss.org/frontpage', labelKey: 'modal.suggestions_hackernews' },
+];
+
 export function initAddFeedModal() {
   dom.openAddFeedBtn.addEventListener('click', openAddFeedDialog);
   dom.stateEmptyCta.addEventListener('click', openAddFeedDialog);
   dom.cancelAddFeedBtn.addEventListener('click', () => dom.addFeedDialog.close());
   dom.addFeedForm.addEventListener('submit', handleAddFeedSubmit);
+
+  // Build suggestion chips
+  const list = document.getElementById('feed-suggestions-list');
+  if (list) {
+    SUGGESTED_FEEDS.forEach((feed) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'feed-suggestion-chip';
+      chip.textContent = t(feed.labelKey);
+      chip.dataset.url = feed.url;
+      chip.addEventListener('click', () => {
+        dom.feedUrlInput.value = feed.url;
+        dom.addFeedForm.requestSubmit();
+      });
+      list.appendChild(chip);
+    });
+  }
 }
 
 function openAddFeedDialog() {

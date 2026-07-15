@@ -19,7 +19,9 @@ export function isLoggedIn() {
 }
 
 export function saveSession(authResponse) {
-  sessionStorage.setItem(TOKEN_KEY, authResponse.token);
+  if (authResponse.token) {
+    sessionStorage.setItem(TOKEN_KEY, authResponse.token);
+  }
   sessionStorage.setItem(
     USER_KEY,
     JSON.stringify({
@@ -27,8 +29,20 @@ export function saveSession(authResponse) {
       email: authResponse.email,
       displayName: authResponse.displayName,
       preferredLanguage: authResponse.preferredLanguage || null,
+      emailVerified: authResponse.emailVerified || false,
     })
   );
+}
+
+export function isEmailVerified() {
+  try {
+    const raw = sessionStorage.getItem(USER_KEY);
+    if (!raw) return false;
+    const user = JSON.parse(raw);
+    return user.emailVerified === true;
+  } catch {
+    return false;
+  }
 }
 
 export function clearSession() {

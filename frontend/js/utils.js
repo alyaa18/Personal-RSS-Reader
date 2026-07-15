@@ -31,7 +31,10 @@ export function getFaviconUrl(feedUrl) {
   try {
     const normalizedUrl = new URL(feedUrl);
     if (FAVICON_DENYLIST.has(normalizedUrl.hostname)) return null;
-    return `https://www.google.com/s2/favicons?sz=32&domain_url=${encodeURIComponent(normalizedUrl.href)}`;
+    // Use only the domain origin — Google's favicon service doesn't
+    // resolve favicons for full feed URLs, just for site domains.
+    const domain = `${normalizedUrl.protocol}//${normalizedUrl.hostname}`;
+    return `https://www.google.com/s2/favicons?sz=32&domain=${encodeURIComponent(domain)}`;
   } catch {
     return null;
   }

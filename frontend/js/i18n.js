@@ -21,6 +21,12 @@ const translations = {
     'auth.login_success': 'Logged in successfully.',
     'auth.logout': 'Log out',
     'auth.session_expired': 'Your session has expired. Please log in again.',
+    'auth.verify_title': 'Check your email',
+    'auth.verify_body': 'We sent a verification link to {email}. Please click the link to activate your account.',
+    'auth.resend_verify': 'Resend verification email',
+    'auth.resent': 'Sent!',
+    'auth.sending': 'Sending\u2026',
+    'auth.back_to_login': 'Back to sign in',
 
     /* ── Sidebar ── */
     'nav.all_articles': 'All Articles',
@@ -46,16 +52,16 @@ const translations = {
     'content.refreshing': 'Refreshing\u2026',
 
     /* ── States ── */
-    'state.empty_title': 'Your reading list is empty',
+    'state.empty_title': 'No articles yet',
     'state.empty_body':
-      'Subscribe to RSS and Atom feeds to see a river of news from your favorite sites.',
+      'Paste an RSS or Atom feed URL above to start reading. Try something like BBC News or the GitHub Blog.',
     'state.add_first_feed': 'Add your first feed',
     'state.playlist_empty_title': 'This playlist is empty',
     'state.playlist_empty_body':
-      'Browse your feeds and use the 📁 button on any article to add it to this playlist.',
+      'Use the 📁 button on any article to add it to this playlist.',
     'state.no_playlists_title': 'No playlists yet',
     'state.no_playlists_body':
-      'Create your first playlist to start curating articles from your feeds.',
+      'Create your first playlist to start organizing your articles.',
 
     /* ── Pagination ── */
     'pagination.previous': 'Previous',
@@ -167,6 +173,12 @@ const translations = {
     'auth.login_success': '\u062A\u0645 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0628\u0646\u062C\u0627\u062D.',
     'auth.logout': '\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062E\u0631\u0648\u062C',
     'auth.session_expired': '\u0627\u0646\u062A\u0647\u062A \u062C\u0644\u0633\u062A\u0643. \u064A\u0631\u062C\u0649 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644 \u0645\u0631\u0629 \u0623\u062E\u0631\u0649.',
+    'auth.verify_title': '\u062A\u062D\u0642\u0642 \u0645\u0646 \u0628\u0631\u064A\u062F\u0643 \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A',
+    'auth.verify_body': '\u0644\u0642\u062F \u0623\u0631\u0633\u0644\u0646\u0627 \u0631\u0627\u0628\u0637 \u0627\u0644\u062A\u062D\u0642\u0642 \u0625\u0644\u0649 {email}. \u064A\u0631\u062C\u0649 \u0627\u0644\u0646\u0642\u0631 \u0639\u0644\u0649 \u0627\u0644\u0631\u0627\u0628\u0637 \u0644\u062A\u0641\u0639\u064A\u0644 \u062D\u0633\u0627\u0628\u0643.',
+    'auth.resend_verify': '\u0625\u0639\u0627\u062F\u0629 \u0625\u0631\u0633\u0627\u0644 \u0628\u0631\u064A\u062F \u0627\u0644\u062A\u062D\u0642\u0642',
+    'auth.resent': '\u062A\u0645 \u0627\u0644\u0625\u0631\u0633\u0627\u0644!',
+    'auth.sending': '\u062C\u0627\u0631\u064D \u0627\u0644\u0625\u0631\u0633\u0627\u0644\u2026',
+    'auth.back_to_login': '\u0627\u0644\u0639\u0648\u062F\u0629 \u0625\u0644\u0649 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
 
     /* ── Sidebar ── */
     'nav.all_articles': '\u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u0642\u0627\u0644\u0627\u062A',
@@ -192,16 +204,16 @@ const translations = {
     'content.refreshing': '\u062C\u0627\u0631\u064A \u0627\u0644\u062A\u062D\u062F\u064A\u062B\u2026',
 
     /* ── States ── */
-    'state.empty_title': '\u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0642\u0631\u0627\u0621\u0629 \u0641\u0627\u0631\u063A\u0629',
+    'state.empty_title': '\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u0642\u0627\u0644\u0627\u062A \u0628\u0639\u062F',
     'state.empty_body':
-      '\u0627\u0634\u062A\u0631\u0643 \u0641\u064A \u062E\u0644\u0627\u0635\u0627\u062A RSS \u0648 Atom \u0644\u0631\u0624\u064A\u0629 \u0622\u062E\u0631 \u0627\u0644\u0623\u062E\u0628\u0627\u0631 \u0645\u0646 \u0645\u0648\u0627\u0642\u0639\u0643 \u0627\u0644\u0645\u0641\u0636\u0644\u0629.',
+      '\u0627\u0644\u0635\u0642 \u0631\u0627\u0628\u0637 RSS \u0623\u0648 Atom \u0623\u0639\u0644\u0627\u0647 \u0644\u0644\u0628\u062F\u0621. \u062C\u0631\u0628 BBC News \u0623\u0648 \u0645\u062F\u0648\u0646\u0629 GitHub.',
     'state.add_first_feed': '\u0623\u0636\u0641 \u0645\u0635\u062F\u0631\u0643 \u0627\u0644\u0623\u0648\u0644',
     'state.playlist_empty_title': '\u0647\u0630\u0647 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u062A\u0634\u063A\u064A\u0644 \u0641\u0627\u0631\u063A\u0629',
     'state.playlist_empty_body':
-      '\u062A\u0635\u0641\u062D \u0645\u0635\u0627\u062F\u0631\u0643 \u0648\u0627\u0633\u062A\u062E\u062F\u0645 \u0632\u0631 \uD83D\uDCC2 \u0627\u0644\u0645\u0648\u062C\u0648\u062F \u0639\u0644\u0649 \u0623\u064A \u0645\u0642\u0627\u0644\u0629 \u0644\u0625\u0636\u0627\u0641\u062A\u0647\u0627 \u0625\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0642\u0627\u0626\u0645\u0629.',
+      '\u0627\u0633\u062A\u062E\u062F\u0645 \u0632\u0631 \uD83D\uDCC2 \u0627\u0644\u0645\u0648\u062C\u0648\u062F \u0639\u0644\u0649 \u0623\u064A \u0645\u0642\u0627\u0644\u0629 \u0644\u0625\u0636\u0627\u0641\u062A\u0647\u0627 \u0625\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0642\u0627\u0626\u0645\u0629.',
     'state.no_playlists_title': '\u0644\u0627 \u062A\u0648\u062C\u062F \u0642\u0648\u0627\u0626\u0645 \u062A\u0634\u063A\u064A\u0644 \u0628\u0639\u062F',
     'state.no_playlists_body':
-      '\u0627\u0646\u0634\u0623 \u0642\u0627\u0626\u0645\u062A\u0643 \u0627\u0644\u0623\u0648\u0644\u0649 \u0644\u0628\u062F\u0621 \u062A\u0646\u0638\u064A\u0645 \u0627\u0644\u0645\u0642\u0627\u0644\u0627\u062A \u0645\u0646 \u0645\u0635\u0627\u062F\u0631\u0643.',
+      '\u0627\u0646\u0634\u0623 \u0642\u0627\u0626\u0645\u062A\u0643 \u0627\u0644\u0623\u0648\u0644\u0649 \u0644\u0628\u062F\u0621 \u062A\u0646\u0638\u064A\u0645 \u0645\u0642\u0627\u0644\u0627\u062A\u0643.',
 
     /* ── Pagination ── */
     'pagination.previous': '\u0627\u0644\u0633\u0627\u0628\u0642',
@@ -213,6 +225,11 @@ const translations = {
     'modal.add_feed_subtitle': '\u0623\u0644\u0635\u0642 \u0631\u0627\u0628\u0637 \u062E\u0644\u0627\u0635\u0629 RSS \u0623\u0648 Atom.',
     'modal.feed_url': '\u0631\u0627\u0628\u0637 \u0627\u0644\u0645\u0635\u062F\u0631',
     'modal.cancel': '\u0625\u0644\u063A\u0627\u0621',
+    'modal.suggestions': '\u062C\u0631\u0628 \u0623\u062D\u062F \u0647\u0630\u0647:',
+    'modal.suggestions_bbc': 'BBC News',
+    'modal.suggestions_github': '\u0645\u062F\u0648\u0646\u0629 GitHub',
+    'modal.suggestions_mit': 'MIT News',
+    'modal.suggestions_hackernews': 'Hacker News',
     'modal.add_feed': '\u0625\u0636\u0627\u0641\u0629 \u0645\u0635\u062F\u0631',
     'modal.adding': '\u062C\u0627\u0631\u064A \u0627\u0644\u0625\u0636\u0627\u0641\u0629\u2026',
 

@@ -60,9 +60,9 @@
     <div class="top-right-cluster" id="top-right-cluster">
       <span class="guest-badge is-hidden" id="guest-badge" data-i18n="guest.guest_badge">Guest</span>
       <span class="topbar-user-name is-hidden" id="topbar-user-name"></span>
-      <button type="button" class="btn btn--ghost btn--sm" id="new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       <button type="button" class="btn btn--ghost btn--sm is-hidden" id="topbar-login-btn" data-i18n="guest.login_prompt">Sign in</button>
       <button type="button" class="icon-btn is-hidden" id="topbar-logout-btn" data-i18n-title="auth.logout" title="Log out" data-i18n-aria-label="auth.logout" aria-label="Log out">&#8618;</button>
+      <button type="button" class="btn btn--ghost btn--sm" id="new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       <div id="lang-switch-container" class="lang-switch-container"></div>
     </div>
 
@@ -83,6 +83,7 @@
           <span data-i18n="nav.starred">Starred</span>
         </button>
         <button type="button" class="nav-item" id="nav-playlists">
+          <span class="nav-item__icon" aria-hidden="true">&#128193;</span>
           <span data-i18n="nav.playlists">Playlists</span>
         </button>
       </nav>
@@ -107,7 +108,7 @@
           <p class="sidebar__section-label" data-i18n="nav.playlists">Playlists</p>
         </div>
         <ul class="playlist-list" id="playlist-list">
-          <li class="playlist-list__empty" id="playlist-list-empty" data-i18n="sidebar.no_playlists">No playlists yet.</li>
+          <li class="playlist-list__empty is-hidden" id="playlist-list-empty" data-i18n="sidebar.no_playlists">No playlists yet.</li>
         </ul>
         <button type="button" class="btn btn--ghost btn--sm btn--block" id="sidebar-new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       </div>
@@ -190,6 +191,11 @@
       <input type="url" id="feed-url-input" class="field-input" placeholder="https://example.com/rss.xml" required>
 
       <div class="modal__error is-hidden" id="add-feed-error"></div>
+
+      <div class="feed-suggestions" id="feed-suggestions">
+        <p class="feed-suggestions__label" data-i18n="modal.suggestions">Try one of these:</p>
+        <div class="feed-suggestions__list" id="feed-suggestions-list"></div>
+      </div>
 
       <div class="modal__actions">
         <button type="button" class="btn btn--ghost" id="cancel-add-feed" data-i18n="modal.cancel">Cancel</button>

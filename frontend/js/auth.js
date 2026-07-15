@@ -2,12 +2,12 @@ const TOKEN_KEY = 'rss-reader:token';
 const USER_KEY = 'rss-reader:user';
 
 export function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY);
+  return localStorage.getItem(TOKEN_KEY);
 }
 
 export function getCurrentUser() {
   try {
-    const raw = sessionStorage.getItem(USER_KEY);
+    const raw = localStorage.getItem(USER_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -20,9 +20,9 @@ export function isLoggedIn() {
 
 export function saveSession(authResponse) {
   if (authResponse.token) {
-    sessionStorage.setItem(TOKEN_KEY, authResponse.token);
+    localStorage.setItem(TOKEN_KEY, authResponse.token);
   }
-  sessionStorage.setItem(
+  localStorage.setItem(
     USER_KEY,
     JSON.stringify({
       id: authResponse.userId,
@@ -36,7 +36,7 @@ export function saveSession(authResponse) {
 
 export function isEmailVerified() {
   try {
-    const raw = sessionStorage.getItem(USER_KEY);
+    const raw = localStorage.getItem(USER_KEY);
     if (!raw) return false;
     const user = JSON.parse(raw);
     return user.emailVerified === true;
@@ -46,8 +46,8 @@ export function isEmailVerified() {
 }
 
 export function clearSession() {
-  sessionStorage.removeItem(TOKEN_KEY);
-  sessionStorage.removeItem(USER_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
 }
 
 // Called by app.js once, at startup, to react to token expiry mid-session

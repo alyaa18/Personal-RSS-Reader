@@ -455,11 +455,11 @@ function updateLangSwitchButton() {
 }
 
 // ── Article content translation ──
-// Uses the global `api` object and auth token from sessionStorage
+// Uses the global `api` object and auth token from localStorage
 
 function getAuthToken() {
   try {
-    return sessionStorage.getItem('rss-reader:token');
+    return localStorage.getItem('rss-reader:token');
   } catch {
     return null;
   }

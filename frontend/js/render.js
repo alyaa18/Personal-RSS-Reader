@@ -311,7 +311,13 @@ function buildArticleCard(article) {
     imageEl.src = article.imageUrl;
     imageEl.alt = article.title;
     imageEl.classList.remove('is-hidden');
-    imageEl.onerror = () => imageEl.classList.add('is-hidden');
+    imageEl.classList.add('is-loading');
+    imageEl.onload = () => imageEl.classList.remove('is-loading');
+    imageEl.onerror = function () {
+      this.classList.remove('is-loading');
+      this.classList.add('is-hidden');
+      this.src = '';
+    };
   }
 
   const audioEl = card.querySelector('.article-card__audio');

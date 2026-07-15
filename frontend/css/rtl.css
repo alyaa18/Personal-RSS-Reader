@@ -47,7 +47,7 @@ html[dir="rtl"] .app {
 /* ============ Content ============ */
 
 html[dir="rtl"] .content__toolbar {
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 
 html[dir="rtl"] .search-field {
@@ -60,37 +60,43 @@ html[dir="rtl"] .search-field__input {
   text-align: right;
 }
 
-html[dir="rtl"] .content__actions .btn {
-  /* Button icons before text */
-  flex-direction: row;
-}
-
 /* ============ Article Cards ============ */
 
-html[dir="rtl"] .article-card__meta {
+html[dir="rtl"] .article-card__meta,
+.article-card[dir="rtl"] .article-card__meta {
   direction: rtl;
 }
 
-html[dir="rtl"] .article-card__title {
+html[dir="rtl"] .article-card__title,
+.article-card[dir="rtl"] .article-card__title {
   direction: rtl;
 }
 
-html[dir="rtl"] .article-card__summary {
+html[dir="rtl"] .article-card__summary,
+.article-card[dir="rtl"] .article-card__summary {
   direction: rtl;
   text-align: right;
 }
 
-html[dir="rtl"] .article-card__footer {
+html[dir="rtl"] .article-card__body,
+.article-card[dir="rtl"] .article-card__body {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .article-card__content,
+.article-card[dir="rtl"] .article-card__content {
+  text-align: right;
+}
+
+html[dir="rtl"] .article-card__footer,
+.article-card[dir="rtl"] .article-card__footer {
   flex-direction: row;
 }
 
-html[dir="rtl"] .article-card__footer-right {
+html[dir="rtl"] .article-card__footer-right,
+.article-card[dir="rtl"] .article-card__footer-right {
   margin-right: auto;
   margin-left: 0;
-}
-
-html[dir="rtl"] .article-card__star {
-  /* Star icon doesn't need mirroring */
 }
 
 /* ============ Pagination ============ */

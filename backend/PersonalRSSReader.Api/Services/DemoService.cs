@@ -112,7 +112,11 @@ public class DemoService
                     Summary = a.Summary,
                     PublishedAt = a.PublishedAt,
                     FetchedAt = a.FetchedAt,
-                    Author = a.Author
+                    Author = a.Author,
+                    ImageUrl = a.ImageUrl,
+                    EnclosureUrl = a.EnclosureUrl,
+                    EnclosureType = a.EnclosureType,
+                    Language = a.Language
                 })
                 .ToList();
             _cacheTime = DateTime.UtcNow;

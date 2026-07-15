@@ -329,7 +329,7 @@ button { font-family: inherit; cursor: pointer; }
 .top-right-cluster {
   position: fixed;
   top: var(--space-3);
-  right: var(--space-3);
+  inset-inline-end: var(--space-3);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -515,12 +515,35 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--color-text-secondary);
 }
 
+.article-card__body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin: var(--space-2) 0 var(--space-1);
+}
+
 .article-card__image {
-  width: 100%;
-  max-height: 280px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  border-radius: var(--radius-md);
-  margin: var(--space-2) 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  image-rendering: auto;
+  background-color: var(--color-skeleton);
+  transition: opacity 0.25s ease;
+}
+
+.article-card__image.is-loading {
+  opacity: 0;
+}
+
+.article-card__image:not(.is-loading) {
+  opacity: 1;
+}
+
+.article-card__content {
+  flex: 1;
+  min-width: 0;
 }
 
 .article-card__audio {

@@ -15,4 +15,8 @@ public class ArticleWithFeedInfo
     public DateTime PublishedAt { get; set; }
     public DateTime FetchedAt { get; set; } = DateTime.UtcNow;
     public string? Author { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? EnclosureUrl { get; set; }
+    public string? EnclosureType { get; set; }
+    public string? Language { get; set; }
 }

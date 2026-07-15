@@ -1,7 +1,7 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
 import { isLoggedIn } from './auth.js';
-import { renderFeedList, renderArticles, updateActiveStyles, updateContentHeader } from './render.js';
+import { renderSidebar, renderArticles, updateActiveStyles, updateContentHeader } from './render.js';
 import { showBanner } from './banner.js';
 import { t } from './i18n.js';
 import { redirectToAuth } from './authUI.js';
@@ -81,7 +81,7 @@ async function handleAddFeedSubmit(event) {
     }
 
     state.feeds.push(result);
-    renderFeedList();
+    renderSidebar();
     state.articles = await api.getArticles();
     await renderArticles();
     dom.addFeedDialog.close();

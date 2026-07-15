@@ -27,13 +27,28 @@ export function setPlaylistPickerHandler(fn) {
   openPlaylistPickerCallback = fn;
 }
 
+// ---------- Sidebar mode switching ----------
+
+export function renderSidebar() {
+  const isPlaylists = state.sidebarMode === 'playlists';
+  dom.sidebarFeedsSection.classList.toggle('is-hidden', isPlaylists);
+  dom.sidebarPlaylistsSection.classList.toggle('is-hidden', !isPlaylists);
+
+  if (isPlaylists) {
+    renderPlaylistList();
+  } else {
+    renderFeedList();
+  }
+
+  updateActiveStyles();
+}
+
 // ---------- Feed list (sidebar) ----------
 
 export function renderFeedList() {
   dom.feedList.querySelectorAll('.feed-item').forEach((el) => el.remove());
   dom.feedListEmpty.classList.toggle('is-hidden', state.feeds.length > 0);
   state.feeds.forEach((feed) => dom.feedList.appendChild(buildFeedItem(feed)));
-  updateActiveStyles();
   updateArticleCounts();
 }
 

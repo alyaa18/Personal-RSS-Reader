@@ -4,7 +4,7 @@ import { isLoggedIn } from './auth.js';
 import { loadFavorites } from './favorites.js';
 import { loadPlaylists } from './playlists.js';
 import {
-  renderFeedList, renderPlaylistList, renderArticles,
+  renderSidebar, renderArticles,
   renderArticlesSyncWrapper,
   updateActiveStyles, updateContentHeader, setArticleListState,
   setPlaylistPickerHandler,
@@ -51,12 +51,13 @@ function resetNavigationState() {
   state.currentPlaylistMeta = null;
   state.playlistArticles = [];
   state.currentPage = 1;
+  state.sidebarMode = 'feeds';
 }
 
 async function setActiveFeed(feedId) {
   resetNavigationState();
   state.activeFeedId = feedId;
-  updateActiveStyles();
+  renderSidebar();
   updateContentHeader();
   updatePlaylistToolbar();
   await renderArticles();
@@ -74,17 +75,19 @@ async function setActiveFeed(feedId) {
 async function setActiveView(view) {
   resetNavigationState();
   state.activeView = view;
-  updateActiveStyles();
+  renderSidebar();
   updateContentHeader();
   updatePlaylistToolbar();
   await renderArticles();
 }
 
 async function setActivePlaylist(playlistId) {
-  resetNavigationState();
   state.activeView = 'playlist';
+  state.activeFeedId = 'all';
   state.activePlaylistId = playlistId;
-  updateActiveStyles();
+  state.currentPage = 1;
+  state.sidebarMode = 'playlists';
+  renderSidebar();
   setArticleListState('loading');
 
   try {
@@ -111,6 +114,7 @@ setOnPlaylistDeleted((deletedPlaylistId) => {
 dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));
 dom.navStarred.addEventListener('click', () => setActiveView('starred'));
 dom.navPlaylists.addEventListener('click', () => {
+  state.sidebarMode = 'playlists';
   if (state.playlists.length > 0) {
     setActivePlaylist(state.playlists[0].id);
   } else {
@@ -120,7 +124,7 @@ dom.navPlaylists.addEventListener('click', () => {
     state.currentPlaylistMeta = null;
     state.playlistArticles = [];
     state.currentPage = 1;
-    updateActiveStyles();
+    renderSidebar();
     updateContentHeader();
     updatePlaylistToolbar();
     setArticleListState('empty');
@@ -173,7 +177,6 @@ dom.refreshAllBtn.addEventListener('click', handleRefreshAll);
 async function loadFeeds() {
   if (!isLoggedIn()) return;
   state.feeds = await api.getFeeds();
-  renderFeedList();
 }
 
 async function loadArticles() {
@@ -187,7 +190,7 @@ async function loadAppData() {
   clearBanners();
   try {
     await Promise.all([loadFeeds(), loadArticles(), loadFavorites(), loadPlaylists()]);
-    renderPlaylistList();
+    renderSidebar();
     await renderArticles();
   } catch (error) {
     setArticleListState('empty');
@@ -221,8 +224,8 @@ async function loadGuestData() {
     }));
     state.favorites = new Set();
     state.playlists = [];
-    renderFeedList();
-    renderPlaylistList();
+    state.sidebarMode = 'feeds';
+    renderSidebar();
     await renderArticles();
   } catch (error) {
     setArticleListState('empty');

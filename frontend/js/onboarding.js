@@ -1,6 +1,6 @@
 import { dom } from './dom.js';
 import { showBanner } from './banner.js';
-import { renderFeedList, renderArticles } from './render.js';
+import { renderSidebar, renderArticles } from './render.js';
 import { state } from './state.js';
 import { t } from './i18n.js';
 
@@ -41,7 +41,7 @@ export function showOnboarding() {
       try {
         const result = await api.addFeed(feed.url);
         state.feeds.push(result);
-        renderFeedList();
+        renderSidebar();
       } catch {
         addBtn.disabled = false;
         addBtn.textContent = t('onboarding.add_feed');

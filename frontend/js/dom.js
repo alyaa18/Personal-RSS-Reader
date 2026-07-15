@@ -53,6 +53,9 @@ export const dom = {
   logoutBtn: document.getElementById('topbar-logout-btn'),
   navPlaylists: document.getElementById('nav-playlists'),
   countAllArticles: document.getElementById('count-all-articles'),
+  sidebarFeedsSection: document.getElementById('sidebar-feeds-section'),
+  sidebarPlaylistsSection: document.getElementById('sidebar-playlists-section'),
+  sidebarNewPlaylistBtn: document.getElementById('sidebar-new-playlist-btn'),
 
   // Playlists
   playlistList: document.getElementById('playlist-list'),

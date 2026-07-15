@@ -87,7 +87,7 @@
         </button>
       </nav>
 
-      <div class="sidebar__section">
+      <div class="sidebar__section sidebar-mode-feeds" id="sidebar-feeds-section">
         <div class="sidebar__section-head">
           <p class="sidebar__section-label" data-i18n="nav.feeds">Feeds</p>
           <div class="feed-scroll-controls" data-i18n-aria-label="nav.feeds" aria-label="Feed list scroll controls">
@@ -102,10 +102,14 @@
         </ul>
       </div>
 
-      <div class="sidebar__section">
+      <div class="sidebar__section sidebar-mode-playlists is-hidden" id="sidebar-playlists-section">
+        <div class="sidebar__section-head">
+          <p class="sidebar__section-label" data-i18n="nav.playlists">Playlists</p>
+        </div>
         <ul class="playlist-list" id="playlist-list">
           <li class="playlist-list__empty" id="playlist-list-empty" data-i18n="sidebar.no_playlists">No playlists yet.</li>
         </ul>
+        <button type="button" class="btn btn--ghost btn--sm btn--block" id="sidebar-new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       </div>
 
       <div class="sidebar__footer"></div>

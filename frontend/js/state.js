@@ -5,6 +5,7 @@ export const state = {
   playlistArticles: [],
   currentPlaylistMeta: null,
   activeFeedId: 'all',
+  sidebarMode: 'feeds',       // 'feeds' | 'playlists'
   activeView: 'all',          // 'all' | 'starred' | 'playlist'
   activePlaylistId: null,
   searchQuery: '',

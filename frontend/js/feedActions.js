@@ -2,7 +2,7 @@ import { state } from './state.js';
 import { dom } from './dom.js';
 import { isLoggedIn } from './auth.js';
 import { showBanner } from './banner.js';
-import { renderFeedList, renderArticles, renderArticlesWithTransition } from './render.js';
+import { renderSidebar, renderArticles, renderArticlesWithTransition } from './render.js';
 import { confirmAction } from './confirmModal.js';
 import { t } from './i18n.js';
 import { redirectToAuth } from './authUI.js';
@@ -38,7 +38,7 @@ export async function handleRemoveFeed(feedId) {
     state.articles = state.articles.filter((a) => a.feedId !== feedId);
     if (state.activeFeedId === feedId) state.activeFeedId = 'all';
 
-    renderFeedList();
+    renderSidebar();
     await renderArticles();
     showBanner(t('banner.removed_feed', { name: feed.title }), 'success');
   } catch (error) {

@@ -4,7 +4,7 @@ import { isLoggedIn } from './auth.js';
 import { showBanner } from './banner.js';
 import { copyToClipboard } from './utils.js';
 import { confirmAction } from './confirmModal.js';
-import { renderPlaylistList, updateContentHeader, updateActiveStyles } from './render.js';
+import { renderSidebar, updateContentHeader, updateActiveStyles } from './render.js';
 import { createPlaylist, deletePlaylist, addArticleToPlaylist, getPlaylistFeedUrl } from './playlists.js';
 import { t } from './i18n.js';
 import { redirectToAuth } from './authUI.js';
@@ -23,6 +23,7 @@ let onPlaylistCreated = () => {}; // wired by app.js to its navigation reset log
 
 export function initPlaylistUI() {
   dom.newPlaylistBtn.addEventListener('click', () => openCreatePlaylistDialog(null));
+  dom.sidebarNewPlaylistBtn?.addEventListener('click', () => openCreatePlaylistDialog(null));
   dom.playlistPickerNewBtn.addEventListener('click', () => {
     dom.playlistPickerDialog.close();
     openCreatePlaylistDialog(pendingArticleIdForPicker);
@@ -55,7 +56,7 @@ async function handleCreatePlaylistSubmit(event) {
 
   try {
     await createPlaylist(name);
-    renderPlaylistList();
+    renderSidebar();
     dom.createPlaylistDialog.close();
     showBanner(t('banner.created_playlist', { name }), 'success');
 
@@ -149,7 +150,7 @@ export async function handleDeletePlaylist(playlistId, playlistName) {
 
   try {
     await deletePlaylist(playlistId);
-    renderPlaylistList();
+    renderSidebar();
     showBanner(t('banner.deleted_playlist', { name: playlistName }), 'success');
     onPlaylistCreated(playlistId); // lets app.js reset navigation if the deleted playlist was active
   } catch (error) {

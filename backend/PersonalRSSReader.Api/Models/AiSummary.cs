@@ -1,17 +1,17 @@
 namespace PersonalRSSReader.Api.Models;
 
 /// <summary>
-/// User-specific bookmark on an article. The unique constraint on
-/// (UserId, ArticleId) ensures a user cannot favorite the same article twice.
+/// Cached AI-generated summary for an article. Each article can have at most
+/// one summary. Created for future AI summarization features.
 /// </summary>
-public class Favorite
+public class AiSummary
 {
     public Guid Id { get; set; }
-    public Guid UserId { get; set; }
     public Guid ArticleId { get; set; }
+    public string Summary { get; set; } = string.Empty;
+    public string? Model { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation
-    public User User { get; set; } = null!;
     public Article Article { get; set; } = null!;
 }

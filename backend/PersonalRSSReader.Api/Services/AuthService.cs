@@ -67,7 +67,7 @@ public class AuthService
     private AuthResponse BuildAuthResponse(User user)
     {
         var token = GenerateJwt(user);
-        return new AuthResponse(token, user.Id, user.Email, user.DisplayName);
+        return new AuthResponse(token, user.Id, user.Email, user.DisplayName, user.PreferredLanguage);
     }
 
     private string GenerateJwt(User user)

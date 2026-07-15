@@ -8,9 +8,12 @@ public class User
     public string DisplayName { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Nullable: unset means "use app default." Modeled now so a future
-    // preferences UI doesn't require another migration to add columns.
+    // Nullable: unset means "use app default."
     public string? PreferredLanguage { get; set; }
-    public string? Theme { get; set; }
-    public int? RetentionDaysOverride { get; set; }
+
+    // Navigation
+    public List<UserFeedSubscription> Subscriptions { get; set; } = new();
+    public List<Favorite> Favorites { get; set; } = new();
+    public List<Playlist> Playlists { get; set; } = new();
+    public UserSettings? Settings { get; set; }
 }

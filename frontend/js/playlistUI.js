@@ -5,6 +5,7 @@ import { copyToClipboard } from './utils.js';
 import { confirmAction } from './confirmModal.js';
 import { renderPlaylistList, updateContentHeader, updateActiveStyles } from './render.js';
 import { createPlaylist, deletePlaylist, addArticleToPlaylist, getPlaylistFeedUrl } from './playlists.js';
+import { t } from './i18n.js';
 
 let pendingArticleIdForPicker = null;
 let onPlaylistCreated = () => {}; // wired by app.js to its navigation reset logic when needed
@@ -38,13 +39,13 @@ async function handleCreatePlaylistSubmit(event) {
   if (!name) return;
 
   dom.submitCreatePlaylistBtn.disabled = true;
-  dom.submitCreatePlaylistBtn.textContent = 'Creating…';
+  dom.submitCreatePlaylistBtn.textContent = t('modal.creating');
 
   try {
     await createPlaylist(name);
     renderPlaylistList();
     dom.createPlaylistDialog.close();
-    showBanner(`Created playlist "${name}".`, 'success');
+    showBanner(t('banner.created_playlist', { name }), 'success');
 
     const reopenFor = dom.createPlaylistDialog.dataset.reopenPickerFor;
     if (reopenFor) {
@@ -55,7 +56,7 @@ async function handleCreatePlaylistSubmit(event) {
     dom.createPlaylistError.classList.remove('is-hidden');
   } finally {
     dom.submitCreatePlaylistBtn.disabled = false;
-    dom.submitCreatePlaylistBtn.textContent = 'Create';
+    dom.submitCreatePlaylistBtn.textContent = t('modal.create');
   }
 }
 
@@ -74,15 +75,15 @@ export function openPlaylistPicker(articleId) {
     const addBtn = document.createElement('button');
     addBtn.type = 'button';
     addBtn.className = 'btn btn--ghost btn--sm';
-    addBtn.textContent = 'Add';
+    addBtn.textContent = t('modal.add');
     addBtn.addEventListener('click', async () => {
       addBtn.disabled = true;
       try {
         await addArticleToPlaylist(playlist.id, articleId);
-        addBtn.textContent = 'Added ✓';
+        addBtn.textContent = t('modal.added');
       } catch (error) {
         addBtn.disabled = false;
-        showBanner(error.message || 'Could not add to playlist.', 'error');
+        showBanner(error.message || t('banner.add_to_playlist_error'), 'error');
       }
     });
 
@@ -107,11 +108,10 @@ async function handleCopyFeedUrl() {
   if (!state.currentPlaylistMeta) return;
   try {
     await copyToClipboard(getPlaylistFeedUrl(state.currentPlaylistMeta.slug));
-    const original = dom.copyPlaylistFeedUrlBtn.textContent;
-    dom.copyPlaylistFeedUrlBtn.textContent = 'Copied!';
-    setTimeout(() => { dom.copyPlaylistFeedUrlBtn.textContent = original; }, 1500);
+    dom.copyPlaylistFeedUrlBtn.textContent = t('article.copied');
+    setTimeout(() => { dom.copyPlaylistFeedUrlBtn.textContent = t('playlist.copy_url'); }, 1500);
   } catch {
-    showBanner('Could not copy — select and copy the URL manually.', 'error');
+    showBanner(t('banner.copy_url_error'), 'error');
   }
 }
 
@@ -126,9 +126,9 @@ async function handleDeletePlaylistFromToolbar() {
 
 export async function handleDeletePlaylist(playlistId, playlistName) {
   const confirmed = await confirmAction({
-    title: 'Delete playlist?',
-    message: `Delete "${playlistName}"? This does not delete the articles themselves, only the playlist.`,
-    confirmLabel: 'Delete',
+    title: t('confirm.delete_playlist_title'),
+    message: t('confirm.delete_playlist_message', { name: playlistName }),
+    confirmLabel: t('confirm.delete_label'),
     danger: true,
   });
   if (!confirmed) return;
@@ -136,7 +136,7 @@ export async function handleDeletePlaylist(playlistId, playlistName) {
   try {
     await deletePlaylist(playlistId);
     renderPlaylistList();
-    showBanner(`Deleted "${playlistName}".`, 'success');
+    showBanner(t('banner.deleted_playlist', { name: playlistName }), 'success');
     onPlaylistCreated(playlistId); // lets app.js reset navigation if the deleted playlist was active
   } catch (error) {
     showBanner(error.message || 'Could not delete playlist.', 'error');

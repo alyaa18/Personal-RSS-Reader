@@ -12,13 +12,16 @@ using PersonalRSSReader.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<RssFeedGeneratorService>();
-builder.Services.AddSingleton<JsonStorageService>();
 builder.Services.AddHttpClient<RssService>(client =>
 {
     client.Timeout = TimeSpan.FromSeconds(15);
 });
-builder.Services.AddSingleton<FeedService>();
-builder.Services.AddSingleton<ArticleService>();
+builder.Services.AddHttpClient<TranslationService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+builder.Services.AddScoped<FeedService>();
+builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<FavoriteService>();
 builder.Services.AddScoped<PlaylistService>();
 
@@ -173,6 +176,24 @@ app.MapGet("/api/articles", async (ClaimsPrincipal user, ArticleService articleS
     return Results.Ok(articles);
 }).RequireAuthorization();
 
+// ── User preferences ──────────────────────────────────────────
+
+app.MapPatch("/api/auth/language", async (ClaimsPrincipal user, AppDbContext db, LanguageUpdateRequest request) =>
+{
+    if (request.Language != "en" && request.Language != "ar")
+    {
+        return Results.BadRequest(new { error = "Language must be 'en' or 'ar'." });
+    }
+
+    var dbUser = await db.Users.FindAsync(user.GetUserId());
+    if (dbUser == null) return Results.NotFound(new { error = "User not found." });
+
+    dbUser.PreferredLanguage = request.Language;
+    await db.SaveChangesAsync();
+
+    return Results.Ok(new { preferredLanguage = dbUser.PreferredLanguage });
+}).RequireAuthorization();
+
 // ── Diagnostics (intentionally public — no user data exposed) ──
 
 app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
@@ -257,6 +278,41 @@ app.MapDelete("/api/playlists/{id:guid}/articles/{articleId:guid}", async (Guid 
     var removed = await playlistService.RemoveArticleAsync(user.GetUserId(), id, articleId);
     return removed ? Results.NoContent() : Results.NotFound(new { error = "Article not in playlist." });
 }).RequireAuthorization();
+
+// ── Translation (authenticated — used by frontend) ──────────
+
+app.MapPost("/api/translate", async (TranslationRequest request, TranslationService translationService) =>
+{
+    if (string.IsNullOrWhiteSpace(request.Text))
+    {
+        return Results.BadRequest(new { error = "Text is required." });
+    }
+
+    var translated = await translationService.TranslateAsync(
+        request.Text, request.Source ?? "auto", request.Target);
+
+    if (translated == null)
+    {
+        return Results.Ok(new { translatedText = request.Text });
+    }
+
+    return Results.Ok(new { translatedText = translated });
+}).RequireAuthorization();
+
+app.MapPost("/api/translate/batch", async (BatchTranslationRequest request, TranslationService translationService) =>
+{
+    if (request.Texts == null || request.Texts.Count == 0)
+    {
+        return Results.BadRequest(new { error = "Texts are required." });
+    }
+
+    var results = await translationService.TranslateBatchAsync(
+        request.Texts, request.Source ?? "auto", request.Target);
+
+    return Results.Ok(new { translations = results });
+}).RequireAuthorization();
+
+// ── Playlists: public RSS feed (no auth) ────────────────────
 
 // Intentionally public/unauthenticated — this is meant to be subscribed
 // to by external RSS readers, which can't attach a JWT. Only reachable

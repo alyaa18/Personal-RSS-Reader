@@ -89,6 +89,8 @@ const api = {
   getPlaylist: (id) => apiRequest(`/playlists/${id}`),
   addArticleToPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles`, { method: 'POST', body: JSON.stringify({ articleId }) }),
   removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
+
+  updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
 };
 
 window.api = api;

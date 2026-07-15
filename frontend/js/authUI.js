@@ -1,5 +1,6 @@
 import { dom } from './dom.js';
 import { saveSession, clearSession, isLoggedIn, getCurrentUser, setOnUnauthorized } from './auth.js';
+import { t, setLanguage, getCurrentLang } from './i18n.js';
 
 let onLoginSuccess = () => {};
 
@@ -41,6 +42,11 @@ function showApp() {
   const user = getCurrentUser();
   if (user) {
     dom.sidebarUserName.textContent = user.displayName;
+
+    // Apply server-stored language preference (only on fresh login/register)
+    if (user.preferredLanguage && user.preferredLanguage !== getCurrentLang()) {
+      setLanguage(user.preferredLanguage);
+    }
   }
 }
 
@@ -53,7 +59,7 @@ async function handleLogin(event) {
   event.preventDefault();
   setFieldError(dom.loginError, '');
   dom.loginSubmit.disabled = true;
-  dom.loginSubmit.textContent = 'Logging in…';
+  dom.loginSubmit.textContent = t('auth.logging_in');
 
   try {
     const result = await api.login(dom.loginEmail.value.trim(), dom.loginPassword.value);
@@ -62,10 +68,10 @@ async function handleLogin(event) {
     showApp();
     await onLoginSuccess();
   } catch (error) {
-    setFieldError(dom.loginError, error.message || 'Could not log in.');
+    setFieldError(dom.loginError, error.message || t('auth.login_error'));
   } finally {
     dom.loginSubmit.disabled = false;
-    dom.loginSubmit.textContent = 'Log in';
+    dom.loginSubmit.textContent = t('auth.login');
   }
 }
 
@@ -73,7 +79,7 @@ async function handleRegister(event) {
   event.preventDefault();
   setFieldError(dom.registerError, '');
   dom.registerSubmit.disabled = true;
-  dom.registerSubmit.textContent = 'Creating account…';
+  dom.registerSubmit.textContent = t('auth.creating_account');
 
   try {
     const result = await api.register(
@@ -86,10 +92,10 @@ async function handleRegister(event) {
     showApp();
     await onLoginSuccess();
   } catch (error) {
-    setFieldError(dom.registerError, error.message || 'Could not create account.');
+    setFieldError(dom.registerError, error.message || t('auth.register_error'));
   } finally {
     dom.registerSubmit.disabled = false;
-    dom.registerSubmit.textContent = 'Create account';
+    dom.registerSubmit.textContent = t('auth.create_account');
   }
 }
 

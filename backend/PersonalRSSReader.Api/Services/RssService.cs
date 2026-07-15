@@ -34,10 +34,23 @@ public class RssService
 
     public List<Article> MapToArticles(LibFeed parsedFeed, Guid feedId)
     {
+        var seenLinks = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var articles = new List<Article>(parsedFeed.Items.Count);
 
         foreach (var item in parsedFeed.Items)
         {
+            // Use the feed's own ID if available; otherwise fall back to link.
+            // If both are missing, generate a stable key from title + date so
+            // the same article is never duplicated on repeated refreshes.
+            var link = !string.IsNullOrWhiteSpace(item.Link)
+                ? item.Link
+                : !string.IsNullOrWhiteSpace(item.Id)
+                    ? item.Id
+                    : $"{item.Title}|{item.PublishingDate?.Ticks ?? 0}";
+
+            // Skip duplicate links within the same batch
+            if (!seenLinks.Add(link)) continue;
+
             var (imageUrl, enclosureUrl, enclosureType) = ExtractMedia(item);
 
             articles.Add(new Article
@@ -45,7 +58,7 @@ public class RssService
                 Id = Guid.NewGuid(),
                 FeedId = feedId,
                 Title = string.IsNullOrWhiteSpace(item.Title) ? "(untitled)" : item.Title,
-                Link = item.Link ?? string.Empty,
+                Link = link,
                 Summary = item.Description ?? string.Empty,
                 PublishedAt = item.PublishingDate ?? DateTime.UtcNow,
                 FetchedAt = DateTime.UtcNow,

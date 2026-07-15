@@ -3,6 +3,7 @@ import { dom } from './dom.js';
 import { showBanner } from './banner.js';
 import { renderFeedList, renderArticles, renderArticlesWithTransition } from './render.js';
 import { confirmAction } from './confirmModal.js';
+import { t } from './i18n.js';
 
 let isRefreshAllInFlight = false;
 const refreshingFeedIds = new Set();
@@ -12,9 +13,9 @@ export async function handleRemoveFeed(feedId) {
   if (!feed) return;
 
   const confirmed = await confirmAction({
-    title: 'Remove feed?',
-    message: `Remove "${feed.title}"? This also deletes its saved articles.`,
-    confirmLabel: 'Remove',
+    title: t('confirm.remove_feed_title'),
+    message: t('confirm.remove_feed_message', { name: feed.title }),
+    confirmLabel: t('confirm.remove_label'),
     danger: true,
   });
   if (!confirmed) return;
@@ -26,8 +27,8 @@ export async function handleRemoveFeed(feedId) {
     if (state.activeFeedId === feedId) state.activeFeedId = 'all';
 
     renderFeedList();
-    renderArticles();
-    showBanner(`Removed "${feed.title}".`, 'success');
+    await renderArticles();
+    showBanner(t('banner.removed_feed', { name: feed.title }), 'success');
   } catch (error) {
     showBanner(error.message || 'Could not remove this feed.', 'error');
   }
@@ -49,13 +50,11 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
       state.articles = [...result.articles, ...state.articles].sort(
         (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
       );
-      renderArticlesWithTransition();
+      await renderArticlesWithTransition();
     }
     if (result.newArticlesCount > 0) {
-      showBanner(
-        `${result.newArticlesCount} new article${result.newArticlesCount === 1 ? '' : 's'} from "${feed.title}".`,
-        'success'
-      );
+      const bannerKey = result.newArticlesCount === 1 ? 'banner.new_articles_single' : 'banner.new_articles_plural';
+      showBanner(t(bannerKey, { count: result.newArticlesCount, name: feed.title }), 'success');
     }
   } catch (error) {
     showBanner(error.message || `Could not refresh "${feed.title}".`, 'error');
@@ -72,8 +71,7 @@ export async function handleRefreshAll() {
   isRefreshAllInFlight = true;
 
   dom.refreshAllBtn.disabled = true;
-  const originalLabel = dom.refreshAllBtn.innerHTML;
-  dom.refreshAllBtn.innerHTML = '<span class="spinner--sm" aria-hidden="true"></span> Refreshing…';
+  dom.refreshAllBtn.innerHTML = `<span class="spinner--sm" aria-hidden="true"></span> ${t('content.refreshing')}`;
 
   try {
     const result = await api.refreshAllFeeds();
@@ -84,19 +82,19 @@ export async function handleRefreshAll() {
       state.articles = [...newArticles, ...state.articles].sort(
         (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
       );
-      renderArticlesWithTransition();
+      await renderArticlesWithTransition();
     }
 
     const failedCount = result.failedFeedsCount ?? 0;
-    if (failedCount > 0) showBanner(`${failedCount} feed(s) could not be refreshed.`, 'error');
+    if (failedCount > 0) showBanner(t('banner.feeds_refresh_failed', { count: failedCount }), 'error');
     if (totalNew > 0) {
-      showBanner(`${totalNew} new article(s) found.`, 'success');
+      showBanner(t('banner.new_articles_total', { count: totalNew }), 'success');
     }
   } catch (error) {
     showBanner(error.message || 'Could not refresh feeds.', 'error');
   } finally {
     dom.refreshAllBtn.disabled = false;
-    dom.refreshAllBtn.innerHTML = originalLabel;
+    dom.refreshAllBtn.innerHTML = `<span aria-hidden="true">&#8635;</span> ${t('content.refresh_all')}`;
     isRefreshAllInFlight = false;
   }
 }

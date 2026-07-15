@@ -1,5 +1,10 @@
 namespace PersonalRSSReader.Api.Models;
 
+/// <summary>
+/// A cached article from an RSS feed. Each article belongs to exactly one
+/// Feed and exists only once globally regardless of how many users subscribe
+/// to that feed.
+/// </summary>
 public class Article
 {
     public Guid Id { get; set; }
@@ -16,4 +21,10 @@ public class Article
     public string? EnclosureUrl { get; set; }
     public string? EnclosureType { get; set; }
     public string? Language { get; set; }
+
+    // Navigation
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Feed Feed { get; set; } = null!;
+    [System.Text.Json.Serialization.JsonIgnore]
+    public AiSummary? AiSummary { get; set; }
 }

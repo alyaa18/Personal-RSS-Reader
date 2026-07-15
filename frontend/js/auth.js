@@ -22,7 +22,12 @@ export function saveSession(authResponse) {
   sessionStorage.setItem(TOKEN_KEY, authResponse.token);
   sessionStorage.setItem(
     USER_KEY,
-    JSON.stringify({ id: authResponse.userId, email: authResponse.email, displayName: authResponse.displayName })
+    JSON.stringify({
+      id: authResponse.userId,
+      email: authResponse.email,
+      displayName: authResponse.displayName,
+      preferredLanguage: authResponse.preferredLanguage || null,
+    })
   );
 }
 

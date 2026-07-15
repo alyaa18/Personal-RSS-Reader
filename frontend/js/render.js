@@ -4,6 +4,7 @@ import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText, co
 import { isFavorite, toggleFavorite } from './favorites.js';
 import { renderPagination } from './pagination.js';
 import { showBanner } from './banner.js';
+import { t, translateArticles } from './i18n.js';
 
 const SUMMARY_WORD_LIMIT = 42;
 
@@ -72,14 +73,14 @@ export function updateActiveStyles() {
 
 export function updateContentHeader() {
   if (state.activeView === 'starred') {
-    dom.contentTitle.textContent = 'Starred';
+    dom.contentTitle.textContent = t('content.starred');
   } else if (state.activeView === 'playlist') {
-    dom.contentTitle.textContent = state.currentPlaylistMeta ? state.currentPlaylistMeta.name : 'Playlist';
+    dom.contentTitle.textContent = state.currentPlaylistMeta ? state.currentPlaylistMeta.name : t('content.playlist');
   } else if (state.activeFeedId === 'all') {
-    dom.contentTitle.textContent = 'All Articles';
+    dom.contentTitle.textContent = t('content.all_articles');
   } else {
     const feed = state.feeds.find((f) => f.id === state.activeFeedId);
-    dom.contentTitle.textContent = feed ? feed.title : 'All Articles';
+    dom.contentTitle.textContent = feed ? feed.title : t('content.all_articles');
   }
 }
 
@@ -113,7 +114,36 @@ export function setArticleListState(mode) {
   dom.stateLoading.classList.toggle('is-hidden', mode !== 'loading');
 }
 
-export function renderArticles() {
+export async function renderArticles() {
+  dom.articleList.querySelectorAll('.article-card').forEach((el) => el.remove());
+
+  const filtered = getFilteredArticles();
+  const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+  if (state.currentPage > totalPages) state.currentPage = totalPages;
+
+  if (filtered.length === 0) {
+    setArticleListState('empty');
+    renderPagination(0);
+    return;
+  }
+
+  setArticleListState('content');
+
+  const start = (state.currentPage - 1) * state.pageSize;
+  const pageItems = filtered.slice(start, start + state.pageSize);
+
+  // Translate articles if Arabic language is active
+  const translated = await translateArticles(pageItems);
+
+  translated.forEach((article) => {
+    dom.articleList.appendChild(buildArticleCard(article));
+  });
+
+  renderPagination(filtered.length);
+}
+
+export function renderArticlesSync() {
+  // Non-translating version used during transitions
   dom.articleList.querySelectorAll('.article-card').forEach((el) => el.remove());
 
   const filtered = getFilteredArticles();
@@ -138,14 +168,19 @@ export function renderArticles() {
   renderPagination(filtered.length);
 }
 
-export function renderArticlesWithTransition() {
+export async function renderArticlesWithTransition() {
   if (dom.articleList.classList.contains('is-refreshing')) {
-    renderArticles();
+    await renderArticles();
     return;
   }
   dom.articleList.classList.add('is-refreshing');
-  renderArticles();
+  await renderArticles();
   requestAnimationFrame(() => dom.articleList.classList.remove('is-refreshing'));
+}
+
+// Non-async version for use as rerender callback by pagination
+export function renderArticlesSyncWrapper() {
+  renderArticlesSync();
 }
 
 function buildArticleCard(article) {
@@ -181,7 +216,7 @@ function buildArticleCard(article) {
   const toggleBtn = card.querySelector('.article-card__toggle');
   if (isTruncated) {
     toggleBtn.classList.remove('is-hidden');
-    toggleBtn.textContent = isExpanded ? 'Show less' : 'Show more';
+    toggleBtn.textContent = isExpanded ? t('article.show_less') : t('article.show_more');
     toggleBtn.addEventListener('click', () => {
       isExpanded ? state.expandedArticleIds.delete(article.id) : state.expandedArticleIds.add(article.id);
       renderArticles();
@@ -220,7 +255,7 @@ function buildArticleCard(article) {
       starBtn.setAttribute('aria-pressed', String(nowFavorited));
       if (state.activeView === 'starred' && !nowFavorited) renderArticles();
     } catch (error) {
-      showBanner(error.message || 'Could not update favorite.', 'error');
+      showBanner(error.message || t('banner.favorite_error'), 'error');
     } finally {
       starBtn.disabled = false;
     }
@@ -230,10 +265,10 @@ function buildArticleCard(article) {
   shareBtn.addEventListener('click', async () => {
     try {
       await copyToClipboard(article.link);
-      shareBtn.textContent = 'Copied!';
-      setTimeout(() => { shareBtn.innerHTML = '&#128279; Copy link'; }, 1500);
+      shareBtn.textContent = t('article.copied');
+      setTimeout(() => { shareBtn.textContent = t('article.copy_link'); }, 1500);
     } catch {
-      showBanner('Could not copy link — copy it manually from the address bar instead.', 'error');
+      showBanner(t('banner.copy_error'), 'error');
     }
   });
 

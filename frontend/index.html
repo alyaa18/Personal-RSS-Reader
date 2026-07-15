@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,76 +11,78 @@
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/rtl.css">
 </head>
 <body>
   <div class="auth-screen" id="auth-screen">
     <div class="auth-card">
-      <p class="eyebrow">The Daily</p>
-      <h1 class="brand-title auth-card__title">RSS Reader</h1>
+      <p class="eyebrow" data-i18n="app.eyebrow">The Daily</p>
+      <h1 class="brand-title auth-card__title" data-i18n="app.name">RSS Reader</h1>
 
       <div class="auth-tabs">
-        <button type="button" class="auth-tab is-active" id="auth-tab-login">Log in</button>
-        <button type="button" class="auth-tab" id="auth-tab-register">Register</button>
+        <button type="button" class="auth-tab is-active" id="auth-tab-login" data-i18n="auth.login">Log in</button>
+        <button type="button" class="auth-tab" id="auth-tab-register" data-i18n="auth.register">Register</button>
       </div>
 
       <form id="login-form" class="auth-form">
-        <label class="field-label" for="login-email">Email</label>
+        <label class="field-label" for="login-email" data-i18n="auth.email">Email</label>
         <input type="email" id="login-email" class="field-input" required autocomplete="email">
 
-        <label class="field-label" for="login-password">Password</label>
+        <label class="field-label" for="login-password" data-i18n="auth.password">Password</label>
         <input type="password" id="login-password" class="field-input" required autocomplete="current-password">
 
         <div class="modal__error is-hidden" id="login-error"></div>
 
-        <button type="submit" class="btn btn--primary btn--block" id="login-submit">Log in</button>
+        <button type="submit" class="btn btn--primary btn--block" id="login-submit" data-i18n="auth.login">Log in</button>
       </form>
 
       <form id="register-form" class="auth-form is-hidden">
-        <label class="field-label" for="register-name">Display name</label>
+        <label class="field-label" for="register-name" data-i18n="auth.display_name">Display name</label>
         <input type="text" id="register-name" class="field-input" required autocomplete="name">
 
-        <label class="field-label" for="register-email">Email</label>
+        <label class="field-label" for="register-email" data-i18n="auth.email">Email</label>
         <input type="email" id="register-email" class="field-input" required autocomplete="email">
 
-        <label class="field-label" for="register-password">Password</label>
+        <label class="field-label" for="register-password" data-i18n="auth.password">Password</label>
         <input type="password" id="register-password" class="field-input" required autocomplete="new-password" minlength="8">
-        <p class="auth-hint">At least 8 characters.</p>
+        <p class="auth-hint" data-i18n="auth.password_hint">At least 8 characters.</p>
 
         <div class="modal__error is-hidden" id="register-error"></div>
 
-        <button type="submit" class="btn btn--primary btn--block" id="register-submit">Create account</button>
+        <button type="submit" class="btn btn--primary btn--block" id="register-submit" data-i18n="auth.create_account">Create account</button>
       </form>
     </div>
   </div>
   <div class="app">
+    <div id="lang-switch-container" class="lang-switch-container"></div>
 
     <aside class="sidebar">
       <div class="sidebar__brand">
-        <p class="eyebrow">The Daily</p>
-        <h1 class="brand-title">RSS Reader</h1>
+        <p class="eyebrow" data-i18n="app.eyebrow">The Daily</p>
+        <h1 class="brand-title" data-i18n="app.name">RSS Reader</h1>
       </div>
 
       <nav class="sidebar__nav">
         <button type="button" class="nav-item is-active" id="nav-all-articles" data-feed-id="all">
           <span class="nav-item__icon" aria-hidden="true">&#9776;</span>
-          <span>All Articles</span>
+          <span data-i18n="nav.all_articles">All Articles</span>
         </button>
         <button type="button" class="nav-item" id="nav-starred">
           <span class="nav-item__icon" aria-hidden="true">&#9733;</span>
-          <span>Starred</span>
+          <span data-i18n="nav.starred">Starred</span>
         </button>
       </nav>
 
       <div class="sidebar__section">
         <div class="sidebar__section-head">
-          <p class="sidebar__section-label">Feeds</p>
-          <div class="feed-scroll-controls" aria-label="Feed list scroll controls">
-            <button type="button" class="feed-scroll-btn" id="feed-scroll-left" aria-label="Scroll feeds left">&#8249;</button>
-            <button type="button" class="feed-scroll-btn" id="feed-scroll-right" aria-label="Scroll feeds right">&#8250;</button>
+          <p class="sidebar__section-label" data-i18n="nav.feeds">Feeds</p>
+          <div class="feed-scroll-controls" data-i18n-aria-label="nav.feeds" aria-label="Feed list scroll controls">
+            <button type="button" class="feed-scroll-btn" id="feed-scroll-left" data-i18n-aria-label="sidebar.scroll_left" aria-label="Scroll feeds left">&#8249;</button>
+            <button type="button" class="feed-scroll-btn" id="feed-scroll-right" data-i18n-aria-label="sidebar.scroll_right" aria-label="Scroll feeds right">&#8250;</button>
           </div>
         </div>
         <ul class="feed-list" id="feed-list">
-          <li class="feed-list__empty" id="feed-list-empty">
+          <li class="feed-list__empty" id="feed-list-empty" data-i18n="sidebar.no_feeds">
             No feeds yet. Add one below to get started.
           </li>
         </ul>
@@ -88,18 +90,18 @@
 
       <div class="sidebar__section">
         <div class="sidebar__section-head">
-          <p class="sidebar__section-label">Playlists</p>
+          <p class="sidebar__section-label" data-i18n="nav.playlists">Playlists</p>
         </div>
         <ul class="playlist-list" id="playlist-list">
-          <li class="playlist-list__empty" id="playlist-list-empty">No playlists yet.</li>
+          <li class="playlist-list__empty" id="playlist-list-empty" data-i18n="sidebar.no_playlists">No playlists yet.</li>
         </ul>
-        <button type="button" class="btn btn--ghost btn--sm btn--block" id="new-playlist-btn">+ New Playlist</button>
+        <button type="button" class="btn btn--ghost btn--sm btn--block" id="new-playlist-btn" data-i18n="sidebar.new_playlist">+ New Playlist</button>
       </div>
 
       <div class="sidebar__footer">
         <div class="sidebar__user">
           <span class="sidebar__user-name" id="sidebar-user-name"></span>
-          <button type="button" class="icon-btn" id="logout-btn" title="Log out" aria-label="Log out">&#8618;</button>
+          <button type="button" class="icon-btn" id="logout-btn" data-i18n-title="auth.logout" title="Log out" data-i18n-aria-label="auth.logout" aria-label="Log out">&#8618;</button>
         </div>
       </div>
 
@@ -107,24 +109,25 @@
 
     <main class="content">
       <header class="content__header">
-        <h2 class="content__title" id="content-title">All Articles</h2>
+        <h2 class="content__title" id="content-title" data-i18n="content.all_articles">All Articles</h2>
         <div class="playlist-toolbar is-hidden" id="playlist-toolbar">
-          <span class="playlist-toolbar__label">Public RSS feed:</span>
+          <span class="playlist-toolbar__label" data-i18n="playlist.public_rss">Public RSS feed:</span>
           <code class="playlist-toolbar__url" id="playlist-feed-url"></code>
-          <button type="button" class="btn btn--ghost btn--sm" id="copy-playlist-feed-url">Copy URL</button>
-          <button type="button" class="btn btn--danger btn--sm" id="delete-playlist-btn">Delete Playlist</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="copy-playlist-feed-url" data-i18n="playlist.copy_url">Copy URL</button>
+          <button type="button" class="btn btn--danger btn--sm" id="delete-playlist-btn" data-i18n="playlist.delete">Delete Playlist</button>
         </div>
         <div class="content__toolbar">
           <div class="content__actions">
             <button type="button" class="btn btn--primary" id="open-add-feed">
-              <span aria-hidden="true">+</span> Add Feed
+              <span aria-hidden="true">+</span> <span data-i18n="content.add_feed">Add Feed</span>
             </button>
             <button type="button" class="btn btn--ghost" id="refresh-all-feeds">
-              <span aria-hidden="true">&#8635;</span> Refresh All
+              <span aria-hidden="true">&#8635;</span> <span data-i18n="content.refresh_all">Refresh All</span>
             </button>
           </div>
           <div class="search-field">
             <input type="search" id="search-input" class="search-field__input"
+                   data-i18n-placeholder="content.search_placeholder"
                    placeholder="Search articles by title or content…" aria-label="Search articles">
           </div>
         </div>
@@ -135,11 +138,11 @@
       <section class="article-list" id="article-list">
         <div class="state state--empty" id="state-empty">
           <div class="state__icon" aria-hidden="true">〜</div>
-          <h3 class="state__title">Your reading list is empty</h3>
-          <p class="state__body">
+          <h3 class="state__title" data-i18n="state.empty_title">Your reading list is empty</h3>
+          <p class="state__body" data-i18n="state.empty_body">
             Subscribe to RSS and Atom feeds to see a river of news from your favorite sites.
           </p>
-          <button type="button" class="btn btn--primary" id="state-empty-cta">Add your first feed</button>
+          <button type="button" class="btn btn--primary" id="state-empty-cta" data-i18n="state.add_first_feed">Add your first feed</button>
         </div>
 
         <div class="state state--loading is-hidden" id="state-loading">
@@ -171,60 +174,60 @@
 
   <dialog class="modal" id="add-feed-dialog">
     <form class="modal__form" id="add-feed-form">
-      <h2 class="modal__title">Add a feed</h2>
-      <p class="modal__subtitle">Paste the URL of an RSS or Atom feed.</p>
+      <h2 class="modal__title" data-i18n="modal.add_feed_title">Add a feed</h2>
+      <p class="modal__subtitle" data-i18n="modal.add_feed_subtitle">Paste the URL of an RSS or Atom feed.</p>
 
-      <label class="field-label" for="feed-url-input">Feed URL</label>
+      <label class="field-label" for="feed-url-input" data-i18n="modal.feed_url">Feed URL</label>
       <input type="url" id="feed-url-input" class="field-input" placeholder="https://example.com/rss.xml" required>
 
       <div class="modal__error is-hidden" id="add-feed-error"></div>
 
       <div class="modal__actions">
-        <button type="button" class="btn btn--ghost" id="cancel-add-feed">Cancel</button>
-        <button type="submit" class="btn btn--primary" id="submit-add-feed">Add Feed</button>
+        <button type="button" class="btn btn--ghost" id="cancel-add-feed" data-i18n="modal.cancel">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="submit-add-feed" data-i18n="modal.add_feed">Add Feed</button>
       </div>
     </form>
   </dialog>
 
   <dialog class="modal modal--confirm" id="confirm-dialog">
     <div class="modal__form">
-      <h2 class="modal__title" id="confirm-title">Are you sure?</h2>
+      <h2 class="modal__title" id="confirm-title" data-i18n="confirm.are_you_sure">Are you sure?</h2>
       <p class="modal__subtitle" id="confirm-message"></p>
       <div class="modal__actions">
-        <button type="button" class="btn btn--ghost" id="confirm-cancel-btn">Cancel</button>
-        <button type="button" class="btn btn--danger" id="confirm-action-btn">Confirm</button>
+        <button type="button" class="btn btn--ghost" id="confirm-cancel-btn" data-i18n="modal.cancel">Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-action-btn" data-i18n="confirm.confirm_label">Confirm</button>
       </div>
     </div>
   </dialog>
 
   <dialog class="modal" id="create-playlist-dialog">
     <form class="modal__form" id="create-playlist-form">
-      <h2 class="modal__title">New playlist</h2>
-      <p class="modal__subtitle">Give your playlist a name.</p>
+      <h2 class="modal__title" data-i18n="modal.new_playlist_title">New playlist</h2>
+      <p class="modal__subtitle" data-i18n="modal.new_playlist_subtitle">Give your playlist a name.</p>
 
-      <label class="field-label" for="playlist-name-input">Name</label>
+      <label class="field-label" for="playlist-name-input" data-i18n="modal.name">Name</label>
       <input type="text" id="playlist-name-input" class="field-input" placeholder="Weekend Reading" required>
 
       <div class="modal__error is-hidden" id="create-playlist-error"></div>
 
       <div class="modal__actions">
-        <button type="button" class="btn btn--ghost" id="cancel-create-playlist">Cancel</button>
-        <button type="submit" class="btn btn--primary" id="submit-create-playlist">Create</button>
+        <button type="button" class="btn btn--ghost" id="cancel-create-playlist" data-i18n="modal.cancel">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="submit-create-playlist" data-i18n="modal.create">Create</button>
       </div>
     </form>
   </dialog>
 
   <dialog class="modal" id="playlist-picker-dialog">
     <div class="modal__form">
-      <h2 class="modal__title">Add to playlist</h2>
-      <p class="modal__subtitle">Choose one or more playlists.</p>
+      <h2 class="modal__title" data-i18n="modal.add_to_playlist_title">Add to playlist</h2>
+      <p class="modal__subtitle" data-i18n="modal.add_to_playlist_subtitle">Choose one or more playlists.</p>
 
       <ul class="playlist-picker-list" id="playlist-picker-list"></ul>
-      <p class="playlist-picker-empty is-hidden" id="playlist-picker-empty">You don't have any playlists yet.</p>
+      <p class="playlist-picker-empty is-hidden" id="playlist-picker-empty" data-i18n="modal.no_playlists">You don't have any playlists yet.</p>
 
       <div class="modal__actions">
-        <button type="button" class="btn btn--ghost" id="playlist-picker-new">+ New Playlist</button>
-        <button type="button" class="btn btn--primary" id="playlist-picker-done">Done</button>
+        <button type="button" class="btn btn--ghost" id="playlist-picker-new" data-i18n="sidebar.new_playlist">+ New Playlist</button>
+        <button type="button" class="btn btn--primary" id="playlist-picker-done" data-i18n="modal.done">Done</button>
       </div>
     </div>
   </dialog>
@@ -236,8 +239,8 @@
         <span class="feed-item__title"></span>
       </button>
       <div class="feed-item__actions">
-        <button type="button" class="icon-btn feed-item__refresh" title="Refresh feed" aria-label="Refresh feed">&#8635;</button>
-        <button type="button" class="icon-btn feed-item__remove" title="Remove feed" aria-label="Remove feed">&times;</button>
+        <button type="button" class="icon-btn feed-item__refresh" data-i18n-title="sidebar.refresh_feed" title="Refresh feed" data-i18n-aria-label="sidebar.refresh_feed" aria-label="Refresh feed">&#8635;</button>
+        <button type="button" class="icon-btn feed-item__remove" data-i18n-title="sidebar.remove_feed" title="Remove feed" data-i18n-aria-label="sidebar.remove_feed" aria-label="Remove feed">&times;</button>
       </div>
     </li>
   </template>
@@ -248,7 +251,7 @@
         <span class="playlist-item__icon" aria-hidden="true">&#127911;</span>
         <span class="playlist-item__title"></span>
       </button>
-      <button type="button" class="icon-btn playlist-item__remove" title="Delete playlist" aria-label="Delete playlist">&times;</button>
+      <button type="button" class="icon-btn playlist-item__remove" data-i18n-title="sidebar.delete_playlist" title="Delete playlist" data-i18n-aria-label="sidebar.delete_playlist" aria-label="Delete playlist">&times;</button>
     </li>
   </template>
 
@@ -267,11 +270,11 @@
       <p class="article-card__summary"></p>
       <button type="button" class="article-card__toggle is-hidden"></button>
       <audio class="article-card__audio is-hidden" controls></audio>
-      <<div class="article-card__footer">
-        <button type="button" class="article-card__share">&#128279; Copy link</button>
+      <div class="article-card__footer">
+        <button type="button" class="article-card__share" data-i18n="article.copy_link">&#128279; Copy link</button>
         <div class="article-card__footer-right">
-          <button type="button" class="article-card__playlist-add" title="Add to playlist" aria-label="Add to playlist">&#128194;</button>
-          <button type="button" class="article-card__star" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
+          <button type="button" class="article-card__playlist-add" data-i18n-title="article.add_to_playlist" title="Add to playlist" data-i18n-aria-label="article.add_to_playlist" aria-label="Add to playlist">&#128194;</button>
+          <button type="button" class="article-card__star" data-i18n-aria-label="article.add_to_favorites" aria-label="Add to favorites" aria-pressed="false">&#9734;</button>
         </div>
       </div>
     </article>
@@ -279,6 +282,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script type="module" src="js/api.js"></script>
+  <script type="module" src="js/i18n.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

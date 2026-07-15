@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalRSSReader.Api.Data;
-using PersonalRSSReader.Api.Models;
 
 namespace PersonalRSSReader.Api.Services.BackgroundJobs;
 
-/// Periodically evicts old articles from the JSON cache. Articles favorited
-/// or added to any playlist are always protected, regardless of age —
-/// checked directly against SQLite before anything is deleted.
+/// <summary>
+/// Periodically evicts old articles from the database. Articles that are
+/// favorited or belong to any playlist are always protected, regardless of
+/// age. AI summaries are cascade-deleted along with their parent article
+/// by the EF Core relationship.
+/// </summary>
 public class RetentionCleanupService : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
@@ -43,19 +45,22 @@ public class RetentionCleanupService : BackgroundService
     {
         using var scope = _scopeFactory.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        var storage = scope.ServiceProvider.GetRequiredService<JsonStorageService>();
 
         var maxAgeDays = _configuration.GetValue<int?>("Retention:MaxArticleAgeDays") ?? 60;
         var cutoff = DateTime.UtcNow.AddDays(-maxAgeDays);
 
+        // Collect IDs of articles that are protected (favorited or in a playlist)
         var protectedIds = await db.Favorites.Select(f => f.ArticleId)
             .Union(db.PlaylistArticles.Select(pa => pa.ArticleId))
             .ToListAsync(stoppingToken);
         var protectedSet = protectedIds.ToHashSet();
 
-        var articles = await storage.ReadAllAsync<Article>(StorageConstants.ArticlesFile);
-        var toKeep = articles.Where(a => a.FetchedAt >= cutoff || protectedSet.Contains(a.Id)).ToList();
-        var removedCount = articles.Count - toKeep.Count;
+        // Delete articles that are old AND not protected
+        var oldArticles = await db.Articles
+            .Where(a => a.FetchedAt < cutoff && !protectedSet.Contains(a.Id))
+            .ToListAsync(stoppingToken);
+
+        var removedCount = oldArticles.Count;
 
         if (removedCount == 0)
         {
@@ -63,16 +68,8 @@ public class RetentionCleanupService : BackgroundService
             return;
         }
 
-        await storage.WriteAllAsync(StorageConstants.ArticlesFile, toKeep);
-
-        // Evict any AI summary whose parent article is gone (Milestone 6).
-        // var keptIds = toKeep.Select(a => a.Id).ToHashSet();
-        // var summaries = await storage.ReadAllAsync<AiSummary>(StorageConstants.AiSummariesFile);
-        // var remainingSummaries = summaries.Where(s => keptIds.Contains(s.ArticleId)).ToList();
-        // if (remainingSummaries.Count != summaries.Count)
-        // {
-        //     await storage.WriteAllAsync(StorageConstants.AiSummariesFile, remainingSummaries);
-        // }
+        db.Articles.RemoveRange(oldArticles);
+        await db.SaveChangesAsync(stoppingToken);
 
         _logger.LogInformation(
             "Retention cleanup removed {RemovedCount} articles older than {MaxAgeDays}d (protected: {ProtectedCount})",

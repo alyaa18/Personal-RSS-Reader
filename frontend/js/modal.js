@@ -2,6 +2,7 @@ import { state } from './state.js';
 import { dom } from './dom.js';
 import { renderFeedList, renderArticles } from './render.js';
 import { showBanner } from './banner.js';
+import { t } from './i18n.js';
 
 export function initAddFeedModal() {
   dom.openAddFeedBtn.addEventListener('click', openAddFeedDialog);
@@ -34,20 +35,20 @@ async function handleAddFeedSubmit(event) {
 
   hideAddFeedError();
   dom.submitAddFeedBtn.disabled = true;
-  dom.submitAddFeedBtn.textContent = 'Adding…';
+  dom.submitAddFeedBtn.textContent = t('modal.adding');
 
   try {
     const newFeed = await api.addFeed(url);
     state.feeds.push(newFeed);
     renderFeedList();
     state.articles = await api.getArticles();
-    renderArticles();
+    await renderArticles();
     dom.addFeedDialog.close();
-    showBanner(`Added "${newFeed.title}".`, 'success');
+    showBanner(t('banner.added_feed', { name: newFeed.title }), 'success');
   } catch (error) {
     showAddFeedError(error.message || 'Could not add this feed.');
   } finally {
     dom.submitAddFeedBtn.disabled = false;
-    dom.submitAddFeedBtn.textContent = 'Add Feed';
+    dom.submitAddFeedBtn.textContent = t('modal.add_feed');
   }
 }

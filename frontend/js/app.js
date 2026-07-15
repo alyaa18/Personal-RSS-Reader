@@ -4,6 +4,7 @@ import { loadFavorites } from './favorites.js';
 import { loadPlaylists } from './playlists.js';
 import {
   renderFeedList, renderPlaylistList, renderArticles,
+  renderArticlesSyncWrapper,
   updateActiveStyles, updateContentHeader, setArticleListState,
   setPlaylistPickerHandler,
 } from './render.js';
@@ -18,6 +19,7 @@ import {
   handleDeletePlaylist, setOnPlaylistDeleted,
 } from './playlistUI.js';
 import { loadPlaylistDetail } from './playlists.js';
+import { t, getCurrentLang, initLangSwitch, setOnLangChanged, updateUILanguage } from './i18n.js';
 
 DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   if (node.tagName === 'A') {
@@ -26,7 +28,7 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   }
 });
 
-setRerenderCallback(renderArticles);
+setRerenderCallback(renderArticlesSyncWrapper);
 setPlaylistPickerHandler(openPlaylistPicker);
 
 function resetNavigationState() {
@@ -38,22 +40,22 @@ function resetNavigationState() {
   state.currentPage = 1;
 }
 
-function setActiveFeed(feedId) {
+async function setActiveFeed(feedId) {
   resetNavigationState();
   state.activeFeedId = feedId;
   updateActiveStyles();
   updateContentHeader();
   updatePlaylistToolbar();
-  renderArticles();
+  await renderArticles();
 }
 
-function setActiveView(view) {
+async function setActiveView(view) {
   resetNavigationState();
   state.activeView = view;
   updateActiveStyles();
   updateContentHeader();
   updatePlaylistToolbar();
-  renderArticles();
+  await renderArticles();
 }
 
 async function setActivePlaylist(playlistId) {
@@ -74,7 +76,7 @@ async function setActivePlaylist(playlistId) {
 
   updateContentHeader();
   updatePlaylistToolbar();
-  renderArticles();
+  await renderArticles();
 }
 
 setOnPlaylistDeleted((deletedPlaylistId) => {
@@ -87,10 +89,12 @@ dom.navAllArticles.addEventListener('click', () => setActiveFeed('all'));
 dom.navStarred.addEventListener('click', () => setActiveView('starred'));
 
 dom.feedScrollLeftBtn?.addEventListener('click', () => {
-  dom.feedList.scrollBy({ left: -180, behavior: 'smooth' });
+  const isRtl = getCurrentLang() === 'ar';
+  dom.feedList.scrollBy({ left: isRtl ? 180 : -180, behavior: 'smooth' });
 });
 dom.feedScrollRightBtn?.addEventListener('click', () => {
-  dom.feedList.scrollBy({ left: 180, behavior: 'smooth' });
+  const isRtl = getCurrentLang() === 'ar';
+  dom.feedList.scrollBy({ left: isRtl ? -180 : 180, behavior: 'smooth' });
 });
 
 dom.feedList.addEventListener('click', (event) => {
@@ -131,7 +135,7 @@ async function loadFeeds() {
 
 async function loadArticles() {
   state.articles = await api.getArticles();
-  renderArticles();
+  await renderArticles();
 }
 
 async function loadAppData() {
@@ -140,11 +144,19 @@ async function loadAppData() {
   try {
     await Promise.all([loadFeeds(), loadArticles(), loadFavorites(), loadPlaylists()]);
     renderPlaylistList();
-    renderArticles();
+    await renderArticles();
   } catch (error) {
     setArticleListState('empty');
-    showBanner(error.message || 'Something went wrong loading your feeds.', 'error');
+    showBanner(error.message || t('banner.load_error'), 'error');
   }
+}
+
+// Called when language changes — re-render dynamic content
+async function onLanguageChanged() {
+  updateUILanguage();
+  updateContentHeader();
+  await renderArticles();
+  updatePlaylistToolbar();
 }
 
 function init() {
@@ -152,6 +164,18 @@ function init() {
   initAddFeedModal();
   initPlaylistUI();
   initAuthUI(loadAppData);
+
+  // Register language change listener to re-render
+  setOnLangChanged(onLanguageChanged);
+
+  // Add language switch button in the content header (top-right corner)
+  const langSwitchContainer = document.getElementById('lang-switch-container');
+  if (langSwitchContainer) {
+    initLangSwitch(langSwitchContainer);
+  }
+
+  // Apply initial static translations
+  updateUILanguage();
 }
 
 init();

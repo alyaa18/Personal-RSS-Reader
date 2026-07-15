@@ -1,5 +1,6 @@
 import { state } from './state.js';
 import { dom } from './dom.js';
+import { t } from './i18n.js';
 
 let rerenderCallback = () => {};
 
@@ -25,7 +26,7 @@ export function renderPagination(totalItems) {
   const prevBtn = document.createElement('button');
   prevBtn.type = 'button';
   prevBtn.className = 'pagination__btn';
-  prevBtn.textContent = 'Previous';
+  prevBtn.textContent = t('pagination.previous');
   prevBtn.disabled = state.currentPage <= 1;
   prevBtn.addEventListener('click', () => goToPage(state.currentPage - 1));
   dom.pagination.appendChild(prevBtn);
@@ -53,7 +54,7 @@ export function renderPagination(totalItems) {
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
   nextBtn.className = 'pagination__btn';
-  nextBtn.textContent = 'Next';
+  nextBtn.textContent = t('pagination.next');
   nextBtn.disabled = state.currentPage >= totalPages;
   nextBtn.addEventListener('click', () => goToPage(state.currentPage + 1));
   dom.pagination.appendChild(nextBtn);
@@ -61,7 +62,7 @@ export function renderPagination(totalItems) {
   const jumpForm = document.createElement('form');
   jumpForm.className = 'pagination__jump';
   jumpForm.innerHTML = `
-    <label for="pagination-jump-input">Go to</label>
+    <label for="pagination-jump-input">${t('pagination.go_to')}</label>
     <input type="number" id="pagination-jump-input" min="1" max="${totalPages}" value="${state.currentPage}">
   `;
   jumpForm.addEventListener('submit', (event) => {

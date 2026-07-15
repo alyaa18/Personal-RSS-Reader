@@ -65,7 +65,8 @@ public class RssService
                 ImageUrl = imageUrl,
                 EnclosureUrl = enclosureUrl,
                 EnclosureType = enclosureType,
-                Language = parsedFeed.Language
+                Language = parsedFeed.Language,
+                Author = string.IsNullOrWhiteSpace(item.Author) ? null : item.Author
             });
         }
 

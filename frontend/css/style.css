@@ -492,6 +492,8 @@ button { font-family: inherit; cursor: pointer; }
 
 .article-card__favicon { border-radius: 3px; }
 .article-card__feed-title { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-text-primary); }
+.article-card__author { color: var(--color-text-secondary); font-style: italic; }
+.article-card__author:not(.is-hidden) + .article-card__dot { margin-left: 0; }
 .article-card__dot { color: var(--color-border); }
 
 .article-card__title { margin: 0 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; line-height: 1.3; }

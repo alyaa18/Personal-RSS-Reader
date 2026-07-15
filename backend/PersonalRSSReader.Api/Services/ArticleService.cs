@@ -45,11 +45,13 @@ public class ArticleService
             Id = a.Id,
             FeedId = a.FeedId,
             FeedTitle = a.Feed.Title,
+            FeedUrl = a.Feed.Url,
             Title = a.Title,
             Link = a.Link,
             Summary = a.Summary,
             PublishedAt = a.PublishedAt,
-            FetchedAt = a.FetchedAt
+            FetchedAt = a.FetchedAt,
+            Author = a.Author
         }).ToList();
     }
 
@@ -72,11 +74,13 @@ public class ArticleService
             Id = a.Id,
             FeedId = a.FeedId,
             FeedTitle = a.Feed.Title,
+            FeedUrl = a.Feed.Url,
             Title = a.Title,
             Link = a.Link,
             Summary = a.Summary,
             PublishedAt = a.PublishedAt,
-            FetchedAt = a.FetchedAt
+            FetchedAt = a.FetchedAt,
+            Author = a.Author
         }).ToList();
     }
 }

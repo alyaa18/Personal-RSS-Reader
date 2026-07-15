@@ -112,6 +112,23 @@ export function getFilteredArticles() {
 export function setArticleListState(mode) {
   dom.stateEmpty.classList.toggle('is-hidden', mode !== 'empty');
   dom.stateLoading.classList.toggle('is-hidden', mode !== 'loading');
+
+  if (mode === 'empty') {
+    if (state.activeView === 'playlist') {
+      dom.stateEmpty.querySelector('.state__title').textContent = t('state.playlist_empty_title');
+      dom.stateEmpty.querySelector('.state__body').textContent = t('state.playlist_empty_body');
+      dom.stateEmptyCta.classList.add('is-hidden');
+    } else {
+      // Restore default content from data-i18n attributes
+      const titleEl = dom.stateEmpty.querySelector('.state__title');
+      const bodyEl = dom.stateEmpty.querySelector('.state__body');
+      const titleKey = titleEl.getAttribute('data-i18n');
+      const bodyKey = bodyEl.getAttribute('data-i18n');
+      if (titleKey) titleEl.textContent = t(titleKey);
+      if (bodyKey) bodyEl.textContent = t(bodyKey);
+      dom.stateEmptyCta.classList.remove('is-hidden');
+    }
+  }
 }
 
 export async function renderArticles() {
@@ -191,6 +208,12 @@ function buildArticleCard(article) {
   setFaviconWithFallback(card.querySelector('.article-card__favicon'), feed ? feed.url : '');
 
   card.querySelector('.article-card__feed-title').textContent = article.feedTitle;
+
+  const authorEl = card.querySelector('.article-card__author');
+  if (article.author) {
+    authorEl.textContent = article.author;
+    authorEl.classList.remove('is-hidden');
+  }
 
   const dateEl = card.querySelector('.article-card__date');
   dateEl.textContent = formatDateTime(article.publishedAt);

@@ -50,6 +50,9 @@ const translations = {
     'state.empty_body':
       'Subscribe to RSS and Atom feeds to see a river of news from your favorite sites.',
     'state.add_first_feed': 'Add your first feed',
+    'state.playlist_empty_title': 'This playlist is empty',
+    'state.playlist_empty_body':
+      'Browse your feeds and use the 📁 button on any article to add it to this playlist.',
 
     /* ── Pagination ── */
     'pagination.previous': 'Previous',
@@ -173,6 +176,9 @@ const translations = {
     'state.empty_body':
       '\u0627\u0634\u062A\u0631\u0643 \u0641\u064A \u062E\u0644\u0627\u0635\u0627\u062A RSS \u0648 Atom \u0644\u0631\u0624\u064A\u0629 \u0622\u062E\u0631 \u0627\u0644\u0623\u062E\u0628\u0627\u0631 \u0645\u0646 \u0645\u0648\u0627\u0642\u0639\u0643 \u0627\u0644\u0645\u0641\u0636\u0644\u0629.',
     'state.add_first_feed': '\u0623\u0636\u0641 \u0645\u0635\u062F\u0631\u0643 \u0627\u0644\u0623\u0648\u0644',
+    'state.playlist_empty_title': '\u0647\u0630\u0647 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u062A\u0634\u063A\u064A\u0644 \u0641\u0627\u0631\u063A\u0629',
+    'state.playlist_empty_body':
+      '\u062A\u0635\u0641\u062D \u0645\u0635\u0627\u062F\u0631\u0643 \u0648\u0627\u0633\u062A\u062E\u062F\u0645 \u0632\u0631 \uD83D\uDCC2 \u0627\u0644\u0645\u0648\u062C\u0648\u062F \u0639\u0644\u0649 \u0623\u064A \u0645\u0642\u0627\u0644\u0629 \u0644\u0625\u0636\u0627\u0641\u062A\u0647\u0627 \u0625\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0642\u0627\u0626\u0645\u0629.',
 
     /* ── Pagination ── */
     'pagination.previous': '\u0627\u0644\u0633\u0627\u0628\u0642',

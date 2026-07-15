@@ -18,6 +18,8 @@ public class RssFeedGeneratorService
                 new XElement("link", a.Link),
                 new XElement("guid", a.Link),
                 new XElement("description", a.Summary),
+                new XElement("source", new XAttribute("url", a.FeedUrl), a.FeedTitle),
+                string.IsNullOrWhiteSpace(a.Author) ? null : new XElement("author", a.Author),
                 new XElement("pubDate", a.PublishedAt.ToString("r"))
             ))
         );

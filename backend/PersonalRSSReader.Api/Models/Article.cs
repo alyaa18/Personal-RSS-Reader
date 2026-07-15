@@ -21,6 +21,7 @@ public class Article
     public string? EnclosureUrl { get; set; }
     public string? EnclosureType { get; set; }
     public string? Language { get; set; }
+    public string? Author { get; set; }
 
     // Navigation
     [System.Text.Json.Serialization.JsonIgnore]

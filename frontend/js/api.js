@@ -1,8 +1,8 @@
 import { getToken, triggerUnauthorized } from './auth.js';
 
-export const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-  ? 'http://localhost:5001/api'
-  : 'https://personal-rss-reader-production-feb0.up.railway.app/api';
+/** @type {string} */
+export const API_BASE_URL = (window.__RSS_CONFIG__ && window.__RSS_CONFIG__.apiBaseUrl)
+  || 'http://localhost:5001/api';
 
 async function apiRequest(path, options = {}) {
   const headers = { ...(options.headers || {}) };

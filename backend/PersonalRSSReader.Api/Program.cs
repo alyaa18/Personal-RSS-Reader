@@ -9,6 +9,14 @@ using PersonalRSSReader.Api.Middleware;
 using PersonalRSSReader.Api.Models.DTOs;
 using PersonalRSSReader.Api.Services;
 
+// Load .env file from the repository root (two levels up from the project directory)
+var envPath = Path.GetFullPath(Path.Combine(
+    Directory.GetCurrentDirectory(), "..", "..", ".env"));
+if (File.Exists(envPath))
+{
+    DotNetEnv.Env.Load(envPath);
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<RssFeedGeneratorService>();

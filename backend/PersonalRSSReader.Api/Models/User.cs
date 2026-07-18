@@ -13,7 +13,8 @@ public class User
 
     // Email verification
     public bool EmailVerified { get; set; } = false;
-    public string? VerificationToken { get; set; }
+    public string? EmailVerificationToken { get; set; }
+    public DateTime? EmailVerificationTokenExpiresAt { get; set; }
 
     // Navigation
     public List<UserFeedSubscription> Subscriptions { get; set; } = new();

@@ -39,6 +39,7 @@ export const dom = {
   loginEmail: document.getElementById('login-email'),
   loginPassword: document.getElementById('login-password'),
   loginError: document.getElementById('login-error'),
+  loginSuccess: document.getElementById('login-success'),
   loginSubmit: document.getElementById('login-submit'),
   registerForm: document.getElementById('register-form'),
   registerName: document.getElementById('register-name'),

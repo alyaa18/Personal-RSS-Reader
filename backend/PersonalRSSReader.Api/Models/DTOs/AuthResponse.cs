@@ -5,7 +5,5 @@ public record AuthResponse(
     Guid UserId,
     string Email,
     string DisplayName,
-    string? PreferredLanguage,
-    bool EmailVerified = false,
-    bool EmailVerificationRequired = false
+    bool EmailVerified
 );

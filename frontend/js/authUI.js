@@ -159,10 +159,6 @@ async function handleLogin(event) {
 
   try {
     const result = await api.login(dom.loginEmail.value.trim(), dom.loginPassword.value);
-    if (result.emailVerificationRequired) {
-      showVerificationNotice(result.email);
-      return;
-    }
     saveSession(result);
     dom.loginForm.reset();
     isFirstLogin = false;
@@ -188,12 +184,8 @@ async function handleRegister(event) {
       dom.registerPassword.value,
       dom.registerName.value.trim()
     );
-    if (result.emailVerificationRequired) {
-      showVerificationNotice(result.email);
-      return;
-    }
-    saveSession(result);
     dom.registerForm.reset();
+    saveSession(result);
     isFirstLogin = true;
     showApp();
     await onLoginSuccess();

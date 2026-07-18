@@ -70,7 +70,18 @@ async function authRequest(path, body) {
 
 const api = {
   register: (email, password, displayName) => authRequest('/auth/register', { email, password, displayName }),
-  login: (email, password) => authRequest('/auth/login', { email, password }),
+  login: async (email, password) => {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const body = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error((body && body.error) || `Request failed (${response.status}).`);
+    }
+    return body;
+  },
 
   getFeeds: () => apiRequest('/feeds'),
   addFeed: (url) => apiRequest('/feeds', { method: 'POST', body: JSON.stringify({ url }) }),
@@ -91,7 +102,6 @@ const api = {
   removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
 
   updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
-  resendVerification: (email) => apiRequest('/auth/resend-verification', { method: 'POST', body: JSON.stringify({ email }) }),
 
   getDemoData: () => apiRequest('/demo'),
 };

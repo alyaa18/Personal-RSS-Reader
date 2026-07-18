@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifying email — RSS Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <style>
+    * { box-sizing: border-box; }
+    .is-hidden {
+      display: none !important;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+      color: var(--color-text-primary, #1a1a1a);
+      background: var(--color-canvas, #f5f2ed);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .verify-card {
+      background: var(--color-surface, #fff);
+      border-radius: var(--radius-lg, 16px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: var(--space-8, 48px) var(--space-6, 32px);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+    .verify-card__icon {
+      font-size: 48px;
+      margin-bottom: var(--space-4, 24px);
+    }
+    .verify-card__title {
+      font-size: var(--text-lg, 1.125rem);
+      font-weight: 600;
+      margin: 0 0 var(--space-2, 8px);
+    }
+    .verify-card__body {
+      color: var(--color-text-secondary, #666);
+      font-size: var(--text-sm, 0.875rem);
+      margin: 0 0 var(--space-4, 24px);
+      line-height: 1.6;
+    }
+    .verify-card__success {
+      color: var(--color-success, #2e7d32);
+    }
+    .verify-card__error {
+      color: var(--color-danger, #c62828);
+    }
+    .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--color-border, #e0ddd5);
+      border-top-color: var(--color-primary, #b5542a);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: var(--space-3, 16px);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="verify-card" id="verify-card">
+    <div id="verify-loading">
+      <div class="spinner"></div>
+      <p class="verify-card__title">Verifying your email…</p>
+    </div>
+    <div id="verify-success" class="is-hidden">
+      <div class="verify-card__icon verify-card__success">&#10003;</div>
+      <p class="verify-card__title verify-card__success">Your email has been verified successfully.</p>
+      <p class="verify-card__body">You will be redirected to the login page shortly.</p>
+    </div>
+    <div id="verify-error" class="is-hidden">
+      <div class="verify-card__icon verify-card__error">&#10007;</div>
+      <p class="verify-card__title verify-card__error">This verification link is invalid or has expired.</p>
+      <p class="verify-card__body">Please try registering again or contact support.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const API_BASE_URL = 'http://localhost:5001/api';
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+
+      const loadingEl = document.getElementById('verify-loading');
+      const successEl = document.getElementById('verify-success');
+      const errorEl = document.getElementById('verify-error');
+      let redirectTimer = null;
+      let verificationStarted = false;
+
+      function showState(state) {
+        loadingEl.classList.add('is-hidden');
+        successEl.classList.add('is-hidden');
+        errorEl.classList.add('is-hidden');
+
+        if (redirectTimer) {
+          clearTimeout(redirectTimer);
+          redirectTimer = null;
+        }
+
+        if (state === 'success') {
+          successEl.classList.remove('is-hidden');
+          redirectTimer = setTimeout(function () {
+            window.location.href = 'index.html?verified=true';
+          }, 2500);
+          return;
+        }
+
+        if (state === 'error') {
+          errorEl.classList.remove('is-hidden');
+          redirectTimer = setTimeout(function () {
+            window.location.href = 'index.html?verified=false';
+          }, 4000);
+          return;
+        }
+
+        loadingEl.classList.remove('is-hidden');
+      }
+
+      async function verifyEmail() {
+        if (verificationStarted) {
+          return;
+        }
+
+        verificationStarted = true;
+
+        if (!token) {
+          showState('error');
+          return;
+        }
+
+        showState('loading');
+
+        try {
+          const response = await fetch(API_BASE_URL + '/auth/verify-email?token=' + encodeURIComponent(token));
+
+          if (response.ok) {
+            showState('success');
+            return;
+          }
+
+          showState('error');
+        } catch {
+          showState('error');
+        }
+      }
+
+      verifyEmail();
+    })();
+  </script>
+</body>
+</html>

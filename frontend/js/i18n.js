@@ -26,6 +26,8 @@ const translations = {
     'auth.resend_verify': 'Resend verification email',
     'auth.resent': 'Sent!',
     'auth.sending': 'Sending\u2026',
+    'auth.verified_success': 'Email verified successfully! You can now log in.',
+    'auth.verified_failed': 'Verification failed. The link may be invalid or expired.',
     'auth.back_to_login': 'Back to sign in',
 
     /* ── Sidebar ── */
@@ -183,6 +185,8 @@ const translations = {
     'auth.resend_verify': '\u0625\u0639\u0627\u062F\u0629 \u0625\u0631\u0633\u0627\u0644 \u0628\u0631\u064A\u062F \u0627\u0644\u062A\u062D\u0642\u0642',
     'auth.resent': '\u062A\u0645 \u0627\u0644\u0625\u0631\u0633\u0627\u0644!',
     'auth.sending': '\u062C\u0627\u0631\u064D \u0627\u0644\u0625\u0631\u0633\u0627\u0644\u2026',
+    'auth.verified_success': '\u062A\u0645 \u062A\u062D\u0642\u064A\u0642 \u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0628\u0646\u062C\u0627\u062D! \u064A\u0645\u0643\u0646\u0643 \u0627\u0644\u0622\u0646 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644.',
+    'auth.verified_failed': '\u0641\u0634\u0644 \u0627\u0644\u062A\u062D\u0642\u0642. \u0642\u062F \u064A\u0643\u0648\u0646 \u0627\u0644\u0631\u0627\u0628\u0637 \u063A\u064A\u0631 \u0635\u0627\u0644\u062D \u0623\u0648 \u0645\u0646\u062A\u0647\u064A \u0627\u0644\u0635\u0644\u0627\u062D\u064A\u0629.',
     'auth.back_to_login': '\u0627\u0644\u0639\u0648\u062F\u0629 \u0625\u0644\u0649 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644',
 
     /* ── Sidebar ── */

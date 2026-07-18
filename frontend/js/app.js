@@ -217,10 +217,10 @@ async function loadGuestData() {
       summary: a.summary,
       publishedAt: a.publishedAt,
       fetchedAt: a.fetchedAt,
-      imageUrl: null,
-      enclosureUrl: null,
-      enclosureType: null,
-      language: null,
+      imageUrl: a.imageUrl ?? null,
+      enclosureUrl: a.enclosureUrl ?? null,
+      enclosureType: a.enclosureType ?? null,
+      language: a.language ?? null,
       author: a.author,
     }));
     state.favorites = new Set();

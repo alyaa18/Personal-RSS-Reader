@@ -30,6 +30,36 @@ public class RssFeedGeneratorService
         return doc.Declaration + Environment.NewLine + doc.ToString();
     }
 
+    /// <summary>
+    /// Generates a tombstone RSS feed returned when a playlist is not found
+    /// (e.g. because it was deleted). This ensures external RSS readers
+    /// show a friendly message instead of a 404 error.
+    /// </summary>
+    public string GenerateTombstoneFeed(string slug)
+    {
+        var channel = new XElement("channel",
+            new XElement("title", "Playlist not found"),
+            new XElement("description", "This playlist has been deleted or is no longer available."),
+            new XElement("link", ""),
+            new XElement("lastBuildDate", DateTime.UtcNow.ToString("r")),
+            new XElement("item",
+                new XElement("title", "This playlist has been deleted"),
+                new XElement("description", "The playlist you were subscribed to has been deleted by its owner. You can safely remove this feed from your RSS reader."),
+                new XElement("guid", $"urn:uuid:{Guid.NewGuid()}"),
+                new XElement("pubDate", DateTime.UtcNow.ToString("r"))
+            )
+        );
+
+        var doc = new XDocument(
+            new XDeclaration("1.0", "utf-8", null),
+            new XElement("rss",
+                new XAttribute("version", "2.0"),
+                channel)
+        );
+
+        return doc.Declaration + Environment.NewLine + doc.ToString();
+    }
+
     private static XElement BuildItemElement(ArticleWithFeedInfo a)
     {
         var item = new XElement("item",

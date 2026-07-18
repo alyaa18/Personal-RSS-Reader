@@ -383,7 +383,15 @@ app.MapPost("/api/translate/batch", async (BatchTranslationRequest request, Tran
 app.MapGet("/api/playlists/{slug}/rss", async (string slug, HttpContext httpContext, PlaylistService playlistService, ArticleService articleService, RssFeedGeneratorService rssGenerator) =>
 {
     var playlist = await playlistService.GetBySlugAsync(slug);
-    if (playlist == null) return Results.NotFound();
+
+    // If the playlist was deleted (or never existed), return a tombstone
+    // RSS feed instead of 404. This ensures external RSS readers show
+    // a friendly message rather than a connection error.
+    if (playlist == null)
+    {
+        var tombstone = rssGenerator.GenerateTombstoneFeed(slug);
+        return Results.Text(tombstone, "application/rss+xml; charset=utf-8");
+    }
 
     var articles = await articleService.GetArticlesByIdsAsync(playlist.Articles.Select(a => a.ArticleId));
     var baseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";

@@ -102,7 +102,7 @@ const translations = {
     'confirm.remove_feed_message': 'Remove "{name}"? This also deletes its saved articles.',
     'confirm.delete_playlist_title': 'Delete playlist?',
     'confirm.delete_playlist_message':
-      'Delete "{name}"? This does not delete the articles themselves, only the playlist.',
+      'Delete "{name}"? Articles are not affected, but the public RSS feed URL will stop working. Any RSS readers subscribed to it will see a notice that the playlist was deleted.',
     'confirm.remove_label': 'Remove',
     'confirm.delete_label': 'Delete',
     'confirm.confirm_label': 'Confirm',

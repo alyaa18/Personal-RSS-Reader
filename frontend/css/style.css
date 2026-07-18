@@ -777,11 +777,11 @@ button { font-family: inherit; cursor: pointer; }
 /* ============ Responsive / mobile polish (Commit 11) ============ */
 
 @media (max-width: 860px) {
-  .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: 100vh; }
+  .app { grid-template-columns: 1fr; grid-template-rows: minmax(auto, 55vh) 1fr; height: 100vh; }
 
   .sidebar {
-    height: auto;
-    max-height: 42vh;
+    height: 100%;
+    overflow-y: auto;
     padding: var(--space-3);
     gap: var(--space-3);
     border-right: none;
@@ -798,21 +798,82 @@ button { font-family: inherit; cursor: pointer; }
   .feed-list { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; padding-bottom: var(--space-1); }
   .feed-item { flex: 0 0 auto; }
 
+  /* Playlist section on mobile — prevent overflow cutoff */
+  .sidebar-mode-playlists {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-mode-playlists .playlist-list {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .sidebar-mode-playlists .btn--block {
+    flex-shrink: 0;
+  }
+
   .content { padding: 0 var(--space-4) var(--space-5); }
   .content__header { padding: var(--space-4) 0 var(--space-3); }
   .content__toolbar { flex-direction: column; align-items: stretch; }
   .content__actions { width: 100%; }
   .content__actions .btn { flex: 1; }
 
+  /* Prevent the fixed top-right cluster from overlapping content titles */
+  .content__title {
+    padding-inline-end: 100px;
+  }
+
   .modal { width: min(360px, 92vw); }
 }
 
 @media (max-width: 480px) {
-  .content__title { font-size: var(--text-xl); }
+  .content__title { font-size: var(--text-xl); padding-inline-end: 80px; }
   .article-card__title { font-size: var(--text-base); }
   .modal__form { padding: var(--space-4); }
   .pagination { gap: var(--space-1); }
   .pagination__jump { width: 100%; justify-content: center; margin-left: 0; margin-top: var(--space-2); }
+
+  .top-right-cluster .btn--sm,
+  .top-right-cluster .icon-btn,
+  .top-right-cluster .lang-switch-btn {
+    height: 30px;
+    padding: 0 var(--space-2);
+    font-size: 11px;
+  }
+  .top-right-cluster .icon-btn {
+    width: 30px;
+  }
+  .topbar-user-name { display: none; }
+
+  /* Force the horizontal scrollbar to always show so users can
+     discover sideways scrolling */
+  .feed-list {
+    overflow-x: scroll;
+    scrollbar-width: auto;
+    scrollbar-color: #c9c2b0 #2a2826;
+    padding-bottom: 8px;
+  }
+  .feed-list::-webkit-scrollbar {
+    display: block;
+    height: 10px;
+  }
+  .feed-list::-webkit-scrollbar-track {
+    background: #2a2826;
+    border-radius: 999px;
+  }
+  .feed-list::-webkit-scrollbar-thumb {
+    background: #c9c2b0;
+    border-radius: 999px;
+    min-width: 50px;
+  }
+  .feed-list::-webkit-scrollbar-thumb:hover {
+    background: #e8e4da;
+  }
 }
 
 .guest-badge {

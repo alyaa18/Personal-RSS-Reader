@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
 using PersonalRSSReader.Api.Data;
 using PersonalRSSReader.Api.Models;
 using PersonalRSSReader.Api.Models.DTOs;
@@ -14,12 +15,14 @@ public class AuthService
     private readonly AppDbContext _db;
     private readonly IConfiguration _configuration;
     private readonly ILogger<AuthService> _logger;
+    private readonly EmailService _emailService;
 
-    public AuthService(AppDbContext db, IConfiguration configuration, ILogger<AuthService> logger)
+    public AuthService(AppDbContext db, IConfiguration configuration, ILogger<AuthService> logger, EmailService emailService)
     {
         _db = db;
         _configuration = configuration;
         _logger = logger;
+        _emailService = emailService;
     }
 
     public async Task<AuthResponse?> RegisterAsync(RegisterRequest request)
@@ -41,17 +44,25 @@ public class AuthService
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
             DisplayName = string.IsNullOrWhiteSpace(request.DisplayName) ? email : request.DisplayName.Trim(),
             CreatedAt = DateTime.UtcNow,
-            EmailVerified = true
+            EmailVerified = false,
+            EmailVerificationToken = GenerateVerificationToken(),
+            EmailVerificationTokenExpiresAt = DateTime.UtcNow.AddHours(24)
         };
 
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 
         _logger.LogInformation("Registered new user {UserId}", user.Id);
+
+        // Send verification email
+        var frontendUrl = _configuration["Frontend:BaseUrl"] ?? "http://localhost:5500";
+        var verificationLink = $"{frontendUrl}/verify-email.html?token={user.EmailVerificationToken}";
+        await _emailService.SendVerificationEmailAsync(user.Email, user.DisplayName, verificationLink);
+
         return BuildAuthResponse(user);
     }
 
-    public async Task<AuthResponse?> LoginAsync(LoginRequest request)
+    public async Task<(AuthResponse? Response, bool EmailNotVerified, string? Email)> LoginAsync(LoginRequest request)
     {
         var email = request.Email.Trim().ToLowerInvariant();
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -59,11 +70,17 @@ public class AuthService
         if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
         {
             _logger.LogInformation("Login failed for {Email}", email);
-            return null;
+            return (null, false, null);
+        }
+
+        if (!user.EmailVerified)
+        {
+            _logger.LogInformation("Login blocked for unverified user {UserId}", user.Id);
+            return (null, true, user.Email);
         }
 
         _logger.LogInformation("User {UserId} logged in", user.Id);
-        return BuildAuthResponse(user);
+        return (BuildAuthResponse(user), false, null);
     }
 
     private AuthResponse BuildAuthResponse(User user)
@@ -76,6 +93,34 @@ public class AuthService
             DisplayName: user.DisplayName,
             EmailVerified: user.EmailVerified
         );
+    }
+
+    private static string GenerateVerificationToken()
+        => Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
+
+    public async Task<bool> VerifyEmailAsync(string token)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.EmailVerificationToken == token);
+        if (user == null || user.EmailVerified) return false;
+        if (user.EmailVerificationTokenExpiresAt.HasValue && user.EmailVerificationTokenExpiresAt.Value < DateTime.UtcNow) return false;
+        user.EmailVerified = true;
+        user.EmailVerificationToken = null;
+        user.EmailVerificationTokenExpiresAt = null;
+        await _db.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> ResendVerificationEmailAsync(string email)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email.Trim().ToLowerInvariant());
+        if (user == null || user.EmailVerified) return false;
+        user.EmailVerificationToken = GenerateVerificationToken();
+        user.EmailVerificationTokenExpiresAt = DateTime.UtcNow.AddHours(24);
+        await _db.SaveChangesAsync();
+        var frontendUrl = _configuration["Frontend:BaseUrl"] ?? "http://localhost:5500";
+        var verificationLink = $"{frontendUrl}/verify-email.html?token={user.EmailVerificationToken}";
+        await _emailService.SendVerificationEmailAsync(user.Email, user.DisplayName, verificationLink);
+        return true;
     }
 
     private string GenerateJwt(User user)

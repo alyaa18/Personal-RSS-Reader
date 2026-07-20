@@ -125,12 +125,32 @@ app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authServ
     }
 
     var result = await authService.LoginAsync(request);
-    if (result == null)
+    if (result.EmailNotVerified)
+    {
+        return Results.Json(new { error = "Please verify your email before logging in.", emailNotVerified = true, email = result.Email }, statusCode: 403);
+    }
+    if (result.Response == null)
     {
         return Results.Json(new { error = "Invalid email or password." }, statusCode: 401);
     }
 
-    return Results.Ok(result);
+    return Results.Ok(result.Response);
+});
+
+app.MapGet("/api/auth/verify-email", async (string token, AuthService authService) =>
+{
+    var verified = await authService.VerifyEmailAsync(token);
+    return verified
+        ? Results.Ok(new { message = "Email verified." })
+        : Results.BadRequest(new { error = "Invalid or expired verification link." });
+});
+
+app.MapPost("/api/auth/resend-verification", async (ResendVerificationRequest request, AuthService authService) =>
+{
+    var sent = await authService.ResendVerificationEmailAsync(request.Email);
+    return sent
+        ? Results.Ok(new { message = "Verification email sent." })
+        : Results.BadRequest(new { error = "Email already verified or account not found." });
 });
 
 // ── Feed endpoints (all require a logged-in user) ───────────────

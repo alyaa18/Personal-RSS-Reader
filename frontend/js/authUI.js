@@ -182,6 +182,10 @@ async function handleLogin(event) {
     showApp();
     await onLoginSuccess();
   } catch (error) {
+    if (error.emailNotVerified) {
+      showVerificationNotice(error.email);
+      return;
+    }
     setFieldError(dom.loginError, error.message || t('auth.login_error'));
   } finally {
     dom.loginSubmit.disabled = false;
@@ -202,10 +206,9 @@ async function handleRegister(event) {
       dom.registerName.value.trim()
     );
     dom.registerForm.reset();
-    saveSession(result);
-    isFirstLogin = true;
-    showApp();
-    await onLoginSuccess();
+    const registeredEmail = dom.registerEmail.value.trim();
+    showVerificationNotice(registeredEmail);
+    // Do NOT saveSession or showApp — user must verify first.
   } catch (error) {
     setFieldError(dom.registerError, error.message || t('auth.register_error'));
   } finally {

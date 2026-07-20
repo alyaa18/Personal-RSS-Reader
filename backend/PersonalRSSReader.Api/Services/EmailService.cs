@@ -1,6 +1,5 @@
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace PersonalRSSReader.Api.Services;
 
@@ -17,43 +16,30 @@ public class EmailService
 
     public async Task SendVerificationEmailAsync(string toEmail, string displayName, string verificationLink)
     {
-        var smtpUser = _configuration["Email:SmtpUser"];
-        var smtpPassword = _configuration["Email:SmtpPassword"];
+        var apiKey = _configuration["Email:SendGridApiKey"];
+        var fromAddress = _configuration["Email:FromAddress"];
 
-        if (string.IsNullOrEmpty(smtpUser) || string.IsNullOrEmpty(smtpPassword))
+        if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(fromAddress))
         {
-            _logger.LogWarning("SMTP not configured — skipping verification email to {Email}", toEmail);
+            _logger.LogWarning("SendGrid not configured — skipping verification email to {Email}", toEmail);
             return;
         }
 
-        var smtpHost = _configuration["Email:Host"] ?? "smtp.gmail.com";
-        var smtpPort = _configuration["Email:Port"] ?? "587";
-
-        var port = 587;
-        if (int.TryParse(smtpPort, out var parsedPort))
-        {
-            port = parsedPort;
-        }
-
-        var secureOption = SecureSocketOptions.StartTls;
-
-        var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("Personal RSS Reader", smtpUser));
-        message.To.Add(new MailboxAddress(displayName, toEmail));
-        message.Subject = "Verify your email — Personal RSS Reader";
-
-        message.Body = new TextPart("plain")
-        {
-            Text = $"Hi {displayName},\n\nPlease verify your email by clicking the link below:\n{verificationLink}\n\nIf you didn't create this account, you can ignore this email.\n\n— Personal RSS Reader"
-        };
-
         try
         {
-            using var client = new SmtpClient();
-            await client.ConnectAsync(smtpHost, port, secureOption);
-            await client.AuthenticateAsync(smtpUser, smtpPassword);
-            await client.SendAsync(message);
-            await client.DisconnectAsync(true);
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress(fromAddress, "Personal RSS Reader");
+            var to = new EmailAddress(toEmail, displayName);
+            var plainText = $"Hi {displayName},\n\nPlease verify your email by clicking the link below:\n{verificationLink}\n\nIf you didn't create this account, you can ignore this email.\n\n— Personal RSS Reader";
+            var msg = MailHelper.CreateSingleEmail(from, to, "Verify your email — Personal RSS Reader", plainText, null);
+            var response = await client.SendEmailAsync(msg);
+
+            if ((int)response.StatusCode >= 400)
+            {
+                var body = await response.Body.ReadAsStringAsync();
+                _logger.LogWarning("SendGrid returned {StatusCode} sending to {Email}: {Body}", response.StatusCode, toEmail, body);
+                return;
+            }
 
             _logger.LogInformation("Verification email sent to {Email}", toEmail);
         }

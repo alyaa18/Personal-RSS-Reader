@@ -78,7 +78,12 @@ const api = {
     });
     const body = await response.json().catch(() => null);
     if (!response.ok) {
-      throw new Error((body && body.error) || `Request failed (${response.status}).`);
+      const err = new Error((body && body.error) || `Request failed (${response.status}).`);
+      if (body) {
+        err.emailNotVerified = body.emailNotVerified ?? false;
+        err.email = body.email || null;
+      }
+      throw err;
     }
     return body;
   },
@@ -102,6 +107,8 @@ const api = {
   removeArticleFromPlaylist: (id, articleId) => apiRequest(`/playlists/${id}/articles/${articleId}`, { method: 'DELETE' }),
 
   updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
+
+  resendVerification: (email) => authRequest('/auth/resend-verification', { email }),
 
   getDemoData: (bypassCache) => apiRequest(bypassCache ? '/demo?refresh=true' : '/demo'),
 };

@@ -4,6 +4,8 @@ import { cloneTemplate, formatDateTime, setFaviconWithFallback, truncateText, co
 import { isFavorite, toggleFavorite } from './favorites.js';
 import { renderPagination } from './pagination.js';
 import { showBanner } from './banner.js';
+import { isLoggedIn } from './auth.js';
+import { showLoginPromptModal } from './authUI.js';
 import { t, translateArticles } from './i18n.js';
 
 const SUMMARY_WORD_LIMIT = 42;
@@ -334,6 +336,10 @@ function buildArticleCard(article) {
   starBtn.classList.toggle('is-favorited', favorited);
   starBtn.setAttribute('aria-pressed', String(favorited));
   starBtn.addEventListener('click', async () => {
+    if (!isLoggedIn()) {
+      showLoginPromptModal();
+      return;
+    }
     starBtn.disabled = true;
     try {
       const nowFavorited = await toggleFavorite(article.id);

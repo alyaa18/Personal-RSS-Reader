@@ -7,12 +7,11 @@ import { confirmAction } from './confirmModal.js';
 import { renderSidebar, updateContentHeader, updateActiveStyles } from './render.js';
 import { createPlaylist, deletePlaylist, addArticleToPlaylist, getPlaylistFeedUrl } from './playlists.js';
 import { t } from './i18n.js';
-import { redirectToAuth } from './authUI.js';
+import { showLoginPromptModal } from './authUI.js';
 
 function requireLogin() {
   if (!isLoggedIn()) {
-    showBanner(t('guest.login_required'), 'info');
-    redirectToAuth();
+    showLoginPromptModal();
     return false;
   }
   return true;
@@ -22,9 +21,25 @@ let pendingArticleIdForPicker = null;
 let onPlaylistCreated = () => {}; // wired by app.js to its navigation reset logic when needed
 
 export function initPlaylistUI() {
-  dom.newPlaylistBtn.addEventListener('click', () => openCreatePlaylistDialog(null));
-  dom.sidebarNewPlaylistBtn?.addEventListener('click', () => openCreatePlaylistDialog(null));
+  dom.newPlaylistBtn.addEventListener('click', () => {
+    if (!isLoggedIn()) {
+      showLoginPromptModal();
+      return;
+    }
+    openCreatePlaylistDialog(null);
+  });
+  dom.sidebarNewPlaylistBtn?.addEventListener('click', () => {
+    if (!isLoggedIn()) {
+      showLoginPromptModal();
+      return;
+    }
+    openCreatePlaylistDialog(null);
+  });
   dom.playlistPickerNewBtn.addEventListener('click', () => {
+    if (!isLoggedIn()) {
+      showLoginPromptModal();
+      return;
+    }
     dom.playlistPickerDialog.close();
     openCreatePlaylistDialog(pendingArticleIdForPicker);
   });

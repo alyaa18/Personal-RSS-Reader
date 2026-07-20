@@ -54,6 +54,47 @@ export function showBanner(message, type = 'error', durationMs = DISMISS_MS) {
   return banner;
 }
 
+export function showActionBanner(message, actions, type = 'info') {
+  const banner = document.createElement('div');
+  banner.className = `banner banner--${type}`;
+
+  const textSpan = document.createElement('span');
+  textSpan.className = 'banner__text';
+  textSpan.textContent = message;
+  banner.appendChild(textSpan);
+
+  const actionsWrap = document.createElement('div');
+  actionsWrap.className = 'banner__actions';
+  actions.forEach(({ label, onClick }) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'banner__action-btn';
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      onClick();
+      dismiss();
+    });
+    actionsWrap.appendChild(btn);
+  });
+  banner.appendChild(actionsWrap);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'banner__close';
+  closeBtn.setAttribute('aria-label', 'Dismiss');
+  closeBtn.innerHTML = '&times;';
+  banner.appendChild(closeBtn);
+
+  dom.bannerRegion.appendChild(banner);
+
+  function dismiss() {
+    banner.classList.add('banner--fading');
+    setTimeout(() => banner.remove(), 300);
+  }
+  closeBtn.addEventListener('click', dismiss);
+
+  return banner;
+}
+
 export function clearBanners() {
   dom.bannerRegion.querySelectorAll('.banner').forEach((el) => {
     const key = el.dataset.dedupKey;

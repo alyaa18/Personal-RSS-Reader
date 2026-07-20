@@ -187,7 +187,8 @@ app.MapDelete("/api/feeds/{id:guid}", async (Guid id, ClaimsPrincipal user, Feed
 
 app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, ClaimsPrincipal user, FeedService feedService) =>
 {
-    var newArticles = await feedService.RefreshFeedAsync(user.GetUserId(), id);
+    Guid? userId = user.Identity?.IsAuthenticated == true ? user.GetUserId() : null;
+    var newArticles = await feedService.RefreshFeedAsync(userId, id);
 
     if (newArticles == null)
     {
@@ -195,13 +196,14 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, ClaimsPrincipal user
     }
 
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
-}).RequireAuthorization();
+});
 
 app.MapPost("/api/feeds/refresh", async (ClaimsPrincipal user, FeedService feedService) =>
 {
-    var result = await feedService.RefreshAllFeedsAsync(user.GetUserId());
+    Guid? userId = user.Identity?.IsAuthenticated == true ? user.GetUserId() : null;
+    var result = await feedService.RefreshAllFeedsAsync(userId);
     return Results.Ok(result);
-}).RequireAuthorization();
+});
 
 // ── Article endpoints ───────────────────────────────────────────
 

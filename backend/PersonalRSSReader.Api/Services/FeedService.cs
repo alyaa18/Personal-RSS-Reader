@@ -151,18 +151,23 @@ public class FeedService
     }
 
     /// <summary>
-    /// Re-fetches a specific feed's articles. Only succeeds if the user is
-    /// subscribed to the feed. Returns null if the feed can no longer be fetched.
+    /// Re-fetches a specific feed's articles. When a userId is provided, only
+    /// succeeds if the user is subscribed to the feed. When null (guest),
+    /// skips the subscription check and refreshes the feed directly.
+    /// Returns null if the feed can no longer be fetched.
     /// </summary>
-    public async Task<List<Article>?> RefreshFeedAsync(Guid userId, Guid feedId)
+    public async Task<List<Article>?> RefreshFeedAsync(Guid? userId, Guid feedId)
     {
-        var subscribed = await _db.UserFeedSubscriptions
-            .AnyAsync(ufs => ufs.UserId == userId && ufs.FeedId == feedId);
-
-        if (!subscribed)
+        if (userId.HasValue)
         {
-            _logger.LogWarning("User {UserId} requested refresh for unsubscribed feed {FeedId}", userId, feedId);
-            return null;
+            var subscribed = await _db.UserFeedSubscriptions
+                .AnyAsync(ufs => ufs.UserId == userId.Value && ufs.FeedId == feedId);
+
+            if (!subscribed)
+            {
+                _logger.LogWarning("User {UserId} requested refresh for unsubscribed feed {FeedId}", userId, feedId);
+                return null;
+            }
         }
 
         var feed = await _db.Feeds.FindAsync(feedId);
@@ -202,19 +207,36 @@ public class FeedService
     }
 
     /// <summary>
-    /// Refreshes all feeds the given user is subscribed to. Returns counts
-    /// of new articles and failed feeds.
+    /// Refreshes all feeds. When a userId is provided, only refreshes feeds
+    /// the user is subscribed to. When null (guest), refreshes all feeds
+    /// currently stored in the database.
     /// </summary>
-    public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync(Guid userId)
+    public async Task<RefreshAllFeedsResult> RefreshAllFeedsAsync(Guid? userId)
     {
-        var feedIds = await _db.UserFeedSubscriptions
-            .Where(ufs => ufs.UserId == userId)
-            .Select(ufs => ufs.FeedId)
-            .ToListAsync();
+        List<Guid> feedIds;
+        List<Feed> feeds;
 
-        var feeds = await _db.Feeds
-            .Where(f => feedIds.Contains(f.Id))
-            .ToListAsync();
+        if (userId.HasValue)
+        {
+            feedIds = await _db.UserFeedSubscriptions
+                .Where(ufs => ufs.UserId == userId.Value)
+                .Select(ufs => ufs.FeedId)
+                .ToListAsync();
+
+            feeds = await _db.Feeds
+                .Where(f => feedIds.Contains(f.Id))
+                .ToListAsync();
+        }
+        else
+        {
+            feeds = await _db.Feeds.ToListAsync();
+            feedIds = feeds.Select(f => f.Id).ToList();
+        }
+
+        if (feeds.Count == 0)
+        {
+            return new RefreshAllFeedsResult();
+        }
 
         var allExistingLinks = await _db.Articles
             .Where(a => feedIds.Contains(a.FeedId))

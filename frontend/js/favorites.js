@@ -1,8 +1,7 @@
 import { state } from './state.js';
 import { isLoggedIn } from './auth.js';
-import { showBanner } from './banner.js';
 import { t } from './i18n.js';
-import { redirectToAuth } from './authUI.js';
+import { showLoginPromptModal } from './authUI.js';
 
 // Set by app.js to avoid circular import with render.js
 let _onCountsChanged = () => {};
@@ -35,8 +34,7 @@ export function isFavorite(articleId) {
  */
 export async function toggleFavorite(articleId) {
   if (!isLoggedIn()) {
-    showBanner(t('guest.login_required'), 'info');
-    redirectToAuth();
+    showLoginPromptModal();
     throw new Error('login_required');
   }
   const wasFavorited = state.favorites.has(articleId);

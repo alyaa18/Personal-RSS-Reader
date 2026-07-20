@@ -4,7 +4,7 @@ import { isLoggedIn } from './auth.js';
 import { renderSidebar, renderArticles, updateActiveStyles, updateContentHeader } from './render.js';
 import { showBanner } from './banner.js';
 import { t } from './i18n.js';
-import { redirectToAuth } from './authUI.js';
+import { showLoginPromptModal } from './authUI.js';
 
 const SUGGESTED_FEEDS = [
   { url: 'https://feeds.bbci.co.uk/news/rss.xml', labelKey: 'modal.suggestions_bbc' },
@@ -67,8 +67,7 @@ function showAddFeedError(message) {
 }
 
 function showLoginRequired() {
-  showBanner(t('guest.login_required'), 'info');
-  redirectToAuth();
+  showLoginPromptModal();
 }
 
 async function handleAddFeedSubmit(event) {

@@ -25,6 +25,19 @@ export function initAuthUI(onLoginSuccessCallback, onGuestModeCallback) {
     btn.addEventListener('click', enterGuestMode);
   });
 
+  // Login-prompt modal buttons
+  dom.loginPromptCancel.addEventListener('click', () => dom.loginPromptDialog.close());
+  dom.loginPromptRegister.addEventListener('click', () => {
+    dom.loginPromptDialog.close();
+    switchTab('register');
+    showAuthScreen();
+  });
+  dom.loginPromptSubmit.addEventListener('click', () => {
+    dom.loginPromptDialog.close();
+    switchTab('login');
+    showAuthScreen();
+  });
+
   setOnUnauthorized(() => showAuthScreen());
 
   if (isLoggedIn()) {
@@ -36,7 +49,7 @@ export function initAuthUI(onLoginSuccessCallback, onGuestModeCallback) {
   }
 }
 
-function switchTab(tab) {
+export function switchTab(tab) {
   const isLogin = tab === 'login';
   dom.authTabLogin.classList.toggle('is-active', isLogin);
   dom.authTabRegister.classList.toggle('is-active', !isLogin);
@@ -93,6 +106,10 @@ export function enterGuestMode() {
 
 export function redirectToAuth() {
   showAuthScreen();
+}
+
+export function showLoginPromptModal() {
+  dom.loginPromptDialog.showModal();
 }
 
 function setFieldError(errorEl, message) {

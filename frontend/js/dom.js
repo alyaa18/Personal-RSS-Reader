@@ -88,5 +88,10 @@ export const dom = {
   onboardingList: document.getElementById('onboarding-list'),
   onboardingSkipBtn: document.getElementById('onboarding-skip'),
 
+  loginPromptDialog: document.getElementById('login-prompt-dialog'),
+  loginPromptCancel: document.getElementById('cancel-login-prompt'),
+  loginPromptRegister: document.getElementById('register-login-prompt'),
+  loginPromptSubmit: document.getElementById('submit-login-prompt'),
+
   backToTopBtn: document.getElementById('back-to-top'),
 };

@@ -11,7 +11,20 @@ const DEMO_FEEDS = [
 ];
 
 export function showOnboarding() {
+  // Ensure close button exists (defensive — it's in index.html, but just in case)
+  let closeBtn = dom.onboardingDialog.querySelector('.onboarding-close');
+  if (!closeBtn) {
+    closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'onboarding-close';
+    closeBtn.innerHTML = '&#10005;';
+    closeBtn.setAttribute('aria-label', 'Close');
+    dom.onboardingDialog.querySelector('.modal__form').appendChild(closeBtn);
+  }
+
   dom.onboardingList.innerHTML = '';
+
+  let addedCount = 0;
 
   DEMO_FEEDS.forEach((feed) => {
     const li = document.createElement('li');
@@ -42,6 +55,10 @@ export function showOnboarding() {
         const result = await api.addFeed(feed.url);
         state.feeds.push(result);
         renderSidebar();
+        addedCount++;
+        if (addedCount === DEMO_FEEDS.length) {
+          setTimeout(() => dom.onboardingDialog.close(), 600);
+        }
       } catch {
         addBtn.disabled = false;
         addBtn.textContent = t('onboarding.add_feed');
@@ -59,6 +76,9 @@ export function showOnboarding() {
 
   // Re-bind skip button (removeEventListener with once:true removes it)
   dom.onboardingSkipBtn.addEventListener('click', () => dom.onboardingDialog.close(), { once: true });
+
+  // Wire close button the same way as skip button
+  closeBtn.addEventListener('click', () => dom.onboardingDialog.close(), { once: true });
 
   dom.onboardingDialog.showModal();
 }

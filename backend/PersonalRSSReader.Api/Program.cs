@@ -93,6 +93,12 @@ builder.Services.AddHostedService<PersonalRSSReader.Api.Services.BackgroundJobs.
 
 var app = builder.Build();
 
+// Ensure the SQLite data directory exists before running migrations.
+// SQLite creates the .db file automatically but not missing parent directories.
+var dataDirectory = Path.Combine(builder.Environment.ContentRootPath,
+    builder.Configuration["Storage:DataDirectory"] ?? "Data");
+Directory.CreateDirectory(dataDirectory);
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();

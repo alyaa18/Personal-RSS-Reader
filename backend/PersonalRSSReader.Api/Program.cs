@@ -12,19 +12,6 @@ using PersonalRSSReader.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Console.WriteLine("===== PROVIDERS =====");
-foreach (var p in ((IConfigurationRoot)builder.Configuration).Providers)
-{
-    Console.WriteLine(p.GetType().FullName);
-}
-// Console.WriteLine("=====================");
-
-// Console.WriteLine("===== CONFIG TEST =====");
-// Console.WriteLine($"Jwt:Secret = '{builder.Configuration["Jwt:Secret"]}'");
-// Console.WriteLine($"Environment Jwt__Secret = '{Environment.GetEnvironmentVariable("Jwt__Secret")}'");
-// Console.WriteLine("=======================");
-
-
 builder.Services.AddSingleton<RssFeedGeneratorService>();
 builder.Services.AddHttpClient<RssService>(client =>
 {
@@ -46,12 +33,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<EmailService>();
 
-// foreach (DictionaryEntry env in Environment.GetEnvironmentVariables())
-// {
-//     if (env.Key.ToString()!.Contains("Jwt"))
-//         Console.WriteLine($"{env.Key} = {env.Value}");
-// }
-
 var jwtSecret = builder.Configuration["Jwt:Secret"];
 if (string.IsNullOrWhiteSpace(jwtSecret))
 {
@@ -59,8 +40,6 @@ if (string.IsNullOrWhiteSpace(jwtSecret))
         "Jwt:Secret is not configured. Set it via 'dotnet user-secrets' locally, " +
         "or the Jwt__Secret environment variable in production.");
 }
-
-Console.WriteLine($"DIAGNOSTIC: Jwt:Secret length is {jwtSecret.Length} characters");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

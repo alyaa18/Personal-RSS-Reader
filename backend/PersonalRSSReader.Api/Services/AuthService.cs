@@ -88,8 +88,6 @@ public class AuthService
                 "or the Jwt__Secret environment variable in production.");
         }
 
-        _logger.LogWarning("DIAGNOSTIC: Jwt:Secret length is {Length} characters", secret.Length);
-
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

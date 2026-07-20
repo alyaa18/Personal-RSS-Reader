@@ -34,10 +34,10 @@ public class DemoService
         _logger = logger;
     }
 
-    public async Task<(List<Feed> Feeds, List<ArticleWithFeedInfo> Articles)> GetDemoDataAsync()
+    public async Task<(List<Feed> Feeds, List<ArticleWithFeedInfo> Articles)> GetDemoDataAsync(bool bypassCache = false)
     {
-        // Return cached data if still fresh
-        if (_cachedFeeds != null && _cachedArticles != null && DateTime.UtcNow - _cacheTime < CacheDuration)
+        // Return cached data if still fresh (unless bypassing)
+        if (!bypassCache && _cachedFeeds != null && _cachedArticles != null && DateTime.UtcNow - _cacheTime < CacheDuration)
         {
             return (_cachedFeeds, _cachedArticles);
         }
@@ -46,7 +46,7 @@ public class DemoService
         try
         {
             // Double-check after acquiring lock
-            if (_cachedFeeds != null && _cachedArticles != null && DateTime.UtcNow - _cacheTime < CacheDuration)
+            if (!bypassCache && _cachedFeeds != null && _cachedArticles != null && DateTime.UtcNow - _cacheTime < CacheDuration)
             {
                 return (_cachedFeeds, _cachedArticles);
             }
@@ -64,8 +64,46 @@ public class DemoService
                 var existingFeed = await db.Feeds.FirstOrDefaultAsync(f => f.Url!.ToLower() == url.ToLower());
                 if (existingFeed != null)
                 {
-                    // Feed exists in DB — load its articles
                     feeds.Add(existingFeed);
+
+                    if (bypassCache)
+                    {
+                        // Re-fetch live RSS and upsert any new articles
+                        var parsed = await rssService.TryFetchFeedAsync(url);
+                        if (parsed != null)
+                        {
+                            // Update feed metadata from live data
+                            if (!string.IsNullOrWhiteSpace(parsed.Title))
+                                existingFeed.Title = parsed.Title;
+                            if (!string.IsNullOrWhiteSpace(parsed.Language))
+                                existingFeed.Language = parsed.Language;
+                            existingFeed.LastFetchedAt = DateTime.UtcNow;
+
+                            var liveArticles = rssService.MapToArticles(parsed, existingFeed.Id);
+
+                            // Get existing links for this feed to avoid unique constraint violations
+                            var existingLinks = await db.Articles
+                                .Where(a => a.FeedId == existingFeed.Id)
+                                .Select(a => a.Link)
+                                .ToHashSetAsync();
+
+                            foreach (var article in liveArticles)
+                            {
+                                if (!existingLinks.Contains(article.Link))
+                                {
+                                    db.Articles.Add(article);
+                                }
+                            }
+
+                            await db.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            _logger.LogWarning("Demo feed unavailable on refresh: {Url}", url);
+                        }
+                    }
+
+                    // Load latest articles from DB (includes newly inserted ones)
                     var existingArticles = await db.Articles
                         .Where(a => a.FeedId == existingFeed.Id)
                         .OrderByDescending(a => a.PublishedAt)
@@ -75,9 +113,9 @@ public class DemoService
                     continue;
                 }
 
-                // Fetch fresh
-                var parsed = await rssService.TryFetchFeedAsync(url);
-                if (parsed == null)
+                // Fetch fresh and persist so feed IDs are stable across cache refreshes
+                var parsedFeed = await rssService.TryFetchFeedAsync(url);
+                if (parsedFeed == null)
                 {
                     _logger.LogWarning("Demo feed unavailable: {Url}", url);
                     continue;
@@ -86,13 +124,18 @@ public class DemoService
                 var feed = new Feed
                 {
                     Id = Guid.NewGuid(),
-                    Title = string.IsNullOrWhiteSpace(parsed.Title) ? url : parsed.Title,
+                    Title = string.IsNullOrWhiteSpace(parsedFeed.Title) ? url : parsedFeed.Title,
                     Url = url,
+                    Language = parsedFeed.Language,
                     CreatedAt = DateTime.UtcNow,
                     LastFetchedAt = DateTime.UtcNow
                 };
 
-                var articles = rssService.MapToArticles(parsed, feed.Id);
+                var articles = rssService.MapToArticles(parsedFeed, feed.Id);
+
+                db.Feeds.Add(feed);
+                db.Articles.AddRange(articles);
+                await db.SaveChangesAsync();
 
                 feeds.Add(feed);
                 allArticles.AddRange(articles);

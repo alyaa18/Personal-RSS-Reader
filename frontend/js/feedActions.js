@@ -60,24 +60,36 @@ export async function handleRefreshFeed(feedId, refreshBtnEl) {
     let newCount = 0;
 
     if (!isLoggedIn()) {
-      // Guest: use the public demo endpoint to get fresh data
-      const demo = await api.getDemoData();
-      const demoArticles = demo.articles.filter((a) => a.feedId === feedId);
-      const existingLinks = new Set(state.articles.map((a) => a.link));
-      newArticles = demoArticles.filter((a) => !existingLinks.has(a.link));
-      newCount = newArticles.length;
-      if (demoArticles.length > 0) {
-        // Update feed metadata from demo response
-        const matchedFeed = demo.feeds.find((f) => f.id === feedId);
-        if (matchedFeed) feed.title = matchedFeed.title;
-      }
+      // Guest: replace entire state with fresh demo data
+      const demo = await api.getDemoData(true);
+      state.feeds = demo.feeds.map((f) => ({ id: f.id, title: f.title, url: f.url }));
+      state.articles = demo.articles.map((a) => ({
+        id: a.id,
+        feedId: a.feedId,
+        feedTitle: a.feedTitle,
+        title: a.title,
+        link: a.link,
+        summary: a.summary,
+        publishedAt: a.publishedAt,
+        fetchedAt: a.fetchedAt,
+        imageUrl: a.imageUrl ?? null,
+        enclosureUrl: a.enclosureUrl ?? null,
+        enclosureType: a.enclosureType ?? null,
+        language: a.language ?? null,
+        author: a.author,
+      }));
     } else {
       const result = await api.refreshFeed(feedId);
       newArticles = result.articles ?? [];
       newCount = result.newArticlesCount ?? newArticles.length;
     }
 
-    if (newArticles.length > 0) {
+    if (!isLoggedIn()) {
+      // Guest: full state replacement already done — always re-render
+      renderSidebar();
+      await renderArticlesWithTransition();
+      return;
+    } else if (newArticles.length > 0) {
       state.articles = [...newArticles, ...state.articles].sort(
         (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
       );
@@ -111,16 +123,26 @@ export async function handleRefreshAll() {
     let failedFeedNames = [];
 
     if (!isLoggedIn()) {
-      // Guest: use the public demo endpoint to get fresh data
-      const demo = await api.getDemoData();
-      const existingLinks = new Set(state.articles.map((a) => a.link));
-      newArticles = demo.articles.filter((a) => !existingLinks.has(a.link));
-      totalNew = newArticles.length;
-      // Update feed metadata from demo response
-      demo.feeds.forEach((demoFeed) => {
-        const localFeed = state.feeds.find((f) => f.id === demoFeed.id);
-        if (localFeed) localFeed.title = demoFeed.title;
-      });
+      // Guest: replace entire state with fresh demo data
+      const demo = await api.getDemoData(true);
+      const prevCount = state.articles.length;
+      state.feeds = demo.feeds.map((f) => ({ id: f.id, title: f.title, url: f.url }));
+      state.articles = demo.articles.map((a) => ({
+        id: a.id,
+        feedId: a.feedId,
+        feedTitle: a.feedTitle,
+        title: a.title,
+        link: a.link,
+        summary: a.summary,
+        publishedAt: a.publishedAt,
+        fetchedAt: a.fetchedAt,
+        imageUrl: a.imageUrl ?? null,
+        enclosureUrl: a.enclosureUrl ?? null,
+        enclosureType: a.enclosureType ?? null,
+        language: a.language ?? null,
+        author: a.author,
+      }));
+      totalNew = state.articles.length - prevCount;
     } else {
       const result = await api.refreshAllFeeds();
       totalNew = result.newArticlesCount ?? 0;
@@ -129,7 +151,11 @@ export async function handleRefreshAll() {
       failedFeedNames = result.failedFeedNames ?? [];
     }
 
-    if (newArticles.length > 0) {
+    if (!isLoggedIn()) {
+      // Guest: full state replacement already done — always re-render
+      renderSidebar();
+      await renderArticlesWithTransition();
+    } else if (newArticles.length > 0) {
       state.articles = [...newArticles, ...state.articles].sort(
         (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
       );

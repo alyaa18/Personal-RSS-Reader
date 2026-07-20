@@ -249,9 +249,9 @@ app.MapGet("/api/health/db", (IWebHostEnvironment env) =>
 
 // ── Demo / Guest mode (no auth) ─────────────────────────────
 
-app.MapGet("/api/demo", async (DemoService demoService) =>
+app.MapGet("/api/demo", async (bool? refresh, DemoService demoService) =>
 {
-    var (feeds, articles) = await demoService.GetDemoDataAsync();
+    var (feeds, articles) = await demoService.GetDemoDataAsync(bypassCache: refresh == true);
 
     return Results.Ok(new
     {

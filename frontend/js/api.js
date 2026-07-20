@@ -103,7 +103,7 @@ const api = {
 
   updateLanguage: (language) => apiRequest('/auth/language', { method: 'PATCH', body: JSON.stringify({ language }) }),
 
-  getDemoData: () => apiRequest('/demo'),
+  getDemoData: (bypassCache) => apiRequest(bypassCache ? '/demo?refresh=true' : '/demo'),
 };
 
 window.api = api;

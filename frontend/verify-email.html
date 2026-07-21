@@ -91,6 +91,10 @@
       const params = new URLSearchParams(window.location.search);
       const token = params.get('token');
 
+      // console.log('DIAGNOSTIC — raw search:', window.location.search);
+      // console.log('DIAGNOSTIC — parsed token:', token);
+      // console.log('DIAGNOSTIC — token length:', token ? token.length : 'N/A');
+
       const loadingEl = document.getElementById('verify-loading');
       const successEl = document.getElementById('verify-success');
       const errorEl = document.getElementById('verify-error');
@@ -114,6 +118,8 @@
           }, 2500);
           return;
         }
+
+        
 
         if (state === 'error') {
           errorEl.classList.remove('is-hidden');

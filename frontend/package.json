@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "serve -s . -l $PORT"
+  "start": "http-server . -p $PORT"
   },
   "dependencies": {
-    "serve": "^14.2.4"
+    "http-server": "^14.1.1"
   }
 }

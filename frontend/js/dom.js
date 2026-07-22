@@ -23,6 +23,7 @@ export const dom = {
   cancelAddFeedBtn: document.getElementById('cancel-add-feed'),
   submitAddFeedBtn: document.getElementById('submit-add-feed'),
   stateEmptyCta: document.getElementById('state-empty-cta'),
+  stateEmptyPlaylistCta: document.getElementById('state-empty-playlist-cta'),
   refreshAllBtn: document.getElementById('refresh-all-feeds'),
 
   confirmDialog: document.getElementById('confirm-dialog'),

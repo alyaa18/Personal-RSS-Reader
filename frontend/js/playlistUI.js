@@ -35,6 +35,13 @@ export function initPlaylistUI() {
     }
     openCreatePlaylistDialog(null);
   });
+  dom.stateEmptyPlaylistCta?.addEventListener('click', () => {
+    if (!isLoggedIn()) {
+      showLoginPromptModal();
+      return;
+    }
+    openCreatePlaylistDialog(null);
+  });
   dom.playlistPickerNewBtn.addEventListener('click', () => {
     if (!isLoggedIn()) {
       showLoginPromptModal();

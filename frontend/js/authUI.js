@@ -40,9 +40,25 @@ export function initAuthUI(onLoginSuccessCallback, onGuestModeCallback) {
 
   setOnUnauthorized(() => showAuthScreen());
 
+  const justVerified = new URLSearchParams(window.location.search).get('verified') === 'true';
+
   if (isLoggedIn()) {
+    if (justVerified) {
+      // Landing here right after verifying a brand-new account. Clean the
+      // URL immediately, then trigger onboarding once feeds have actually
+      // finished loading (see the .then() below) — not on a fixed delay.
+      isFirstLogin = true;
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
     showApp();
-    onLoginSuccess();
+    Promise.resolve(onLoginSuccess()).then(() => {
+      if (isFirstLogin) {
+        isFirstLogin = false;
+        if (state.feeds.length === 0) {
+          showOnboarding();
+        }
+      }
+    });
   } else {
     // Start in guest mode by default — no auth screen shown first
     enterGuestMode();
@@ -85,16 +101,6 @@ export function showApp() {
 
   if (user && user.preferredLanguage && user.preferredLanguage !== getCurrentLang()) {
     setLanguage(user.preferredLanguage);
-  }
-
-  // Show onboarding on first login/register (only if user has no feeds yet)
-  if (isFirstLogin && loggedIn) {
-    isFirstLogin = false;
-    setTimeout(() => {
-      if (state.feeds.length === 0) {
-        showOnboarding();
-      }
-    }, 500);
   }
 }
 
@@ -182,8 +188,8 @@ async function handleLogin(event) {
     showApp();
     await onLoginSuccess();
   } catch (error) {
-    if (error.emailNotVerified) {
-      showVerificationNotice(error.email);
+    if (error.status === 403 && error.body?.emailNotVerified === true) {
+      showVerificationNotice(error.body.email);
       return;
     }
     setFieldError(dom.loginError, error.message || t('auth.login_error'));

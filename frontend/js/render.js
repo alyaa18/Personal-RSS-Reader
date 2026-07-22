@@ -167,7 +167,8 @@ export function setArticleListState(mode) {
 
   if (mode === 'empty') {
     if (state.activeView === 'playlist') {
-      if (state.playlists.length === 0) {
+      const noPlaylistsAtAll = state.playlists.length === 0;
+      if (noPlaylistsAtAll) {
         dom.stateEmpty.querySelector('.state__title').textContent = t('state.no_playlists_title');
         dom.stateEmpty.querySelector('.state__body').textContent = t('state.no_playlists_body');
       } else {
@@ -175,6 +176,7 @@ export function setArticleListState(mode) {
         dom.stateEmpty.querySelector('.state__body').textContent = t('state.playlist_empty_body');
       }
       dom.stateEmptyCta.classList.add('is-hidden');
+      dom.stateEmptyPlaylistCta.classList.toggle('is-hidden', !noPlaylistsAtAll);
     } else {
       // Restore default content from data-i18n attributes
       const titleEl = dom.stateEmpty.querySelector('.state__title');
@@ -184,6 +186,7 @@ export function setArticleListState(mode) {
       if (titleKey) titleEl.textContent = t(titleKey);
       if (bodyKey) bodyEl.textContent = t(bodyKey);
       dom.stateEmptyCta.classList.remove('is-hidden');
+      dom.stateEmptyPlaylistCta.classList.add('is-hidden');
     }
   }
 }

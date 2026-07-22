@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PersonalRSSReader.Api.Data;
@@ -68,7 +70,56 @@ builder.Services.AddCors(options =>
     });
 });
 
+// ── Rate limiting ────────────────────────────────────────────
+// Built into ASP.NET Core (Microsoft.AspNetCore.RateLimiting) — no new
+// package required. Global limiter blunts abusive traffic; "auth" and
+// "refresh" policies apply tighter limits to the most sensitive/expensive
+// endpoints (see MapPost calls below).
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.OnRejected = async (context, cancellationToken) =>
+    {
+        context.HttpContext.Response.ContentType = "application/json";
+        await context.HttpContext.Response.WriteAsync(
+            "{\"error\":\"Too many requests. Please slow down and try again shortly.\"}",
+            cancellationToken);
+    };
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 120,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("auth", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("refresh", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
+
 builder.Services.AddHostedService<PersonalRSSReader.Api.Services.BackgroundJobs.RetentionCleanupService>();
+builder.Services.AddHostedService<PersonalRSSReader.Api.Services.BackgroundJobs.FeedRefreshBackgroundService>();
 
 var app = builder.Build();
 
@@ -86,6 +137,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -115,7 +167,7 @@ app.MapPost("/api/auth/register", async (RegisterRequest request, AuthService au
     }
 
     return Results.Ok(result);
-});
+}).RequireRateLimiting("auth");
 
 app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authService) =>
 {
@@ -135,7 +187,7 @@ app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authServ
     }
 
     return Results.Ok(result.Response);
-});
+}).RequireRateLimiting("auth");
 
 app.MapGet("/api/auth/verify-email", async (string token, AuthService authService) =>
 {
@@ -151,7 +203,7 @@ app.MapPost("/api/auth/resend-verification", async (ResendVerificationRequest re
     return sent
         ? Results.Ok(new { message = "Verification email sent." })
         : Results.BadRequest(new { error = "Email already verified or account not found." });
-});
+}).RequireRateLimiting("auth");
 
 // ── Feed endpoints (all require a logged-in user) ───────────────
 
@@ -216,14 +268,14 @@ app.MapPost("/api/feeds/{id:guid}/refresh", async (Guid id, ClaimsPrincipal user
     }
 
     return Results.Ok(new { newArticlesCount = newArticles.Count, articles = newArticles });
-});
+}).RequireRateLimiting("refresh");
 
 app.MapPost("/api/feeds/refresh", async (ClaimsPrincipal user, FeedService feedService) =>
 {
     Guid? userId = user.Identity?.IsAuthenticated == true ? user.GetUserId() : null;
     var result = await feedService.RefreshAllFeedsAsync(userId);
     return Results.Ok(result);
-});
+}).RequireRateLimiting("refresh");
 
 // ── Article endpoints ───────────────────────────────────────────
 

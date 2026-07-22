@@ -47,6 +47,7 @@ body::-webkit-scrollbar,
 button { font-family: inherit; cursor: pointer; }
 .is-hidden { display: none !important; }
 
+
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @keyframes shimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }

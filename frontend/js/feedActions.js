@@ -163,8 +163,7 @@ export async function handleRefreshAll() {
     }
 
     if (failedCount > 0) {
-      const suffix = failedFeedNames.length > 0 ? ' (' + failedFeedNames.join(', ') + ')' : '';
-      showBanner(t('banner.feeds_refresh_failed', { count: failedCount }) + suffix, 'error');
+      showBanner(t('banner.feeds_refresh_failed', { count: failedCount }), 'info');
     }
     if (totalNew > 0) {
       showBanner(t('banner.new_articles_total', { count: totalNew }), 'success');

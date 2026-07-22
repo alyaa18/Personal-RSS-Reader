@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/rtl.css">
 </head>
 <body>
-  <div class="auth-screen" id="auth-screen">
+  <div class="auth-screen is-hidden" id="auth-screen">
     <div class="auth-card">
       <p class="eyebrow" data-i18n="app.eyebrow">The Daily</p>
       <h1 class="brand-title auth-card__title" data-i18n="app.name">RSS Reader</h1>
@@ -157,6 +157,8 @@
             Subscribe to RSS and Atom feeds to see a river of news from your favorite sites.
           </p>
           <button type="button" class="btn btn--primary" id="state-empty-cta" data-i18n="state.add_first_feed">Add your first feed</button>
+          <button type="button" class="btn btn--primary is-hidden" id="state-empty-playlist-cta" data-i18n="sidebar.new_playlist">+ New Playlist</button>
+        </div>
         </div>
 
         <div class="state state--loading is-hidden" id="state-loading">

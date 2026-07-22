@@ -113,4 +113,6 @@ const api = {
   getDemoData: (bypassCache) => apiRequest(bypassCache ? '/demo?refresh=true' : '/demo'),
 };
 
+api.API_BASE_URL = API_BASE_URL;
+
 window.api = api;

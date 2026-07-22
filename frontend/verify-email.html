@@ -88,6 +88,8 @@
   <script>
     (function () {
       const API_BASE_URL = 'http://localhost:5001/api';
+      const TOKEN_KEY = 'rss-reader:token';
+      const USER_KEY = 'rss-reader:user';
       const params = new URLSearchParams(window.location.search);
       const token = params.get('token');
 
@@ -132,6 +134,31 @@
         loadingEl.classList.remove('is-hidden');
       }
 
+      // Saves the returned auth session using the same localStorage keys
+      // and shape that js/auth.js's saveSession() uses, so index.html sees
+      // an authenticated session on redirect instead of falling back to
+      // guest mode. This file has no module imports, so the write is
+      // replicated inline rather than calling saveSession() directly.
+      function saveSessionFromResponse(authResponse) {
+        try {
+          if (!authResponse || !authResponse.token) return;
+          localStorage.setItem(TOKEN_KEY, authResponse.token);
+          localStorage.setItem(
+            USER_KEY,
+            JSON.stringify({
+              id: authResponse.userId,
+              email: authResponse.email,
+              displayName: authResponse.displayName,
+              preferredLanguage: null,
+              emailVerified: authResponse.emailVerified || false,
+            })
+          );
+        } catch {
+          // Non-fatal — if storage write fails, the user simply lands on
+          // the login screen instead of being auto-logged-in.
+        }
+      }
+
       async function verifyEmail() {
         if (verificationStarted) {
           return;
@@ -150,6 +177,8 @@
           const response = await fetch(API_BASE_URL + '/auth/verify-email?token=' + encodeURIComponent(token));
 
           if (response.ok) {
+            const authResponse = await response.json().catch(function () { return null; });
+            saveSessionFromResponse(authResponse);
             showState('success');
             return;
           }

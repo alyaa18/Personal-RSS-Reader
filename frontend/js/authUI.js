@@ -200,13 +200,13 @@ async function handleRegister(event) {
   dom.registerSubmit.textContent = t('auth.creating_account');
 
   try {
+    const registeredEmail = dom.registerEmail.value.trim();
     const result = await api.register(
-      dom.registerEmail.value.trim(),
+      registeredEmail,
       dom.registerPassword.value,
       dom.registerName.value.trim()
     );
     dom.registerForm.reset();
-    const registeredEmail = dom.registerEmail.value.trim();
     showVerificationNotice(registeredEmail);
     // Do NOT saveSession or showApp — user must verify first.
   } catch (error) {

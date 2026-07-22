@@ -139,9 +139,9 @@ app.MapPost("/api/auth/login", async (LoginRequest request, AuthService authServ
 
 app.MapGet("/api/auth/verify-email", async (string token, AuthService authService) =>
 {
-    var verified = await authService.VerifyEmailAsync(token);
-    return verified
-        ? Results.Ok(new { message = "Email verified." })
+    var authResponse = await authService.VerifyEmailAsync(token);
+    return authResponse != null
+        ? Results.Ok(authResponse)
         : Results.BadRequest(new { error = "Invalid or expired verification link." });
 });
 

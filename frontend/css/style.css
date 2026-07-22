@@ -800,7 +800,7 @@ button { font-family: inherit; cursor: pointer; }
 /* ============ Responsive / mobile polish (Commit 11) ============ */
 
 @media (max-width: 860px) {
-  .app { grid-template-columns: 1fr; grid-template-rows: minmax(auto, 55vh) 1fr; height: 100vh; }
+  .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: 100vh; }
 
   .sidebar {
     height: 100%;
@@ -852,6 +852,29 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .modal { width: min(360px, 92vw); }
+
+  .top-right-cluster {
+    gap: var(--space-1);
+  }
+
+  .top-right-cluster .btn--sm,
+  .top-right-cluster .icon-btn,
+  .top-right-cluster .lang-switch-btn {
+    height: 30px;
+    padding: 0 var(--space-2);
+    font-size: 11px;
+  }
+
+  .top-right-cluster .icon-btn {
+    width: 30px;
+  }
+
+  .topbar-user-name {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 480px) {

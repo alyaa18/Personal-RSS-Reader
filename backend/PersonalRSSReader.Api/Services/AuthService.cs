@@ -98,16 +98,23 @@ public class AuthService
     private static string GenerateVerificationToken()
         => Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
 
-    public async Task<bool> VerifyEmailAsync(string token)
+    /// <summary>
+    /// Verifies the given token. On success, returns a fully-populated
+    /// AuthResponse (same shape as Login/Register) so the frontend can log
+    /// the user in immediately instead of leaving them unauthenticated.
+    /// Returns null if the token is missing, invalid, expired, or already used.
+    /// </summary>
+    public async Task<AuthResponse?> VerifyEmailAsync(string token)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.EmailVerificationToken == token);
-        if (user == null || user.EmailVerified) return false;
-        if (user.EmailVerificationTokenExpiresAt.HasValue && user.EmailVerificationTokenExpiresAt.Value < DateTime.UtcNow) return false;
+        if (user == null || user.EmailVerified) return null;
+        if (user.EmailVerificationTokenExpiresAt.HasValue && user.EmailVerificationTokenExpiresAt.Value < DateTime.UtcNow) return null;
         user.EmailVerified = true;
         user.EmailVerificationToken = null;
         user.EmailVerificationTokenExpiresAt = null;
         await _db.SaveChangesAsync();
-        return true;
+        _logger.LogInformation("User {UserId} verified their email", user.Id);
+        return BuildAuthResponse(user);
     }
 
     public async Task<bool> ResendVerificationEmailAsync(string email)

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
+  <script src="js/config.js"></script>
   <style>
     * { box-sizing: border-box; }
     .is-hidden {
@@ -87,7 +88,7 @@
 
   <script>
     (function () {
-      const API_BASE_URL = 'http://localhost:5001/api';
+      const API_BASE_URL = (window.__RSS_CONFIG__ && window.__RSS_CONFIG__.apiBaseUrl) || 'http://localhost:5001/api';
       const TOKEN_KEY = 'rss-reader:token';
       const USER_KEY = 'rss-reader:user';
       const params = new URLSearchParams(window.location.search);
